@@ -4,7 +4,7 @@ import MeatTemperatureChart from "@/components/calculators/MeatTemperatureChart"
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Meat Internal Temperature Chart — USDA Safe Cooking Temps & Doneness Guide | CalcKitchen",
+  title: "Meat Internal Temperature Chart — USDA Safe Cooking Temps & Doneness Guide",
   description: "Complete internal temperature chart for beef, pork, chicken, lamb, turkey, fish, and more. Includes USDA safe temps, doneness levels, resting times, and carryover cooking guide.",
   openGraph: {
     title: "Meat Internal Temperature Chart — USDA Safe Cooking Temps & Doneness Guide",
@@ -828,7 +828,7 @@ export default function MeatTemperatureChartPage() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-minimum-internal-temperature-chart"
+              href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart"
               target="_blank"
               rel="noopener noreferrer"
               className="text-coral-600 hover:text-coral-700 underline"

@@ -4,7 +4,7 @@ import CakePanConverter from "@/components/calculators/CakePanConverter";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Cake Pan Converter — Resize Any Baking Recipe for a Different Pan | CalcKitchen",
+  title: "Cake Pan Converter — Resize Any Baking Recipe for a Different Pan",
   description: "Convert cake recipes between any pan sizes. Round, square, rectangular — our free calculator adjusts batter amounts and baking times. Includes pan volume chart and baking tips.",
   openGraph: {
     title: "Cake Pan Converter — Resize Any Baking Recipe for a Different Pan",

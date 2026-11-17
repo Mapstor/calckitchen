@@ -9,9 +9,9 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title:
-    "Oven to Air Fryer Converter — Temperature & Time Calculator for 60+ Foods | CalcKitchen",
+    "Oven to Air Fryer Converter — Temperature & Time Calculator for 60+ Foods",
   description:
-    "Convert any oven recipe to air fryer settings. Reduce temp by 25°F, time by 20% — or use our food-specific presets for chicken, fries, fish, veggies & frozen foods. Trusted by 500K+ home cooks.",
+    "Convert any oven recipe to air fryer settings. Reduce temp by 25°F, time by 20% — or use our food-specific presets for chicken, fries, fish, veggies & frozen foods.",
   openGraph: {
     title:
       "Oven to Air Fryer Converter — Temperature & Time Calculator for 60+ Foods",
@@ -146,7 +146,7 @@ export default function AirFryerConverterPage() {
             Your recipe says 400°F for 25 minutes in the oven. What's that in
             the air fryer? Use our calculator to convert any oven recipe, or
             select from 60+ food-specific presets with optimized temperatures
-            and times. Trusted by over 500,000 home cooks monthly.
+            and times.
           </p>
 
           {/* Calculator Component */}

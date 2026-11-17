@@ -4,7 +4,7 @@ import SourdoughCalculator from "@/components/calculators/SourdoughCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Sourdough Calculator — Starter Feeding & Bread Recipe Calculator | CalcKitchen",
+  title: "Sourdough Calculator — Starter Feeding & Bread Recipe Calculator",
   description: "Calculate sourdough starter feedings and bread recipes. Get exact flour, water, and starter amounts. Includes feeding schedules, hydration guide, and levain builder.",
   openGraph: {
     title: "Sourdough Calculator — Starter Feeding & Bread Recipe Calculator",

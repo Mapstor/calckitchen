@@ -4,7 +4,7 @@ import PizzaDoughCalculator from "@/components/calculators/PizzaDoughCalculator"
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Pizza Dough Calculator — Neapolitan, NY, Detroit & Sicilian Recipes | CalcKitchen",
+  title: "Pizza Dough Calculator — Neapolitan, NY, Detroit & Sicilian Recipes",
   description: "Calculate perfect pizza dough for any style. Enter number of pizzas, choose your style (Neapolitan, New York, Detroit, Sicilian), and get exact flour, water, yeast, and salt amounts.",
   openGraph: {
     title: "Pizza Dough Calculator — Neapolitan, NY, Detroit & Sicilian Recipes",

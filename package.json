@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:numbers": "node scripts/check-turkey-data.mjs"
   },
   "dependencies": {
     "next": "16.1.6",

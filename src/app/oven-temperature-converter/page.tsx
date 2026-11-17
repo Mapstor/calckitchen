@@ -4,7 +4,7 @@ import OvenTemperatureConverter from "@/components/calculators/OvenTemperatureCo
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Oven Temperature Converter — Fahrenheit, Celsius & Gas Mark Chart | CalcKitchen",
+  title: "Oven Temperature Converter — Fahrenheit, Celsius & Gas Mark Chart",
   description: "Convert oven temperatures between °F, °C, and Gas Mark instantly. Includes a complete Gas Mark conversion chart, common baking temperatures, and a guide to oven temp descriptions used in recipes.",
   openGraph: {
     title: "Oven Temperature Converter — Fahrenheit, Celsius & Gas Mark Chart",

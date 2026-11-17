@@ -4,7 +4,7 @@ import RecipeMacroCalculator from "@/components/calculators/RecipeMacroCalculato
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Recipe Macro Calculator — Calories, Protein, Carbs & Fat Per Serving | CalcKitchen",
+  title: "Recipe Macro Calculator — Calories, Protein, Carbs & Fat Per Serving",
   description: "Calculate the macros and calories in any recipe. Enter your ingredients to get protein, carbs, fat, and calories per serving. Powered by USDA FoodData Central.",
   openGraph: {
     title: "Recipe Macro Calculator — Calories, Protein, Carbs & Fat Per Serving",

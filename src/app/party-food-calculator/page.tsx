@@ -4,7 +4,7 @@ import PartyFoodCalculator from "@/components/calculators/PartyFoodCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Party Food Calculator — How Much Food Per Person | CalcKitchen",
+  title: "Party Food Calculator — How Much Food Per Person",
   description: "Calculate exactly how much food you need for your party. Free calculator for appetizers, mains, sides, dessert, and drinks based on guest count, event duration, and meal type.",
   openGraph: {
     title: "Party Food Calculator — How Much Food Per Person",
@@ -263,7 +263,7 @@ export default function PartyFoodCalculatorPage() {
                 <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 mb-4">
                   <p className="text-emerald-800 font-medium mb-2">Complete Thanksgiving Shopping:</p>
                   <ul className="text-emerald-700 text-sm space-y-1">
-                    <li>• Turkey: 18-20 lb (allows for seconds and leftovers)</li>
+                    <li>• Turkey: 18 lb at 1 lb per person (USDA), or 27 lb at 1½ lb per person for leftovers, cooked as two birds</li>
                     <li>• Mashed potatoes: 7 lbs raw potatoes (6 oz per person)</li>
                     <li>• Gravy: 3 cups (2 Tbsp per person)</li>
                     <li>• Stuffing/dressing: 2 lbs bread cubes (makes 12 cups)</li>
@@ -277,7 +277,7 @@ export default function PartyFoodCalculatorPage() {
                 </div>
                 <div className="bg-[#FFF5F3] border-l-4 border-[#E8604C] p-4 rounded-r-lg">
                   <p className="text-sm text-gray-700">
-                    <strong>Pro tip:</strong> With 6+ sides, guests take smaller portions of each. A 20 lb turkey feeds 18 with leftovers. Start turkey 4 hours before dinner (15-20 min per pound at 325°F).
+                    <strong>Pro tip:</strong> With 6+ sides, guests take smaller portions of each. An 18-lb unstuffed turkey roasts in 3¾ to 4¼ hours at 325°F (USDA timetable), then stands 20 minutes before carving.
                   </p>
                 </div>
               </div>
