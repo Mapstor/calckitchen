@@ -80,8 +80,8 @@ const faqs = [
 ];
 
 const cardClass = "bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6";
-const thClass = "text-left py-3 px-4 font-semibold text-gray-900 border-b-2 border-gray-200";
-const tdClass = "py-3 px-4 text-gray-700 border-b border-gray-100";
+const thClass = "text-left py-3 px-3 sm:px-4 font-semibold text-gray-900 border-b-2 border-gray-200";
+const tdClass = "py-3 px-3 sm:px-4 text-gray-700 border-b border-gray-100";
 
 function ExampleCard({ n, title, setup, result, note }: { n: number; title: string; setup: string[]; result: string[]; note?: string }) {
   return (
@@ -204,7 +204,7 @@ export default function TurkeyCookingCalculatorPage() {
             </a>{" "}
             times for a fresh or fully thawed turkey. They&apos;re approximate, so check the temperature with a food thermometer.
           </p>
-          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200">
+          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200" role="region" aria-label="Turkey roasting times at 325°F" tabIndex={0}>
             <table className="min-w-full text-sm">
               <thead>
                 <tr>
@@ -236,7 +236,7 @@ export default function TurkeyCookingCalculatorPage() {
             </a>
             . None of these methods allows stuffing.
           </p>
-          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200">
+          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200" role="region" aria-label="Other ways to cook a turkey" tabIndex={0}>
             <table className="min-w-full text-sm">
               <thead>
                 <tr>
@@ -271,7 +271,7 @@ export default function TurkeyCookingCalculatorPage() {
             . In a fridge at 40°F or below, allow about 24 hours for every 4 to 5 pounds. In cold water, allow about 30 minutes per pound,
             keep the turkey wrapped, change the water every 30 minutes and cook it as soon as it has thawed.
           </p>
-          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200">
+          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200" role="region" aria-label="How long to thaw a turkey" tabIndex={0}>
             <table className="min-w-full text-sm">
               <thead>
                 <tr>
@@ -295,7 +295,7 @@ export default function TurkeyCookingCalculatorPage() {
           </p>
 
           <h3 className="font-serif text-xl font-semibold text-gray-900 mt-10 mb-4">How much turkey per person</h3>
-          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200">
+          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200" role="region" aria-label="How much turkey per person" tabIndex={0}>
             <table className="min-w-full text-sm">
               <thead>
                 <tr>
@@ -332,7 +332,7 @@ export default function TurkeyCookingCalculatorPage() {
             </a>{" "}
             for all poultry, whole birds and stuffing included, is 165°F. For a whole turkey, check it in three places.
           </p>
-          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200">
+          <div className="overflow-x-auto bg-white rounded-xl border border-gray-200" role="region" aria-label="Where to check for 165°F" tabIndex={0}>
             <table className="min-w-full text-sm">
               <thead>
                 <tr>

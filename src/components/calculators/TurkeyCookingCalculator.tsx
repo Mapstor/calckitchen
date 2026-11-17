@@ -38,6 +38,16 @@ function nextThanksgiving(): string {
   return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`;
 }
 
+// "16" for whole pounds, "15.4" otherwise.
+function fmtLb(n: number): string {
+  return Number.isInteger(n) ? String(n) : n.toFixed(1);
+}
+
+// Lower-case only the first letter, so "Oven roast (325°F)" keeps its °F.
+function lowerFirst(s: string): string {
+  return s.charAt(0).toLowerCase() + s.slice(1);
+}
+
 function WeightInput({
   weight,
   unit,
@@ -199,7 +209,7 @@ export default function TurkeyCookingCalculator() {
           {showResults && (
             <div className="results-panel space-y-6">
               <h3 className="font-serif text-lg font-semibold text-gray-900">
-                {weightInLbs.toFixed(1)} lb turkey, {currentMethod.label.toLowerCase()}
+                {fmtLb(weightInLbs)} lb turkey, {lowerFirst(currentMethod.label)}
                 {isStuffed ? ", stuffed" : ""}
                 {isFrozen ? ", from frozen" : ""}
               </h3>
@@ -286,7 +296,7 @@ export default function TurkeyCookingCalculator() {
 
           {showResults && (
             <div className="results-panel space-y-6">
-              <h3 className="font-serif text-lg font-semibold text-gray-900">Thawing a {weightInLbs.toFixed(1)} lb turkey</h3>
+              <h3 className="font-serif text-lg font-semibold text-gray-900">Thawing a {fmtLb(weightInLbs)} lb turkey</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 <StatCard label="Thaw time" value={thawResult.formatted} sublabel={thawResult.basis} color="coral" />
                 <StatCard label="Method" value={thawMethods.find((m) => m.key === thawMethod)?.label || thawMethod} color="blue" />
