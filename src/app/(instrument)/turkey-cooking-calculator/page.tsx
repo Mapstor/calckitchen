@@ -179,7 +179,7 @@ export default function TurkeyCookingCalculatorPage() {
                 <Link href={AUTHOR.href} rel="author">
                   {AUTHOR.name}, {AUTHOR.credential}
                 </Link>
-                , {AUTHOR.school} · Updated <time dateTime={UPDATED}>{updatedText}</time>
+                , {AUTHOR.school} · <span className="p-nb">Updated <time dateTime={UPDATED}>{updatedText}</time></span>
               </p>
             </div>
           </div>

@@ -278,5 +278,6 @@
 .p-tabs .p-opt{min-width:0;flex:1 1 40%}
 .p-res-big{font-size:34px}
 .p-steps-n{grid-template-columns:minmax(0,1fr)}
+.p-day-d{font-size:16px}
 }
 @media (prefers-reduced-motion: reduce){ .p-flash{animation:none} }
