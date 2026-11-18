@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | CalcKitchen',
+  title: 'Contact Us',
   description: 'Get in touch with CalcKitchen. Report bugs, suggest new calculators, or share feedback about our free kitchen calculation tools.',
   openGraph: {
     title: 'Contact Us | CalcKitchen',

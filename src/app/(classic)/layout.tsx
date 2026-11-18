@@ -8,7 +8,7 @@ const lora = Lora({ variable: "--font-lora", subsets: ["latin"] });
 
 export default function ClassicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${inter.variable} ${lora.variable} font-sans antialiased bg-warm-white text-gray-900 min-h-screen flex flex-col`}>
+    <div className={`${inter.variable} ${lora.variable} antialiased bg-warm-white text-gray-900 min-h-screen flex flex-col`}>
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />

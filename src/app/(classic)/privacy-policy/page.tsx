@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | CalcKitchen',
+  title: 'Privacy Policy',
   description: 'CalcKitchen privacy policy. Learn how we handle your data, our use of analytics and advertising, and your rights under GDPR and CCPA.',
   openGraph: {
     title: 'Privacy Policy | CalcKitchen',
