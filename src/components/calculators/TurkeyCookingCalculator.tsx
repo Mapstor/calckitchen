@@ -319,7 +319,7 @@ export default function TurkeyCookingCalculator() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <InsightCard type="warning" title="Food safety">
-                  Don&apos;t thaw on the counter. The USDA says a package left out more than 2 hours isn&apos;t at a safe temperature: the outer layer sits in the 40–140°F danger zone.
+                  Don&apos;t thaw on the counter. The USDA says a package left out more than 2 hours isn&apos;t at a safe temperature: the outer layer sits in the 40–140°F (4–60°C) danger zone.
                 </InsightCard>
                 <InsightCard type="tip" title="After thawing">
                   {thawMethod === "fridge"
@@ -355,7 +355,7 @@ export default function TurkeyCookingCalculator() {
                 <StatCard
                   label="Roast time"
                   value={recommendedCook.available ? formatRange(recommendedCook.minMinutes, recommendedCook.maxMinutes) : "Past USDA table"}
-                  sublabel="Unstuffed, 325°F"
+                  sublabel="Unstuffed, 325°F (163°C)"
                   color="amber"
                 />
               </div>

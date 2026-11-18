@@ -34,7 +34,7 @@ export const cookingMethods: CookingMethodInfo[] = [
   {
     key: "roasted",
     label: "Oven roast (325°F)",
-    heatLabel: "Oven at 325°F",
+    heatLabel: "Oven at 325°F (163°C)",
     tempF: 325,
     minWeight: 4,
     maxWeight: 24,
@@ -45,7 +45,7 @@ export const cookingMethods: CookingMethodInfo[] = [
   {
     key: "grilled",
     label: "Covered grill",
-    heatLabel: "Grill air 225–300°F",
+    heatLabel: "Grill air 225–300°F (107–149°C)",
     tempF: null,
     minWeight: 8,
     maxWeight: 16,
@@ -58,7 +58,7 @@ export const cookingMethods: CookingMethodInfo[] = [
   {
     key: "smoked",
     label: "Smoked",
-    heatLabel: "Smoker air 225–300°F",
+    heatLabel: "Smoker air 225–300°F (107–149°C)",
     tempF: null,
     minWeight: 8,
     maxWeight: 12,
@@ -71,7 +71,7 @@ export const cookingMethods: CookingMethodInfo[] = [
   {
     key: "deep_fried",
     label: "Deep-fried",
-    heatLabel: "Oil at 350°F",
+    heatLabel: "Oil at 350°F (177°C)",
     tempF: 350,
     minWeight: 8,
     maxWeight: 12,
@@ -136,7 +136,7 @@ export interface ThawMethodInfo {
 export const thawMethods: ThawMethodInfo[] = [
   {
     key: "fridge",
-    label: "Refrigerator (40°F or below)",
+    label: "Refrigerator (40°F / 4°C or below)",
     notes: "About 24 hours for every 4 to 5 lb. Once thawed, it keeps 1 to 2 days before cooking.",
   },
   {
