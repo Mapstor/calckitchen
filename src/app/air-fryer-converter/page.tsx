@@ -6,6 +6,7 @@ import {
   BreadcrumbJsonLd,
 } from "@/components/seo/JsonLd";
 import Link from "next/link";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title:
@@ -142,6 +143,7 @@ export default function AirFryerConverterPage() {
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Oven to Air Fryer Converter
           </h1>
+          <Byline />
           <p className="text-lg text-gray-600 mb-6">
             Your recipe says 400°F for 25 minutes in the oven. What's that in
             the air fryer? Use our calculator to convert any oven recipe, or

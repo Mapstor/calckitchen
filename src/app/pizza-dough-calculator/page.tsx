@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import PizzaDoughCalculator from "@/components/calculators/PizzaDoughCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Pizza Dough Calculator — Neapolitan, NY, Detroit & Sicilian Recipes",
@@ -91,6 +92,7 @@ export default function PizzaDoughCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Pizza Dough Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Perfect pizza dough for any style. Select your style, enter the number of pizzas, and get exact ingredient amounts using baker's percentages. Whether you're making Neapolitan for two or Detroit style for a party, our calculator scales the recipe precisely.
           </p>

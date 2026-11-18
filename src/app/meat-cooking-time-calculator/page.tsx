@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MeatCookingTimeCalculator from "@/components/calculators/MeatCookingTimeCalculator";
+import { Byline } from "@/components/ui/Byline";
 import {
   FAQPageJsonLd,
   WebApplicationJsonLd,
@@ -112,6 +113,7 @@ export default function MeatCookingTimeCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Meat Cooking Time Calculator — Roast Perfectly Every Time
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             <strong>How long should you cook that roast?</strong> It depends on
             the cut, the weight, the oven temperature, and how done you like it.

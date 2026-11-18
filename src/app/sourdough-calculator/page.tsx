@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import SourdoughCalculator from "@/components/calculators/SourdoughCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Sourdough Calculator — Starter Feeding & Bread Recipe Calculator",
@@ -91,6 +92,7 @@ export default function SourdoughCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Sourdough Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Calculate starter feedings and bread recipes with exact ingredient amounts. Includes levain builder, hydration calculator, and feeding schedule guide. Whether you&apos;re maintaining a mature starter or building a levain for weekend baking, get precise measurements every time.
           </p>

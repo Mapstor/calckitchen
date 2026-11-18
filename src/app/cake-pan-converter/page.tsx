@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import CakePanConverter from "@/components/calculators/CakePanConverter";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Cake Pan Converter — Resize Any Baking Recipe for a Different Pan",
@@ -91,6 +92,7 @@ export default function CakePanConverterPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Cake Pan Converter
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Don't have the right pan? No problem. Convert any cake recipe to a different pan size with automatic batter and time adjustments. Whether you're adapting Grandma's recipe for a different pan or converting a wedding cake recipe to a smaller celebration, our calculator handles the math.
           </p>

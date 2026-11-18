@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import ConvectionOvenConverter from "@/components/calculators/ConvectionOvenConverter";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Convection Oven Converter Calculator — Conventional to Convection (+ Fan Oven)",
@@ -91,6 +92,7 @@ export default function ConvectionOvenConverterPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Convection Oven Converter
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Convert conventional oven temperatures and times to convection settings. Use the 25°F rule for perfect results every time.
           </p>

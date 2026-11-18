@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import RecipeCostCalculator from "@/components/calculators/RecipeCostCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Recipe Cost Calculator — Cost Per Serving & Food Cost %",
@@ -91,6 +92,7 @@ export default function RecipeCostCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Recipe Cost Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Calculate your recipe cost, cost per serving, and food cost percentage. Essential for restaurants, bakeries,
             and home cooks who want to budget meals or price menu items profitably.

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import BakersPercentageCalculator from "@/components/calculators/BakersPercentageCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Baker's Percentage Calculator — Convert Between Weights & Percentages",
@@ -91,6 +92,7 @@ export default function BakersPercentageCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Baker&apos;s Percentage Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Master baker&apos;s math. Convert recipes to percentages, scale to any flour weight, or calculate hydration.
             Essential for bread bakers who want consistent, reproducible results every time.
