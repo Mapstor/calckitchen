@@ -2,14 +2,14 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-18 · CK-006_
+_last update: 2026-11-18 · CK-007_
 - Step: look picked · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5 (boards "Pick, B with A's knob", "Pick, phone")
 - Phase: live site, not on Raptive, not yet in Google's index (GSC 2026-11-18: "URL is unknown to Google"; sitemap submitted). Four-stage pass on all 25 pages started with the turkey page.
-- Last confirmed: CK-002 TURKEYFIX + CK-004 TURKEYPOLISH + CK-005 LIVESYNC — live 2026-11-18: production dpl_6TXwUSCr4hAYyvaciUj2ZEcC6LsJ from main f2e9be6 (PR #1), checked on calckitchen.com in Chrome.
+- Last confirmed: CK-006 AUTHOR — live 2026-11-18 (production dpl_GaKXqxERLfMWZrmqtf6kk5xMGMMi, main 15dd9ae, checked on calckitchen.com in Chrome); before it CK-002/004/005 live (f2e9be6).
 - In flight (handed, NOT confirmed): none
 - Next action: CK-003 DESIGN1 — build the picked look on /turkey-cooking-calculator, Vercel preview, show the owner (page-looks step 7: one page, then ten, then all).
-- Waiting on owner: (1) top-30 read for Raptive later (Stage 4); (2) optional: push the parent-folder notes (content/, homepage-spec.md, HOW-TO-BUILD.md) into docs/.
-- Open questions: BSc Physics on the About page too (calculatemybmi shows both degrees)? Bing Webmaster account? Raptive application timing?
+- Waiting on owner: top-30 read for Raptive later (Stage 4).
+- Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-18)
     Stage 1 numbers and sources: 4% (1 of 25 pages, live) · bad at start 7/10
@@ -22,7 +22,7 @@ Scoreboard (2026-11-18)
 ## §1 Site card
 - Domain · status · Raptive: calckitchen.com · live · not applied (privacy policy already names Raptive)
 - Owner (pushes, runs account steps) · machine: Marko Visic · cloud sessions (claude.ai/code) + Mac (folder ?)
-- Author (byline · credentials · sameAs): Marko Visic · MPharm, Faculty of Pharmacy, University of Ljubljana, Slovenia (owner's wording 2026-11-18) · https://www.linkedin.com/in/marko-visic/ · bio at /about#author-bio · headshot public/images/marko-visic.jpg (same file as calculatemybmi.net) · operator Moving Data Systems d.o.o., Smolnik 62, 2342 Ruse, Slovenia
+- Author (byline · credentials · sameAs): Marko Visic · MPharm, Faculty of Pharmacy, University of Ljubljana, Slovenia (owner's wording 2026-11-18) · https://www.linkedin.com/in/marko-visic/ · bio at /about#author-bio · MPharm only on this site (owner 2026-11-18; his BSc Physics is used on other sites) · headshot public/images/marko-visic.jpg (same file as calculatemybmi.net) · operator Moving Data Systems d.o.o., Smolnik 62, 2342 Ruse, Slovenia
 - Repo origin · branch: https://github.com/Mapstor/calckitchen · main
 - Project folder · box project · preview port: Mac /Users/markovisic/dev/calckitchen/app (the repo; the parent folder holds CLAUDE.md, HOW-TO-BUILD.md, content/, homepage-spec.md, not in git) · none · 3000 (next dev)
 - Stack · Node: Next.js 16.1.6 App Router (Turbopack), React 19.2.3, Tailwind 4, Recharts 3, TypeScript 5 · Node 22 in cloud
@@ -33,7 +33,7 @@ Scoreboard (2026-11-18)
 - Key paths: src/app/<slug>/page.tsx (page copy, FAQ + JSON-LD), src/components/calculators/*.tsx (tools), src/data/*.ts (tool data), src/components/charts, src/components/seo/JsonLd.tsx, scripts/check-turkey-data.mjs
 - Skills in repo: none (account skills)
 - Design system (DESIGN.md / PRODUCT.md): yes, written 2026-11-17 from the pick
-- Other plans / ledgers: none
+- Other plans / ledgers: docs/mac-notes/ — the Feb 2026 build notes from the Mac parent folder (HOW-TO-BUILD.md, parent-CLAUDE.md, homepage-spec.md, content/*.md page drafts); history only, see its README.
 - Prompt code: CK
 
 ## §2 Decisions in force
@@ -42,7 +42,7 @@ Scoreboard (2026-11-18)
 - D-03 · 2026-11-17 · Turkey figures only from USDA FSIS, portions with leftovers from UW Extension MP-135; no per-lb roasting rate, no spatchcock times — no primary source for them.
 - D-04 · 2026-11-17 · Claude may merge its own PR after the gates and a Chrome check of the changed pages; merged branches are kept — owner's portfolio decision of 2026-11-13.
 - D-05 · 2026-11-17 · Page titles carry no " | CalcKitchen"; the layout template adds it.
-- D-07 · 2026-11-18 · Byline on every tool page: "By Marko Visic, MPharm, Faculty of Pharmacy, University of Ljubljana, Slovenia", linking to /about#author-bio; "Updated" date only after a real content change (turkey 2026-11-18) — owner's wording; raptive-ready identity standard.
+- D-07 · 2026-11-18 · Byline on every tool page: "By Marko Visic, MPharm, Faculty of Pharmacy, University of Ljubljana, Slovenia", linking to /about#author-bio; "Updated" date only after a real content change (turkey 2026-11-18) — owner's wording; raptive-ready identity standard. MPharm only, no BSc Physics on this site (owner: "mpharm is better for this site").
 - D-06 · 2026-11-18 · GitHub main is the source of truth; production deploys only from main (Vercel API until Git is connected) — the 2026-02-22 CLI deploy from a local folder carried 13 calculator files GitHub never had.
 
 ## §3 Rejected — don't re-propose
@@ -55,6 +55,7 @@ Scoreboard (2026-11-18)
 - USDA timetable rows share edge weights (8, 12, 14, 18, 20, 24 lb). Code uses the lighter row; examples avoid edge weights or name both rows.
 - ask.usda.gov did not load in Chrome on 2026-11-17 (used on /air-fryer-converter); recheck before removing.
 - Never deploy with the Vercel CLI from a local folder: it ships uncommitted files (2026-02-22: 13 calculators GitHub didn't have, fixed by CK-005). Deploy from main.
+- docs/mac-notes/content/*.md are the Feb 2026 drafts the pages were generated from, with the same unsourced figures. Never use them as a source.
 - Google had never seen the site: on 2026-11-18 URL Inspection said "URL is unknown to Google" for / and /turkey-cooking-calculator (live test: indexable). Indexing requests hit the daily quota that day; retry. Expect days to weeks before pages appear.
 
 ## §5 Backlog (priority order)
@@ -103,6 +104,12 @@ Scoreboard (2026-11-18)
 - Files: src/data/author.ts, src/components/ui/Byline.tsx, src/components/seo/JsonLd.tsx, src/app/about/page.tsx, src/app/privacy-policy/page.tsx, 20 tool pages, public/images/marko-visic.{jpg,webp}
 - Verified: npx tsc --noEmit 0 errors; eslint on the new and changed files 0 errors; Vercel preview + Chrome check of byline, About and schema: see the PR (status moves to live in the next PR after the production check).
 - Commit: see PR (pushed: yes)
+
+### 2026-11-18 · CK-007 MACNOTES · chat · done
+- What: the owner pushed the Mac parent-folder notes (claude/ck-007-mac-notes, f373422: 27 files, 468K) into docs/mac-notes/; added a README marking them as history, not sources. Also logs CK-006 as live: production dpl_GaKXqxERLfMWZrmqtf6kk5xMGMMi (main 15dd9ae) READY; Chrome on calckitchen.com showed the turkey byline with "Updated November 18, 2026", About titled "About CalcKitchen" with the "Who makes CalcKitchen" section and portrait, and no "update our data regularly" / "real-world testing" lines.
+- Files: docs/mac-notes/** (owner), docs/mac-notes/README.md, DEVLOG.md
+- Verified: git diff main..branch = docs/ and DEVLOG.md only; no source file changed.
+- Commit: f373422 (owner) + this commit (pushed: yes)
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)
