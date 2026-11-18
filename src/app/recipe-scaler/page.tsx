@@ -4,7 +4,7 @@ import RecipeScaler from "@/components/calculators/RecipeScaler";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Recipe Scaler Calculator — Double, Halve, or Resize Any Recipe Instantly | CalcKitchen",
+  title: "Recipe Scaler Calculator — Double, Halve, or Resize Any Recipe Instantly",
   description: "Scale any recipe up or down with our free recipe scaler. Handles eggs, baking adjustments, and tricky fractions. Paste your ingredients and get instant scaled quantities.",
   openGraph: {
     title: "Recipe Scaler Calculator — Double, Halve, or Resize Any Recipe Instantly",

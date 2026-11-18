@@ -271,11 +271,11 @@ export default function OvenTemperatureConverter() {
             <div className="grid grid-cols-2 gap-3 mt-2 text-sm">
               <div>
                 <p className="font-medium">Convection Adjustment</p>
-                <p className="text-xs">Reduce by 25°F when using convection mode</p>
+                <p className="text-xs">Reduce by 25°F (15°C) when using convection mode</p>
               </div>
               <div>
                 <p className="font-medium">Altitude Adjustment</p>
-                <p className="text-xs">Increase 15-25°F at high altitude</p>
+                <p className="text-xs">Increase 15-25°F (8-15°C) at high altitude</p>
               </div>
               <div>
                 <p className="font-medium">Preheating</p>
@@ -283,7 +283,7 @@ export default function OvenTemperatureConverter() {
               </div>
               <div>
                 <p className="font-medium">Oven Variance</p>
-                <p className="text-xs">Use oven thermometer; ovens vary ±25°F</p>
+                <p className="text-xs">Use oven thermometer; ovens vary ±25°F (±15°C)</p>
               </div>
             </div>
           </InsightCard>

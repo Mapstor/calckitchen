@@ -1,112 +1,171 @@
-// Turkey Cooking Data - Based on USDA guidelines
+// Turkey data. Every figure here traces to a row in research/data-sources.csv.
+//
+// FSIS-LTT   USDA FSIS, "Let's Talk Turkey: A Consumer Guide to Safely Roasting a Turkey"
+//            325°F roasting timetable (unstuffed and stuffed), 165°F, stand 20 minutes before carving,
+//            cooking from frozen takes at least 50% longer, 1 lb per person, oven no lower than 325°F.
+// FSIS-THAW  USDA FSIS, "Turkey Basics: Safe Thawing"
+//            fridge: about 24 hours per 4 to 5 lb, with a time-by-weight table; cold water: about
+//            30 minutes per lb, with a table; a fridge-thawed turkey keeps 1 to 2 days before cooking.
+// FSIS-ALT   USDA FSIS, "Turkey: Alternate Routes to the Table"
+//            deep-fat frying 3 to 5 min/lb for birds of 12 lb or less, oil at 350°F, completely thawed,
+//            not stuffed; covered grill 15 to 18 min/lb for 8 to 16 lb, grill air 225 to 300°F;
+//            smoking 20 to 30 min/lb for 8 to 12 lb, smoker air 225 to 300°F; no stuffing for any of them.
+// UWYO-135   University of Wyoming Extension MP-135 "Let's Talk Turkey"
+//            1½ lb per person if you want leftovers.
 
-export type CookingMethod = "roasted" | "deep_fried" | "smoked" | "spatchcocked";
+export type CookingMethod = "roasted" | "grilled" | "smoked" | "deep_fried";
 export type ThawMethod = "fridge" | "cold_water" | "microwave";
 
 export interface CookingMethodInfo {
   key: CookingMethod;
   label: string;
-  tempF: number;
-  tempC: number;
-  minPerLbLow: number;
-  minPerLbHigh: number;
+  heatLabel: string;
+  tempF: number | null;
+  minWeight: number;
+  maxWeight: number;
+  minPerLbLow?: number;
+  minPerLbHigh?: number;
   allowsStuffed: boolean;
-  maxWeight?: number;
+  allowsFrozen: boolean;
   notes: string;
 }
 
 export const cookingMethods: CookingMethodInfo[] = [
   {
     key: "roasted",
-    label: "Oven Roasted (325°F)",
+    label: "Oven roast (325°F)",
+    heatLabel: "Oven at 325°F (163°C)",
     tempF: 325,
-    tempC: 163,
-    minPerLbLow: 13,
-    minPerLbHigh: 15,
+    minWeight: 4,
+    maxWeight: 24,
     allowsStuffed: true,
-    notes: "Classic method. Use a meat thermometer.",
+    allowsFrozen: true,
+    notes: "Times come from the USDA's 325°F roasting timetable. Set the oven no lower than 325°F.",
   },
   {
-    key: "deep_fried",
-    label: "Deep Fried",
-    tempF: 350,
-    tempC: 177,
-    minPerLbLow: 3,
-    minPerLbHigh: 4,
+    key: "grilled",
+    label: "Covered grill",
+    heatLabel: "Grill air 225–300°F (107–149°C)",
+    tempF: null,
+    minWeight: 8,
+    maxWeight: 16,
+    minPerLbLow: 15,
+    minPerLbHigh: 18,
     allowsStuffed: false,
-    maxWeight: 14,
-    notes: "Turkey must be completely thawed and dried. Fry outdoors only.",
+    allowsFrozen: false,
+    notes: "USDA: cook by indirect heat in a covered gas or charcoal grill with a drip pan. Do not stuff.",
   },
   {
     key: "smoked",
-    label: "Smoked (225-275°F)",
-    tempF: 250,
-    tempC: 121,
-    minPerLbLow: 30,
-    minPerLbHigh: 40,
+    label: "Smoked",
+    heatLabel: "Smoker air 225–300°F (107–149°C)",
+    tempF: null,
+    minWeight: 8,
+    maxWeight: 12,
+    minPerLbLow: 20,
+    minPerLbHigh: 30,
     allowsStuffed: false,
-    notes: "Low and slow. Do not stuff when smoking.",
+    allowsFrozen: false,
+    notes: "USDA: keep the smoker air between 225 and 300°F and use a drip pan. Do not stuff.",
   },
   {
-    key: "spatchcocked",
-    label: "Spatchcocked (425°F)",
-    tempF: 425,
-    tempC: 218,
-    minPerLbLow: 6,
-    minPerLbHigh: 8,
+    key: "deep_fried",
+    label: "Deep-fried",
+    heatLabel: "Oil at 350°F (177°C)",
+    tempF: 350,
+    minWeight: 8,
+    maxWeight: 12,
+    minPerLbLow: 3,
+    minPerLbHigh: 5,
     allowsStuffed: false,
-    notes: "Remove backbone, press flat. ~40% faster than whole roasting.",
+    allowsFrozen: false,
+    notes: "USDA: fry outdoors, only a completely thawed, unstuffed bird of 12 lb or less, and never leave the hot oil unattended.",
   },
 ];
 
-// Stuffed turkey takes longer
-export const stuffedMinPerLb = {
-  low: 15,
-  high: 20,
-};
+// USDA FSIS 325°F roasting timetable, hours (fresh or thawed turkey).
+export interface RoastRow {
+  minLb: number;
+  maxLb: number;
+  lowHours: number;
+  highHours: number;
+  breast?: boolean;
+}
 
-// Thawing data
+export const roastUnstuffed: RoastRow[] = [
+  { minLb: 4, maxLb: 8, lowHours: 1.5, highHours: 3.25, breast: true },
+  { minLb: 8, maxLb: 12, lowHours: 2.75, highHours: 3 },
+  { minLb: 12, maxLb: 14, lowHours: 3, highHours: 3.75 },
+  { minLb: 14, maxLb: 18, lowHours: 3.75, highHours: 4.25 },
+  { minLb: 18, maxLb: 20, lowHours: 4.25, highHours: 4.5 },
+  { minLb: 20, maxLb: 24, lowHours: 4.5, highHours: 5 },
+];
+
+export const roastStuffed: RoastRow[] = [
+  { minLb: 6, maxLb: 8, lowHours: 2.5, highHours: 3.5, breast: true },
+  { minLb: 8, maxLb: 12, lowHours: 3, highHours: 3.5 },
+  { minLb: 12, maxLb: 14, lowHours: 3.5, highHours: 4 },
+  { minLb: 14, maxLb: 18, lowHours: 4, highHours: 4.25 },
+  { minLb: 18, maxLb: 20, lowHours: 4.25, highHours: 4.75 },
+  { minLb: 20, maxLb: 24, lowHours: 4.75, highHours: 5.25 },
+];
+
+// USDA FSIS thawing tables.
+export interface ThawRow {
+  minLb: number;
+  maxLb: number;
+  fridgeDaysLow: number;
+  fridgeDaysHigh: number;
+  waterHoursLow: number;
+  waterHoursHigh: number;
+}
+
+export const thawTable: ThawRow[] = [
+  { minLb: 4, maxLb: 12, fridgeDaysLow: 1, fridgeDaysHigh: 3, waterHoursLow: 2, waterHoursHigh: 6 },
+  { minLb: 12, maxLb: 16, fridgeDaysLow: 3, fridgeDaysHigh: 4, waterHoursLow: 6, waterHoursHigh: 8 },
+  { minLb: 16, maxLb: 20, fridgeDaysLow: 4, fridgeDaysHigh: 5, waterHoursLow: 8, waterHoursHigh: 10 },
+  { minLb: 20, maxLb: 24, fridgeDaysLow: 5, fridgeDaysHigh: 6, waterHoursLow: 10, waterHoursHigh: 12 },
+];
+
 export interface ThawMethodInfo {
   key: ThawMethod;
   label: string;
-  timePerLb: number; // hours per pound
-  unit: string;
   notes: string;
 }
 
 export const thawMethods: ThawMethodInfo[] = [
   {
     key: "fridge",
-    label: "Refrigerator (Recommended)",
-    timePerLb: 6, // 24 hours per 4-5 lbs = ~6 hours per lb
-    unit: "hours",
-    notes: "Safe for 1-2 days after thawed. Can be refrozen.",
+    label: "Refrigerator (40°F / 4°C or below)",
+    notes: "About 24 hours for every 4 to 5 lb. Once thawed, it keeps 1 to 2 days before cooking.",
   },
   {
     key: "cold_water",
-    label: "Cold Water (Faster)",
-    timePerLb: 0.5, // 30 min per lb
-    unit: "hours",
-    notes: "Change water every 30 min. Cook immediately after thawing.",
+    label: "Cold water",
+    notes: "About 30 minutes per lb. Keep it wrapped, change the water every 30 minutes, cook right away.",
   },
   {
     key: "microwave",
     label: "Microwave",
-    timePerLb: 0.1, // 6 min per lb = 0.1 hours
-    unit: "hours",
-    notes: "Not practical for large turkeys. Cook immediately.",
+    notes: "Check your microwave's manual for size, minutes per pound and power level. Cook right away.",
   },
 ];
 
-// Rest time by weight
-export function getRestTime(weightLbs: number): { min: number; max: number } {
-  if (weightLbs < 18) {
-    return { min: 20, max: 30 };
-  }
-  return { min: 30, max: 45 };
+export const STAND_MINUTES = 20; // USDA: let the turkey stand 20 minutes before carving
+export const SAFE_TEMP_F = 165;
+export const SAFE_TEMP_C = 74; // 165°F = 73.9°C
+export const LB_PER_KG = 2.20462;
+
+function findRow<T extends { minLb: number; maxLb: number }>(rows: T[], weightLbs: number): T | undefined {
+  // USDA rows share their end weights; a weight on a shared edge uses the lighter row.
+  return rows.find((r) => weightLbs >= r.minLb && weightLbs <= r.maxLb);
 }
 
-// Servings calculation
+export function getRestTime(): { min: number; max: number } {
+  return { min: STAND_MINUTES, max: STAND_MINUTES };
+}
+
+// 1 lb per person (USDA); 1½ lb per person with leftovers (University of Wyoming Extension).
 export function getServings(weightLbs: number): { standard: number; withLeftovers: number } {
   return {
     standard: Math.floor(weightLbs / 1.0),
@@ -114,219 +173,235 @@ export function getServings(weightLbs: number): { standard: number; withLeftover
   };
 }
 
-// Recommend turkey size by guest count
 export function recommendTurkeySize(
   guests: number,
   wantLeftovers: boolean
 ): { weight: number; note: string } {
   const lbsPerPerson = wantLeftovers ? 1.5 : 1.0;
   const weight = Math.ceil(guests * lbsPerPerson);
-
   let note = "";
   if (weight > 24) {
-    note = "Consider cooking two smaller turkeys for more even results.";
-  } else if (weight < 4) {
-    note = "A turkey breast may be more practical for this group size.";
+    note = "That's past the USDA's roasting timetable, which stops at 24 lb. Two smaller birds keep you inside it.";
   }
-
   return { weight, note };
 }
 
-// Calculate cooking time
+export interface CookResult {
+  available: boolean;
+  minMinutes: number;
+  maxMinutes: number;
+  heatLabel: string;
+  tempF: number | null;
+  basis: string;
+  atLeast: boolean;
+  warnings: string[];
+}
+
 export function calculateCookTime(
   weightLbs: number,
   method: CookingMethod,
   isStuffed: boolean,
   isFrozen: boolean
-): { minMinutes: number; maxMinutes: number; tempF: number; tempC: number; warnings: string[] } {
-  const methodInfo = cookingMethods.find((m) => m.key === method);
-  if (!methodInfo) {
-    return { minMinutes: 0, maxMinutes: 0, tempF: 325, tempC: 163, warnings: [] };
-  }
-
+): CookResult {
+  const info = cookingMethods.find((m) => m.key === method) ?? cookingMethods[0];
   const warnings: string[] = [];
+  const empty: CookResult = {
+    available: false,
+    minMinutes: 0,
+    maxMinutes: 0,
+    heatLabel: info.heatLabel,
+    tempF: info.tempF,
+    basis: "",
+    atLeast: false,
+    warnings,
+  };
 
-  // Base time calculation
-  let minPerLbLow = methodInfo.minPerLbLow;
-  let minPerLbHigh = methodInfo.minPerLbHigh;
-
-  // Adjust for stuffed (only for roasted)
-  if (isStuffed && method === "roasted") {
-    minPerLbLow = stuffedMinPerLb.low;
-    minPerLbHigh = stuffedMinPerLb.high;
-  } else if (isStuffed && !methodInfo.allowsStuffed) {
-    warnings.push(`Stuffing is not recommended for ${methodInfo.label.toLowerCase()}.`);
+  if (isStuffed && !info.allowsStuffed) {
+    warnings.push(`The USDA says not to stuff a turkey you cook this way (${info.label.toLowerCase()}).`);
+    return empty;
+  }
+  if (isFrozen && !info.allowsFrozen) {
+    warnings.push(
+      method === "deep_fried"
+        ? "Only fry a turkey that is completely thawed. The USDA gives cook-from-frozen times for oven roasting only."
+        : "The USDA gives cook-from-frozen times for oven roasting only. Thaw the turkey first."
+    );
+    return empty;
   }
 
-  let minMinutes = Math.round(weightLbs * minPerLbLow);
-  let maxMinutes = Math.round(weightLbs * minPerLbHigh);
-
-  // Adjust for frozen (only roasted can cook from frozen)
-  if (isFrozen && method === "roasted") {
-    minMinutes = Math.round(minMinutes * 1.5);
-    maxMinutes = Math.round(maxMinutes * 1.5);
-    warnings.push("Cooking from frozen. Cannot be stuffed.");
-  } else if (isFrozen && method === "deep_fried") {
-    warnings.push("NEVER deep fry a frozen or partially frozen turkey. The turkey must be completely thawed and thoroughly dried before frying.");
-  } else if (isFrozen && method !== "roasted") {
-    warnings.push("Turkey must be completely thawed before using this cooking method.");
+  if (method === "roasted") {
+    if (isFrozen && isStuffed) {
+      warnings.push("The USDA's cook-from-frozen guidance is for an unstuffed turkey.");
+      return empty;
+    }
+    const rows = isStuffed ? roastStuffed : roastUnstuffed;
+    const row = findRow(rows, weightLbs);
+    if (!row) {
+      warnings.push(
+        isStuffed
+          ? "The USDA roasting timetable covers stuffed turkeys from 6 to 24 lb. Outside that range, rely on a food thermometer: 165°F."
+          : "The USDA roasting timetable covers turkeys from 4 to 24 lb. Outside that range, rely on a food thermometer: 165°F."
+      );
+      return empty;
+    }
+    let minMinutes = Math.round(row.lowHours * 60);
+    let maxMinutes = Math.round(row.highHours * 60);
+    let basis = `USDA ${row.minLb}–${row.maxLb} lb ${isStuffed ? "stuffed" : "unstuffed"} row`;
+    if (row.breast) {
+      warnings.push(`The USDA's ${row.minLb}–${row.maxLb} lb row is for a turkey breast.`);
+    }
+    let atLeast = false;
+    if (isFrozen) {
+      minMinutes = Math.round(minMinutes * 1.5);
+      maxMinutes = Math.round(maxMinutes * 1.5);
+      atLeast = true;
+      basis += ", plus at least 50% from frozen";
+      warnings.push("From frozen it takes at least 50% longer. Remove the giblet packages during cooking, carefully, with tongs or a fork.");
+    }
+    return { available: true, minMinutes, maxMinutes, heatLabel: info.heatLabel, tempF: info.tempF, basis, atLeast, warnings };
   }
 
-  // Weight warnings
-  if (method === "deep_fried" && weightLbs > 14) {
-    warnings.push("Most turkey fryers accommodate birds up to 14 lbs. A larger bird may not fit safely.");
+  if (weightLbs < info.minWeight || weightLbs > info.maxWeight) {
+    warnings.push(
+      method === "deep_fried"
+        ? "The USDA says a turkey for frying should be 12 pounds or less, and gives frying times for 8 to 12 lb birds."
+        : `The USDA gives ${info.label.toLowerCase()} times for ${info.minWeight} to ${info.maxWeight} lb birds.`
+    );
+    return empty;
   }
-
-  if (weightLbs > 24) {
-    warnings.push("For turkeys over 24 lbs, consider cooking two smaller birds for more even results.");
-  }
-
-  if (weightLbs < 4) {
-    warnings.push("This is likely a turkey breast, not a whole turkey. Times are still accurate.");
-  }
-
+  const minMinutes = Math.round(weightLbs * (info.minPerLbLow ?? 0));
+  const maxMinutes = Math.round(weightLbs * (info.minPerLbHigh ?? 0));
   return {
+    available: true,
     minMinutes,
     maxMinutes,
-    tempF: methodInfo.tempF,
-    tempC: methodInfo.tempC,
+    heatLabel: info.heatLabel,
+    tempF: info.tempF,
+    basis: `USDA ${info.minPerLbLow}–${info.minPerLbHigh} min per lb`,
+    atLeast: false,
     warnings,
   };
 }
 
-// Calculate thaw time
-export function calculateThawTime(
-  weightLbs: number,
-  method: ThawMethod
-): { hours: number; days: number; formatted: string } {
-  const methodInfo = thawMethods.find((m) => m.key === method);
-  if (!methodInfo) {
-    return { hours: 0, days: 0, formatted: "0" };
-  }
-
-  let hours: number;
-  if (method === "fridge") {
-    // 24 hours per 4-5 lbs, round up
-    hours = Math.ceil(weightLbs / 4.5) * 24;
-  } else if (method === "cold_water") {
-    hours = weightLbs * 0.5;
-  } else {
-    // Microwave: 6 min per lb
-    hours = (weightLbs * 6) / 60;
-  }
-
-  const days = hours / 24;
-
-  let formatted: string;
-  if (method === "fridge") {
-    formatted = `${Math.ceil(days)} day${Math.ceil(days) > 1 ? "s" : ""}`;
-  } else if (method === "cold_water") {
-    formatted = `${Math.round(hours)} hour${hours !== 1 ? "s" : ""}`;
-  } else {
-    const minutes = Math.round(hours * 60);
-    formatted = `${minutes} minute${minutes !== 1 ? "s" : ""}`;
-  }
-
-  return { hours, days, formatted };
+export interface ThawResult {
+  available: boolean;
+  formatted: string;
+  hoursLow: number;
+  hoursHigh: number;
+  daysLow: number;
+  daysHigh: number;
+  basis: string;
 }
 
-// Format time to hours and minutes
+export function calculateThawTime(weightLbs: number, method: ThawMethod): ThawResult {
+  if (method === "microwave") {
+    return { available: false, formatted: "See your microwave's manual", hoursLow: 0, hoursHigh: 0, daysLow: 0, daysHigh: 0, basis: "USDA: follow the microwave's manual" };
+  }
+  const row = findRow(thawTable, weightLbs);
+  if (method === "fridge") {
+    // USDA table inside 4–24 lb; outside it, the USDA rule of about 24 hours per 4 to 5 lb.
+    const daysLow = row ? row.fridgeDaysLow : Math.max(1, Math.floor(weightLbs / 5));
+    const daysHigh = row ? row.fridgeDaysHigh : Math.ceil(weightLbs / 4);
+    return {
+      available: true,
+      formatted: daysLow === daysHigh ? `${daysHigh} day${daysHigh > 1 ? "s" : ""}` : `${daysLow}–${daysHigh} days`,
+      hoursLow: daysLow * 24,
+      hoursHigh: daysHigh * 24,
+      daysLow,
+      daysHigh,
+      basis: row ? `USDA ${row.minLb}–${row.maxLb} lb row` : "USDA: about 24 hours per 4 to 5 lb",
+    };
+  }
+  const hours = weightLbs * 0.5; // USDA: about 30 minutes per pound
+  const rounded = Math.round(hours * 2) / 2;
+  return {
+    available: true,
+    formatted: `about ${formatHours(rounded)} hours`,
+    hoursLow: hours,
+    hoursHigh: hours,
+    daysLow: hours / 24,
+    daysHigh: hours / 24,
+    basis: "USDA: about 30 minutes per lb",
+  };
+}
+
+export function formatHours(hours: number): string {
+  const whole = Math.floor(hours);
+  const frac = Math.round((hours - whole) * 4) / 4;
+  const map: Record<number, string> = { 0: "", 0.25: "¼", 0.5: "½", 0.75: "¾" };
+  if (frac === 1) return String(whole + 1);
+  return `${whole === 0 && frac > 0 ? "" : whole}${map[frac] ?? ""}`;
+}
+
 export function formatCookTime(minutes: number): string {
   const hours = Math.floor(minutes / 60);
   const mins = minutes % 60;
-
-  if (hours === 0) {
-    return `${mins} min`;
-  }
-
-  if (mins === 0) {
-    return `${hours} hr${hours > 1 ? "s" : ""}`;
-  }
-
+  if (hours === 0) return `${mins} min`;
+  if (mins === 0) return `${hours} hr${hours > 1 ? "s" : ""}`;
   return `${hours} hr${hours > 1 ? "s" : ""} ${mins} min`;
 }
 
-// Generate backwards timeline
+// Turns minutes on a quarter-hour into "3¾ hours"; anything else into "3 hrs 28 min".
+export function formatDuration(minutes: number): string {
+  if (minutes % 15 === 0 && minutes >= 60) {
+    return `${formatHours(minutes / 60)} hours`;
+  }
+  return formatCookTime(minutes);
+}
+
+export function formatRange(minMinutes: number, maxMinutes: number): string {
+  if (minMinutes % 15 === 0 && maxMinutes % 15 === 0 && minMinutes >= 60) {
+    return `${formatHours(minMinutes / 60)}–${formatHours(maxMinutes / 60)} hours`;
+  }
+  if (minMinutes === maxMinutes) return formatCookTime(minMinutes);
+  return `${formatCookTime(minMinutes)} – ${formatCookTime(maxMinutes)}`;
+}
+
 export interface TimelineStep {
   label: string;
   time: string;
   daysBefore?: number;
+  kind: "thaw" | "cook" | "check" | "rest" | "serve";
 }
 
+// Works backwards from the serving time using only USDA figures:
+// stand 20 minutes, the high end of the cooking range, and the fridge thawing table.
 export function generateTimeline(
   servingTime: Date,
   weightLbs: number,
   method: CookingMethod,
   isStuffed: boolean,
-  isFrozen: boolean
-): TimelineStep[] {
-  const cookResult = calculateCookTime(weightLbs, method, isStuffed, isFrozen);
-  const restTime = getRestTime(weightLbs);
+  thawFirst: boolean
+): { steps: TimelineStep[]; cook: CookResult } {
+  const cook = calculateCookTime(weightLbs, method, isStuffed, false);
+  if (!cook.available) return { steps: [], cook };
 
-  // Work backwards from serving time
-  const timeline: TimelineStep[] = [];
+  const out = new Date(servingTime.getTime() - STAND_MINUTES * 60 * 1000);
+  const start = new Date(out.getTime() - cook.maxMinutes * 60 * 1000);
+  const check = new Date(start.getTime() + cook.minMinutes * 60 * 1000);
+  const verb = method === "roasted" ? "Turkey goes in the oven" : method === "deep_fried" ? "Turkey goes into the 350°F oil" : method === "smoked" ? "Turkey goes in the smoker" : "Turkey goes on the grill";
 
-  // Serving time
-  timeline.push({
-    label: "Serve",
-    time: formatTimeOnly(servingTime),
-  });
-
-  // Carve time (15 min before serving)
-  const carveTime = new Date(servingTime.getTime() - 15 * 60 * 1000);
-  timeline.push({
-    label: "Carve turkey",
-    time: formatTimeOnly(carveTime),
-  });
-
-  // Rest start (use max rest time for buffer)
-  const restStart = new Date(carveTime.getTime() - restTime.max * 60 * 1000);
-  timeline.push({
-    label: `Rest turkey (${restTime.min}-${restTime.max} min)`,
-    time: formatTimeOnly(restStart),
-  });
-
-  // Cook done = rest start
-  // Cook start (use max cook time for safety buffer)
-  const cookStart = new Date(restStart.getTime() - cookResult.maxMinutes * 60 * 1000);
-  timeline.push({
-    label: "Turkey goes in oven",
-    time: formatTimeOnly(cookStart),
-  });
-
-  // Prep time (30 min before cooking)
-  const prepStart = new Date(cookStart.getTime() - 30 * 60 * 1000);
-  timeline.push({
-    label: "Remove from fridge, prep turkey",
-    time: formatTimeOnly(prepStart),
-  });
-
-  // Thaw start (if frozen)
-  if (isFrozen) {
-    const thawResult = calculateThawTime(weightLbs, "fridge");
-    const thawStart = new Date(cookStart.getTime() - thawResult.hours * 60 * 60 * 1000);
-    timeline.push({
-      label: "Start thawing in fridge",
-      time: formatDateAndTime(thawStart),
-      daysBefore: Math.ceil(thawResult.days),
-    });
+  const steps: TimelineStep[] = [];
+  if (thawFirst) {
+    const thaw = calculateThawTime(weightLbs, "fridge");
+    const thawStart = new Date(start.getTime() - thaw.daysHigh * 24 * 60 * 60 * 1000);
+    steps.push({ label: "Move the frozen turkey to the fridge", time: formatDateAndTime(thawStart), daysBefore: thaw.daysHigh, kind: "thaw" });
   }
-
-  return timeline.reverse();
+  steps.push({ label: verb, time: formatTimeOnly(start), kind: "cook" });
+  steps.push({ label: `Start checking for ${SAFE_TEMP_F}°F`, time: formatTimeOnly(check), kind: "check" });
+  steps.push({ label: "Done by now: take it off the heat", time: formatTimeOnly(out), kind: "rest" });
+  steps.push({ label: `Carve after standing ${STAND_MINUTES} minutes`, time: formatTimeOnly(servingTime), kind: "serve" });
+  return { steps, cook };
 }
 
 function formatTimeOnly(date: Date): string {
-  return date.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
+  return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
 }
 
 function formatDateAndTime(date: Date): string {
-  return date.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  }) + " " + formatTimeOnly(date);
+  return (
+    date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }) +
+    " " +
+    formatTimeOnly(date)
+  );
 }

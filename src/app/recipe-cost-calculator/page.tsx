@@ -4,7 +4,7 @@ import RecipeCostCalculator from "@/components/calculators/RecipeCostCalculator"
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Recipe Cost Calculator — Cost Per Serving & Food Cost % | CalcKitchen",
+  title: "Recipe Cost Calculator — Cost Per Serving & Food Cost %",
   description: "Calculate recipe cost, cost per serving, and food cost percentage for restaurants. Enter ingredients and prices, get instant cost breakdown. Free for home cooks and food businesses.",
   openGraph: {
     title: "Recipe Cost Calculator — Cost Per Serving & Food Cost %",

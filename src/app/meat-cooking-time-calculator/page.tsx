@@ -67,7 +67,7 @@ const faqs = [
   {
     question: "How long should I rest meat before carving?",
     answer:
-      "Rest time depends on the size of the cut. Steaks need 5–10 minutes, small roasts (2–5 lbs) need 10–15 minutes, medium roasts (5–10 lbs) need 15–20 minutes, and large roasts or turkeys (10+ lbs) need 20–45 minutes. During this time, juices redistribute and carryover cooking finishes the interior.",
+      "Rest time depends on the size of the cut. Steaks need 5–10 minutes, small roasts (2–5 lbs) need 10–15 minutes, medium roasts (5–10 lbs) need 15–20 minutes, and large roasts need 20–45 minutes. For a whole turkey, the USDA says to let it stand 20 minutes before carving. During this time, juices redistribute and carryover cooking finishes the interior.",
   },
   {
     question: "Why is my roast tough even though it reached the right temperature?",
@@ -1189,10 +1189,10 @@ export default function MeatCookingTimeCalculatorPage() {
                 </tr>
                 <tr>
                   <td className="border border-gray-300 px-3 py-2">
-                    Turkey (12+ lbs)
+                    Whole turkey
                   </td>
                   <td className="border border-gray-300 px-3 py-2">
-                    30–45 min
+                    20 min (USDA)
                   </td>
                   <td className="border border-gray-300 px-3 py-2">10–15°F</td>
                   <td className="border border-gray-300 px-3 py-2">Allows juices to settle; easier carving</td>

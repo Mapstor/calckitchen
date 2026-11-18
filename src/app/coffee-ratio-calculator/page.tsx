@@ -4,7 +4,7 @@ import CoffeeRatioCalculator from "@/components/calculators/CoffeeRatioCalculato
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Coffee to Water Ratio Calculator — Every Brew Method | CalcKitchen",
+  title: "Coffee to Water Ratio Calculator — Every Brew Method",
   description: "Calculate the perfect coffee to water ratio for any brew method. Pour over, French press, cold brew, espresso — get exact grams and ounces for your perfect cup.",
   openGraph: {
     title: "Coffee to Water Ratio Calculator — Every Brew Method",

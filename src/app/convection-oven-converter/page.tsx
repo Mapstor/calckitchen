@@ -4,7 +4,7 @@ import ConvectionOvenConverter from "@/components/calculators/ConvectionOvenConv
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Convection Oven Converter Calculator — Conventional to Convection (+ Fan Oven) | CalcKitchen",
+  title: "Convection Oven Converter Calculator — Conventional to Convection (+ Fan Oven)",
   description: "Convert conventional oven temps and times to convection oven settings instantly. Includes the 25°F rule, a full conversion chart, Gas Mark table for UK bakers, and tips for when NOT to use convection.",
   openGraph: {
     title: "Convection Oven Converter Calculator — Conventional to Convection (+ Fan Oven)",

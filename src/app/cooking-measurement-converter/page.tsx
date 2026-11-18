@@ -4,7 +4,7 @@ import CookingMeasurementConverter from "@/components/calculators/CookingMeasure
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Cooking Measurement Converter — Cups, Tablespoons, Grams, Ounces | CalcKitchen",
+  title: "Cooking Measurement Converter — Cups, Tablespoons, Grams, Ounces",
   description: "Convert between cups, tablespoons, teaspoons, grams, ounces, milliliters, quarts, and pints. Includes ingredient-specific conversions — because 1 cup of flour ≠ 1 cup of sugar in grams.",
   openGraph: {
     title: "Cooking Measurement Converter — Cups, Tablespoons, Grams, Ounces",

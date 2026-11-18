@@ -478,13 +478,13 @@ export default function Home() {
                       </Link>
                     </h3>
                     <p className="text-gray-700 mb-3">
-                      The most-used calculator during Thanksgiving. Calculate roasting time for stuffed or unstuffed turkey, plus thawing time, brine time, and even deep-frying instructions.
+                      The most-used calculator during Thanksgiving. Roasting time for a stuffed or unstuffed turkey from the USDA timetable, plus thawing times and USDA frying, grilling and smoking times.
                     </p>
                     <div className="bg-white rounded border border-gray-200 p-4">
                       <p className="text-sm font-medium text-gray-900 mb-2">Example:</p>
                       <p className="text-gray-600">
-                        <strong>Input:</strong> 14 lb turkey, unstuffed, roasting<br />
-                        <strong>Result:</strong> 3-3.5 hours at 325°F, thaw 3-4 days in fridge, target 165°F in thickest part of thigh
+                        <strong>Input:</strong> 16 lb turkey, unstuffed, roasting<br />
+                        <strong>Result:</strong> 3¾–4¼ hours at 325°F (USDA timetable), thaw 3–4 days in the fridge, done at 165°F in the innermost thigh and wing and the thickest part of the breast
                       </p>
                     </div>
                   </div>

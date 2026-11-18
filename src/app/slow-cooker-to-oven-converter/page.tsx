@@ -4,7 +4,7 @@ import SlowCookerConverter from "@/components/calculators/SlowCookerConverter";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Slow Cooker to Oven Converter Calculator (+ Instant Pot & Dutch Oven) | CalcKitchen",
+  title: "Slow Cooker to Oven Converter Calculator (+ Instant Pot & Dutch Oven)",
   description: "Convert slow cooker recipes to oven, Instant Pot, Dutch oven, and stovetop — and back. Includes time charts, liquid adjustments, and a free converter calculator.",
   openGraph: {
     title: "Slow Cooker to Oven Converter Calculator (+ Instant Pot & Dutch Oven)",

@@ -4,7 +4,7 @@ import CakeServingsCalculator from "@/components/calculators/CakeServingsCalcula
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Cake Servings Calculator — How Many People Does a Cake Feed? | CalcKitchen",
+  title: "Cake Servings Calculator — How Many People Does a Cake Feed?",
   description: "Free cake servings calculator with visual cut-pattern diagrams. Enter cake size and shape to see party and wedding servings, or enter guest count to find the right cake size.",
   openGraph: {
     title: "Cake Servings Calculator — How Many People Does a Cake Feed?",

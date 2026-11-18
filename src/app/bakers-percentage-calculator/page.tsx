@@ -4,7 +4,7 @@ import BakersPercentageCalculator from "@/components/calculators/BakersPercentag
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Baker's Percentage Calculator — Convert Between Weights & Percentages | CalcKitchen",
+  title: "Baker's Percentage Calculator — Convert Between Weights & Percentages",
   description: "Calculate baker's percentages for any bread or dough recipe. Convert between weights and percentages, scale recipes, and understand hydration. Essential for serious bakers.",
   openGraph: {
     title: "Baker's Percentage Calculator — Convert Between Weights & Percentages",

@@ -237,7 +237,7 @@ export default function AirFryerConverter() {
               />
               <StatCard
                 label="Temp Reduced"
-                value={`25°F`}
+                value={`25°F (14°C)`}
                 sublabel="standard conversion"
                 color="amber"
               />
@@ -458,7 +458,7 @@ export default function AirFryerConverter() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Air Fryer Temperature (°F)
+                Air Fryer Temperature (°F){airTemp ? <span className="text-xs text-gray-500 ml-1">= {fahrenheitToCelsius(airTemp)}°C</span> : null}
               </label>
               <input
                 type="number"
@@ -514,7 +514,7 @@ export default function AirFryerConverter() {
               />
               <StatCard
                 label="Temp Increase"
-                value={`+25°F`}
+                value={`+25°F (+14°C)`}
                 sublabel="from air fryer"
                 color="amber"
               />

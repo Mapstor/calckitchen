@@ -12,6 +12,7 @@ import {
 type PizzaStyle = "neapolitan" | "newyork" | "detroit" | "sicilian";
 type YeastType = "instant" | "active-dry" | "fresh";
 type FermentMethod = "direct" | "cold-ferment";
+type WeightUnit = "g" | "oz";
 
 interface StylePreset {
   name: string;
@@ -73,11 +74,31 @@ const yeastConversions: Record<YeastType, number> = {
   fresh: 3,
 };
 
+// Unit conversion helpers
+const gToOz = (g: number) => g / 28.3495;
+const formatWeight = (g: number, unit: WeightUnit) => {
+  if (unit === "oz") {
+    const oz = gToOz(g);
+    return oz >= 16 ? `${(oz / 16).toFixed(2)} lb` : `${oz.toFixed(2)} oz`;
+  }
+  return g >= 1000 ? `${(g / 1000).toFixed(2)} kg` : `${g}g`;
+};
+const formatWeightShort = (g: number, unit: WeightUnit) => {
+  if (unit === "oz") {
+    return `${gToOz(g).toFixed(1)} oz`;
+  }
+  return `${g}g`;
+};
+
+// Temperature conversion
+const fToC = (f: number) => Math.round((f - 32) * 5 / 9);
+
 export default function PizzaDoughCalculator() {
   const [style, setStyle] = useState<PizzaStyle>("newyork");
   const [pizzaCount, setPizzaCount] = useState<number>(4);
   const [yeastType, setYeastType] = useState<YeastType>("instant");
   const [fermentMethod, setFermentMethod] = useState<FermentMethod>("direct");
+  const [weightUnit, setWeightUnit] = useState<WeightUnit>("g");
 
   // Allow custom adjustments
   const [customMode, setCustomMode] = useState<boolean>(false);
@@ -174,6 +195,35 @@ export default function PizzaDoughCalculator() {
           <p className="text-sm text-gray-600 mt-2">{preset.description}</p>
         </div>
 
+        {/* Weight Unit Toggle */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Weight Units
+          </label>
+          <div className="inline-flex rounded-lg overflow-hidden border border-gray-200">
+            <button
+              onClick={() => setWeightUnit("g")}
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                weightUnit === "g"
+                  ? "bg-coral text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Grams (g)
+            </button>
+            <button
+              onClick={() => setWeightUnit("oz")}
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                weightUnit === "oz"
+                  ? "bg-coral text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Ounces (oz)
+            </button>
+          </div>
+        </div>
+
         {/* Number of Pizzas */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -189,7 +239,7 @@ export default function PizzaDoughCalculator() {
               max={20}
             />
             <span className="text-gray-600">
-              ({preset.ballWeight}g dough balls)
+              ({formatWeightShort(preset.ballWeight, weightUnit)} dough balls)
             </span>
           </div>
           <div className="flex flex-wrap gap-2 mt-2">
@@ -328,13 +378,13 @@ export default function PizzaDoughCalculator() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <StatCard
               label="Total Dough"
-              value={`${results.totalDough}g`}
-              sublabel={`${(results.totalDough / 1000).toFixed(2)} kg`}
+              value={formatWeight(results.totalDough, weightUnit)}
+              sublabel={weightUnit === "g" ? `${gToOz(results.totalDough).toFixed(1)} oz` : `${results.totalDough}g`}
               color="coral"
             />
             <StatCard
               label="Per Pizza"
-              value={`${results.ballWeight}g`}
+              value={formatWeightShort(results.ballWeight, weightUnit)}
               sublabel={`${pizzaCount} ball${pizzaCount !== 1 ? "s" : ""}`}
               color="blue"
             />
@@ -391,10 +441,10 @@ export default function PizzaDoughCalculator() {
           <div className="p-5 bg-gradient-to-br from-coral/10 to-coral/5 border border-coral/20 rounded-xl text-center">
             <p className="text-sm text-gray-600 mb-1">Your {preset.name} recipe makes</p>
             <p className="text-3xl font-bold text-gray-900">
-              {pizzaCount} pizza{pizzaCount !== 1 ? "s" : ""} × {results.ballWeight}g
+              {pizzaCount} pizza{pizzaCount !== 1 ? "s" : ""} × {formatWeightShort(results.ballWeight, weightUnit)}
             </p>
             <p className="text-gray-600 mt-1">
-              {results.totalDough}g total • {results.hydrationPercent}% hydration • {fermentMethod === "cold-ferment" ? "cold fermented" : "same-day"}
+              {formatWeight(results.totalDough, weightUnit)} total ({weightUnit === "g" ? `${gToOz(results.totalDough).toFixed(1)} oz` : `${results.totalDough}g`}) • {results.hydrationPercent}% hydration • {fermentMethod === "cold-ferment" ? "cold fermented" : "same-day"}
             </p>
           </div>
 
@@ -414,17 +464,26 @@ export default function PizzaDoughCalculator() {
                   <tr className="bg-amber-50">
                     <td className="py-2 px-4 font-medium text-gray-900">Bread Flour</td>
                     <td className="py-2 px-4 text-right text-gray-700">100%</td>
-                    <td className="py-2 px-4 text-right font-semibold text-gray-900">{results.flour}g</td>
+                    <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                      {formatWeightShort(results.flour, weightUnit)}
+                      <span className="text-xs text-gray-500 ml-1">({formatWeightShort(results.flour, weightUnit === "g" ? "oz" : "g")})</span>
+                    </td>
                   </tr>
                   <tr>
                     <td className="py-2 px-4 text-gray-700">Water</td>
                     <td className="py-2 px-4 text-right text-gray-600">{results.hydrationPercent}%</td>
-                    <td className="py-2 px-4 text-right font-semibold text-gray-900">{results.water}g</td>
+                    <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                      {formatWeightShort(results.water, weightUnit)}
+                      <span className="text-xs text-gray-500 ml-1">({formatWeightShort(results.water, weightUnit === "g" ? "oz" : "g")})</span>
+                    </td>
                   </tr>
                   <tr>
                     <td className="py-2 px-4 text-gray-700">Salt</td>
                     <td className="py-2 px-4 text-right text-gray-600">{customMode ? salt : preset.salt}%</td>
-                    <td className="py-2 px-4 text-right font-semibold text-gray-900">{results.salt}g</td>
+                    <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                      {formatWeightShort(results.salt, weightUnit)}
+                      <span className="text-xs text-gray-500 ml-1">({formatWeightShort(results.salt, weightUnit === "g" ? "oz" : "g")})</span>
+                    </td>
                   </tr>
                   <tr>
                     <td className="py-2 px-4 text-gray-700">
@@ -433,20 +492,29 @@ export default function PizzaDoughCalculator() {
                     <td className="py-2 px-4 text-right text-gray-600">
                       {(fermentMethod === "cold-ferment" ? preset.yeast * 0.5 : preset.yeast).toFixed(1)}%
                     </td>
-                    <td className="py-2 px-4 text-right font-semibold text-gray-900">{results.yeast}g</td>
+                    <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                      {formatWeightShort(results.yeast, weightUnit)}
+                      <span className="text-xs text-gray-500 ml-1">({formatWeightShort(results.yeast, weightUnit === "g" ? "oz" : "g")})</span>
+                    </td>
                   </tr>
                   {results.oil > 0 && (
                     <tr>
                       <td className="py-2 px-4 text-gray-700">Olive Oil</td>
                       <td className="py-2 px-4 text-right text-gray-600">{preset.oil}%</td>
-                      <td className="py-2 px-4 text-right font-semibold text-gray-900">{results.oil}g</td>
+                      <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                        {formatWeightShort(results.oil, weightUnit)}
+                        <span className="text-xs text-gray-500 ml-1">({formatWeightShort(results.oil, weightUnit === "g" ? "oz" : "g")})</span>
+                      </td>
                     </tr>
                   )}
                   {results.sugar > 0 && (
                     <tr>
                       <td className="py-2 px-4 text-gray-700">Sugar</td>
                       <td className="py-2 px-4 text-right text-gray-600">{preset.sugar}%</td>
-                      <td className="py-2 px-4 text-right font-semibold text-gray-900">{results.sugar}g</td>
+                      <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                        {formatWeightShort(results.sugar, weightUnit)}
+                        <span className="text-xs text-gray-500 ml-1">({formatWeightShort(results.sugar, weightUnit === "g" ? "oz" : "g")})</span>
+                      </td>
                     </tr>
                   )}
                 </tbody>
@@ -454,7 +522,10 @@ export default function PizzaDoughCalculator() {
                   <tr>
                     <td className="py-2 px-4 font-medium text-gray-900">Total</td>
                     <td className="py-2 px-4"></td>
-                    <td className="py-2 px-4 text-right font-bold text-gray-900">{results.totalDough}g</td>
+                    <td className="py-2 px-4 text-right font-bold text-gray-900">
+                      {formatWeight(results.totalDough, weightUnit)}
+                      <span className="text-xs text-gray-500 ml-1">({formatWeight(results.totalDough, weightUnit === "g" ? "oz" : "g")})</span>
+                    </td>
                   </tr>
                 </tfoot>
               </table>
@@ -503,41 +574,41 @@ export default function PizzaDoughCalculator() {
               {style === "neapolitan" && (
                 <ul className="text-sm space-y-1">
                   <li>• Use Tipo 00 flour for authentic texture</li>
-                  <li>• Oven as hot as possible (900°F ideal)</li>
+                  <li>• Oven as hot as possible (900°F / 480°C ideal)</li>
                   <li>• Bake for 60-90 seconds only</li>
                 </ul>
               )}
               {style === "newyork" && (
                 <ul className="text-sm space-y-1">
                   <li>• High-gluten bread flour works best</li>
-                  <li>• Bake at 500-550°F on a pizza steel</li>
+                  <li>• Bake at 500-550°F (260-290°C) on a pizza steel</li>
                   <li>• Oil creates that signature crisp bottom</li>
                 </ul>
               )}
               {style === "detroit" && (
                 <ul className="text-sm space-y-1">
-                  <li>• Use a well-oiled 10x14&quot; steel pan</li>
+                  <li>• Use a well-oiled 10×14&quot; (25×36 cm) steel pan</li>
                   <li>• Press cheese to edges for crispy &quot;frico&quot;</li>
-                  <li>• Bake at 500°F until edges are dark</li>
+                  <li>• Bake at 500°F (260°C) until edges are dark</li>
                 </ul>
               )}
               {style === "sicilian" && (
                 <ul className="text-sm space-y-1">
                   <li>• Let dough proof in oiled sheet pan</li>
                   <li>• Dimple like focaccia before topping</li>
-                  <li>• Bake at 450-475°F for 20-25 minutes</li>
+                  <li>• Bake at 450-475°F (230-245°C) for 20-25 minutes</li>
                 </ul>
               )}
             </InsightCard>
 
             <InsightCard type="info" title="Yeast Conversion">
               <div className="text-sm space-y-1">
-                <p>Your recipe uses <strong>{results.yeast}g {yeastType === "fresh" ? "fresh" : yeastType === "active-dry" ? "active dry" : "instant"} yeast</strong></p>
+                <p>Your recipe uses <strong>{formatWeightShort(results.yeast, weightUnit)} {yeastType === "fresh" ? "fresh" : yeastType === "active-dry" ? "active dry" : "instant"} yeast</strong></p>
                 <p className="text-gray-600 mt-2">Equivalent amounts:</p>
                 <ul className="text-gray-600">
-                  <li>• Instant: {(results.yeast / yeastConversions[yeastType]).toFixed(1)}g</li>
-                  <li>• Active Dry: {((results.yeast / yeastConversions[yeastType]) * 1.25).toFixed(1)}g</li>
-                  <li>• Fresh: {((results.yeast / yeastConversions[yeastType]) * 3).toFixed(1)}g</li>
+                  <li>• Instant: {formatWeightShort(results.yeast / yeastConversions[yeastType], weightUnit)}</li>
+                  <li>• Active Dry: {formatWeightShort((results.yeast / yeastConversions[yeastType]) * 1.25, weightUnit)}</li>
+                  <li>• Fresh: {formatWeightShort((results.yeast / yeastConversions[yeastType]) * 3, weightUnit)}</li>
                 </ul>
               </div>
             </InsightCard>
@@ -547,7 +618,7 @@ export default function PizzaDoughCalculator() {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => {
-                const recipe = `${preset.name} Pizza Dough\n${"=".repeat(30)}\nMakes ${pizzaCount} pizzas (${results.ballWeight}g each)\n\nIngredients:\n- Bread Flour: ${results.flour}g (100%)\n- Water: ${results.water}g (${results.hydrationPercent}%)\n- Salt: ${results.salt}g (${customMode ? salt : preset.salt}%)\n- ${yeastType === "fresh" ? "Fresh Yeast" : yeastType === "active-dry" ? "Active Dry Yeast" : "Instant Yeast"}: ${results.yeast}g${results.oil > 0 ? `\n- Olive Oil: ${results.oil}g (${preset.oil}%)` : ""}${results.sugar > 0 ? `\n- Sugar: ${results.sugar}g (${preset.sugar}%)` : ""}\n\nTotal: ${results.totalDough}g\nFermentation: ${results.fermentTime}`;
+                const recipe = `${preset.name} Pizza Dough\n${"=".repeat(30)}\nMakes ${pizzaCount} pizzas (${results.ballWeight}g / ${gToOz(results.ballWeight).toFixed(1)} oz each)\n\nIngredients:\n- Bread Flour: ${results.flour}g / ${gToOz(results.flour).toFixed(1)} oz (100%)\n- Water: ${results.water}g / ${gToOz(results.water).toFixed(1)} oz (${results.hydrationPercent}%)\n- Salt: ${results.salt}g / ${gToOz(results.salt).toFixed(2)} oz (${customMode ? salt : preset.salt}%)\n- ${yeastType === "fresh" ? "Fresh Yeast" : yeastType === "active-dry" ? "Active Dry Yeast" : "Instant Yeast"}: ${results.yeast}g / ${gToOz(results.yeast).toFixed(2)} oz${results.oil > 0 ? `\n- Olive Oil: ${results.oil}g / ${gToOz(results.oil).toFixed(2)} oz (${preset.oil}%)` : ""}${results.sugar > 0 ? `\n- Sugar: ${results.sugar}g / ${gToOz(results.sugar).toFixed(2)} oz (${preset.sugar}%)` : ""}\n\nTotal: ${results.totalDough}g / ${gToOz(results.totalDough).toFixed(1)} oz\nFermentation: ${results.fermentTime}`;
                 navigator.clipboard.writeText(recipe);
               }}
               className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
@@ -583,7 +654,7 @@ export default function PizzaDoughCalculator() {
                     <td className="py-2 pr-4 font-medium">{stylePresets[s].name}</td>
                     <td className="py-2 pr-4">{stylePresets[s].hydration}%</td>
                     <td className="py-2 pr-4">{stylePresets[s].oil > 0 ? `${stylePresets[s].oil}%` : "None"}</td>
-                    <td className="py-2">{stylePresets[s].ballWeight}g</td>
+                    <td className="py-2">{formatWeightShort(stylePresets[s].ballWeight, weightUnit)} <span className="text-xs text-gray-400">({formatWeightShort(stylePresets[s].ballWeight, weightUnit === "g" ? "oz" : "g")})</span></td>
                   </tr>
                 ))}
               </tbody>

@@ -4,7 +4,7 @@ import ButterConverter from "@/components/calculators/ButterConverter";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Butter Converter — Sticks to Cups, Grams, Tablespoons, Ounces | CalcKitchen",
+  title: "Butter Converter — Sticks to Cups, Grams, Tablespoons, Ounces",
   description: "Convert butter between sticks, cups, tablespoons, grams, ounces, and pounds. Includes US stick markings guide, international butter sizes, and quick-reference chart.",
   openGraph: {
     title: "Butter Converter — Sticks to Cups, Grams, Tablespoons, Ounces",

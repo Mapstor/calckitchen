@@ -22,6 +22,10 @@ import {
 
 type CalculatorMode = "servings" | "recommend";
 
+// Unit conversion helpers
+const inToCm = (inches: number) => Math.round(inches * 2.54);
+const sqInToSqCm = (sqIn: number) => Math.round(sqIn * 6.4516);
+
 export default function CakeServingsCalculator() {
   const [mode, setMode] = useState<CalculatorMode>("servings");
 
@@ -121,7 +125,7 @@ export default function CakeServingsCalculator() {
           {currentShapeInfo?.hasCustomSize && shape !== "rectangular" && (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Size (inches)
+                Size
               </label>
               <div className="flex flex-wrap gap-2">
                 {sizeOptions.map((s) => (
@@ -134,7 +138,7 @@ export default function CakeServingsCalculator() {
                         : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     }`}
                   >
-                    {s}"
+                    {s}" <span className="text-xs opacity-75">({inToCm(s)} cm)</span>
                   </button>
                 ))}
               </div>
@@ -146,7 +150,7 @@ export default function CakeServingsCalculator() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Width (inches)
+                  Width (in) <span className="text-xs text-gray-500">= {inToCm(customWidth)} cm</span>
                 </label>
                 <input
                   type="number"
@@ -159,7 +163,7 @@ export default function CakeServingsCalculator() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Length (inches)
+                  Length (in) <span className="text-xs text-gray-500">= {inToCm(customHeight)} cm</span>
                 </label>
                 <input
                   type="number"
@@ -232,8 +236,8 @@ export default function CakeServingsCalculator() {
                 label="Cake Shape"
                 value={currentShapeInfo?.label || ""}
                 sublabel={shape === "rectangular"
-                  ? `${customWidth}" × ${customHeight}"`
-                  : `${size}" diameter`}
+                  ? `${customWidth}" × ${customHeight}" (${inToCm(customWidth)} × ${inToCm(customHeight)} cm)`
+                  : `${size}" (${inToCm(size)} cm) diameter`}
                 color="green"
               />
               <StatCard
@@ -243,7 +247,11 @@ export default function CakeServingsCalculator() {
                   : shape === "square"
                     ? `${size * size} sq in`
                     : `${customWidth * customHeight} sq in`}
-                sublabel="Surface area"
+                sublabel={shape === "round"
+                  ? `${sqInToSqCm(Math.round(Math.PI * (size / 2) ** 2))} sq cm`
+                  : shape === "square"
+                    ? `${sqInToSqCm(size * size)} sq cm`
+                    : `${sqInToSqCm(customWidth * customHeight)} sq cm`}
                 color="amber"
               />
             </div>
@@ -257,7 +265,7 @@ export default function CakeServingsCalculator() {
                     ? Object.entries(roundCakeServings)
                         .slice(0, 5)
                         .map(([sz, servings]) => ({
-                          name: `${sz}" Round`,
+                          name: `${sz}" (${inToCm(Number(sz))} cm)`,
                           value: servingType === "wedding" ? servings.wedding : servings.party,
                           fill: Number(sz) === size ? CHART_COLORS.primary : "#E5E7EB",
                         }))
@@ -265,14 +273,14 @@ export default function CakeServingsCalculator() {
                       ? Object.entries(squareCakeServings)
                           .slice(0, 5)
                           .map(([sz, servings]) => ({
-                            name: `${sz}" Square`,
+                            name: `${sz}" (${inToCm(Number(sz))} cm)`,
                             value: servingType === "wedding" ? servings.wedding : servings.party,
                             fill: Number(sz) === size ? CHART_COLORS.primary : "#E5E7EB",
                           }))
                       : [
-                          { name: "9×13 Sheet", value: servingType === "wedding" ? 54 : 24, fill: "#E5E7EB" },
-                          { name: `${customWidth}×${customHeight}`, value: Math.round(servingsResult.min), fill: CHART_COLORS.primary },
-                          { name: "12×18 Half Sheet", value: servingType === "wedding" ? 108 : 48, fill: "#E5E7EB" },
+                          { name: "9×13\" (23×33 cm)", value: servingType === "wedding" ? 54 : 24, fill: "#E5E7EB" },
+                          { name: `${customWidth}×${customHeight}" (${inToCm(customWidth)}×${inToCm(customHeight)} cm)`, value: Math.round(servingsResult.min), fill: CHART_COLORS.primary },
+                          { name: "12×18\" (30×46 cm)", value: servingType === "wedding" ? 108 : 48, fill: "#E5E7EB" },
                         ]
                 }
                 height={150}
@@ -312,7 +320,7 @@ export default function CakeServingsCalculator() {
             {currentShapeInfo && !currentShapeInfo.hasCustomSize && currentShapeInfo.dimensions && (
               <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-sm text-blue-800">
-                  <strong>{currentShapeInfo.label}:</strong> {currentShapeInfo.dimensions.width}" × {currentShapeInfo.dimensions.height}" standard size
+                  <strong>{currentShapeInfo.label}:</strong> {currentShapeInfo.dimensions.width}" × {currentShapeInfo.dimensions.height}" ({inToCm(currentShapeInfo.dimensions.width)} × {inToCm(currentShapeInfo.dimensions.height)} cm) standard size
                 </p>
               </div>
             )}
@@ -559,7 +567,7 @@ export default function CakeServingsCalculator() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="text-left py-2">Size</th>
+                  <th className="text-left py-2">Size (in / cm)</th>
                   <th className="text-right py-2">Party</th>
                   <th className="text-right py-2">Wedding</th>
                 </tr>
@@ -567,7 +575,7 @@ export default function CakeServingsCalculator() {
               <tbody>
                 {Object.entries(roundCakeServings).map(([sz, servings]) => (
                   <tr key={sz} className="border-b border-gray-100">
-                    <td className="py-2">{sz}"</td>
+                    <td className="py-2">{sz}" <span className="text-gray-500">({inToCm(Number(sz))} cm)</span></td>
                     <td className="text-right">{servings.party}</td>
                     <td className="text-right">{servings.wedding}</td>
                   </tr>
@@ -580,7 +588,7 @@ export default function CakeServingsCalculator() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="text-left py-2">Size</th>
+                  <th className="text-left py-2">Size (in / cm)</th>
                   <th className="text-right py-2">Party</th>
                   <th className="text-right py-2">Wedding</th>
                 </tr>
@@ -588,7 +596,7 @@ export default function CakeServingsCalculator() {
               <tbody>
                 {Object.entries(squareCakeServings).map(([sz, servings]) => (
                   <tr key={sz} className="border-b border-gray-100">
-                    <td className="py-2">{sz}"</td>
+                    <td className="py-2">{sz}" <span className="text-gray-500">({inToCm(Number(sz))} cm)</span></td>
                     <td className="text-right">{servings.party}</td>
                     <td className="text-right">{servings.wedding}</td>
                   </tr>

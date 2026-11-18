@@ -258,7 +258,7 @@ export default function MeatCookingTimeCalculator() {
               >
                 {donenessLevels.map((level) => (
                   <option key={level.level} value={level.level}>
-                    {level.label} ({level.internalTempF}°F)
+                    {level.label} ({level.internalTempF}°F / {fahrenheitToCelsius(level.internalTempF)}°C)
                   </option>
                 ))}
               </select>
@@ -370,14 +370,14 @@ export default function MeatCookingTimeCalculator() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
                     <span className="text-sm text-gray-600">Oven Temperature</span>
-                    <span className="font-semibold text-coral">{results.ovenTempF}°F</span>
+                    <span className="font-semibold text-coral">{results.ovenTempF}°F ({fahrenheitToCelsius(results.ovenTempF)}°C)</span>
                   </div>
                   <div className="flex items-center justify-center">
                     <div className="w-0.5 h-6 bg-gray-300"></div>
                   </div>
                   <div className="flex items-center justify-between p-2 bg-blue-50 rounded">
                     <span className="text-sm text-gray-600">Pull from Heat At</span>
-                    <span className="font-semibold text-blue-600">{results.pullTempF}°F</span>
+                    <span className="font-semibold text-blue-600">{results.pullTempF}°F ({fahrenheitToCelsius(results.pullTempF)}°C)</span>
                   </div>
                   <div className="flex items-center justify-center">
                     <div className="w-0.5 h-6 bg-gray-300"></div>
@@ -391,7 +391,7 @@ export default function MeatCookingTimeCalculator() {
                   </div>
                   <div className="flex items-center justify-between p-2 bg-green-50 rounded border-2 border-green-300">
                     <span className="text-sm font-medium text-gray-700">Final Internal Temp</span>
-                    <span className="font-bold text-green-600">{results.targetTempF}°F</span>
+                    <span className="font-bold text-green-600">{results.targetTempF}°F ({fahrenheitToCelsius(results.targetTempF)}°C)</span>
                   </div>
                 </div>
               </div>
@@ -404,7 +404,7 @@ export default function MeatCookingTimeCalculator() {
                     <div className="flex-shrink-0 w-8 h-8 bg-coral text-white rounded-full flex items-center justify-center text-sm font-medium">1</div>
                     <div>
                       <p className="font-medium text-gray-900">Prep & Preheat</p>
-                      <p className="text-sm text-gray-600">Let meat reach room temp (~30 min). Preheat oven to {results.ovenTempF}°F.</p>
+                      <p className="text-sm text-gray-600">Let meat reach room temp (~30 min). Preheat oven to {results.ovenTempF}°F ({fahrenheitToCelsius(results.ovenTempF)}°C).</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
@@ -418,7 +418,7 @@ export default function MeatCookingTimeCalculator() {
                     <div className="flex-shrink-0 w-8 h-8 bg-coral text-white rounded-full flex items-center justify-center text-sm font-medium">3</div>
                     <div>
                       <p className="font-medium text-gray-900">Check Temperature</p>
-                      <p className="text-sm text-gray-600">Remove when internal temp reaches {results.pullTempF}°F.</p>
+                      <p className="text-sm text-gray-600">Remove when internal temp reaches {results.pullTempF}°F ({fahrenheitToCelsius(results.pullTempF)}°C).</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
@@ -463,13 +463,13 @@ export default function MeatCookingTimeCalculator() {
 
               {isStuffed && (
                 <InsightCard type="warning" title="Stuffing Safety">
-                  The center of the stuffing must also reach 165°F. Check with a thermometer in the stuffing center.
+                  The center of the stuffing must also reach 165°F (74°C). Check with a thermometer in the stuffing center.
                 </InsightCard>
               )}
 
               {isConvection && (
                 <InsightCard type="info" title="Convection Adjustment">
-                  Temperature reduced by 25°F and time reduced by 25% for convection cooking.
+                  Temperature reduced by 25°F (14°C) and time reduced by 25% for convection cooking.
                 </InsightCard>
               )}
 
@@ -492,8 +492,8 @@ export default function MeatCookingTimeCalculator() {
                     <p className="text-xs text-green-600">servings</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-green-700">~{Math.round((weightUnit === "kg" ? weight * 2.205 : weight) / results.servings * 16)}</p>
-                    <p className="text-xs text-green-600">oz per person</p>
+                    <p className="text-2xl font-bold text-green-700">~{Math.round((weightUnit === "kg" ? weight * 2.205 : weight) / results.servings * 16)} oz</p>
+                    <p className="text-xs text-green-600">({Math.round((weightUnit === "kg" ? weight * 2.205 : weight) / results.servings * 453.6)}g) per person</p>
                   </div>
                 </div>
               </div>
