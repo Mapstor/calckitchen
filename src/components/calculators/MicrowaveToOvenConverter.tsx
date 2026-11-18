@@ -193,7 +193,7 @@ export default function MicrowaveToOvenConverter() {
           ))}
         </select>
         <p className="text-xs text-gray-500 mt-2">
-          Check the label inside your microwave door or do the water boil test: 1 cup cold
+          Check the label inside your microwave door or do the water boil test: 1 cup (240 ml) cold
           water boils in ~2 min = 1000W, ~2.5 min = 800W, ~3 min = 700W.
         </p>
       </div>
@@ -477,9 +477,9 @@ export default function MicrowaveToOvenConverter() {
               <h4 className="text-sm font-medium text-gray-700 mb-3">Temperature Options</h4>
               <ComparisonBarChart
                 data={[
-                  { name: "Low & Slow (300°F)", value: 300, fill: CHART_COLORS.secondary },
-                  { name: `Recommended (${microwaveToOvenResult.tempF}°F)`, value: microwaveToOvenResult.tempF, fill: CHART_COLORS.primary },
-                  { name: "High & Crispy (400°F)", value: 400, fill: CHART_COLORS.tertiary },
+                  { name: "Low & Slow (300°F / 149°C)", value: 300, fill: CHART_COLORS.secondary },
+                  { name: `Recommended (${microwaveToOvenResult.tempF}°F / ${microwaveToOvenResult.tempC}°C)`, value: microwaveToOvenResult.tempF, fill: CHART_COLORS.primary },
+                  { name: "High & Crispy (400°F / 204°C)", value: 400, fill: CHART_COLORS.tertiary },
                 ]}
                 height={100}
                 unit="°F"
@@ -517,7 +517,7 @@ export default function MicrowaveToOvenConverter() {
 
               {microwavePowerLevel < 100 && (
                 <InsightCard type="info" title="Lower Power Conversion">
-                  Since the microwave recipe uses {getPowerLevelLabel(microwavePowerLevel)}, we've adjusted the oven temp to {microwaveToOvenResult.tempF}°F for comparable gentle cooking.
+                  Since the microwave recipe uses {getPowerLevelLabel(microwavePowerLevel)}, we've adjusted the oven temp to {microwaveToOvenResult.tempF}°F ({microwaveToOvenResult.tempC}°C) for comparable gentle cooking.
                 </InsightCard>
               )}
 

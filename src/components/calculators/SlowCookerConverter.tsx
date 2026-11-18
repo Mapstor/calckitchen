@@ -19,6 +19,9 @@ import {
   CHART_COLORS,
 } from "@/components/charts";
 
+// Unit conversion helpers
+const cupsToMl = (cups: number) => Math.round(cups * 236.588);
+
 export default function SlowCookerConverter() {
   const [fromMethod, setFromMethod] = useState<CookingMethodType>("slow_cooker_low");
   const [toMethod, setToMethod] = useState<CookingMethodType>("oven");
@@ -208,7 +211,7 @@ export default function SlowCookerConverter() {
           {showLiquid && (
             <div className="mt-3">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Original Liquid Amount (cups)
+                Original Liquid Amount (cups){liquidCups ? <span className="text-xs text-gray-500 ml-1">= {cupsToMl(liquidCups)} ml</span> : null}
               </label>
               <input
                 type="number"
@@ -299,12 +302,12 @@ export default function SlowCookerConverter() {
               <div className="flex items-center gap-4">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-blue-700">{liquidCups} cups</p>
-                  <p className="text-xs text-blue-600">Original</p>
+                  <p className="text-xs text-blue-600">({cupsToMl(liquidCups)} ml) Original</p>
                 </div>
                 <span className="text-blue-400">→</span>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-blue-900">{result.liquidCups} cups</p>
-                  <p className="text-xs text-blue-600">{toMethodInfo?.label}</p>
+                  <p className="text-xs text-blue-600">({cupsToMl(result.liquidCups)} ml) {toMethodInfo?.label}</p>
                 </div>
               </div>
               <p className="text-sm text-blue-800 mt-2">{result.liquidAdjustment}</p>
@@ -339,7 +342,7 @@ export default function SlowCookerConverter() {
                 <>
                   <li className="flex gap-2">
                     <span className="w-5 h-5 rounded-full bg-coral text-white text-xs flex items-center justify-center flex-shrink-0">1</span>
-                    <span>Add at least 1 cup of liquid (required for pressure)</span>
+                    <span>Add at least 1 cup (237 ml) of liquid (required for pressure)</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="w-5 h-5 rounded-full bg-coral text-white text-xs flex items-center justify-center flex-shrink-0">2</span>
@@ -473,7 +476,7 @@ export default function SlowCookerConverter() {
                 <tr className="border-b border-gray-200">
                   <th className="text-left py-2 pr-4">Slow Cooker LOW</th>
                   <th className="text-left py-2 pr-4">Slow Cooker HIGH</th>
-                  <th className="text-left py-2 pr-4">Oven (325°F)</th>
+                  <th className="text-left py-2 pr-4">Oven (325°F / 163°C)</th>
                   <th className="text-left py-2">Instant Pot</th>
                 </tr>
               </thead>

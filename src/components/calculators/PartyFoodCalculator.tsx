@@ -13,6 +13,18 @@ import {
 type EventType = "casual" | "formal" | "bbq" | "cocktail" | "wedding" | "kids";
 type MealType = "appetizers-only" | "buffet" | "plated" | "heavy-apps";
 
+// Unit conversion helpers
+const ozToG = (oz: number) => Math.round(oz * 28.3495);
+const formatWeight = (oz: number) => {
+  const grams = ozToG(oz);
+  if (oz >= 16) {
+    const lbs = oz / 16;
+    const kg = grams / 1000;
+    return { imperial: `${lbs.toFixed(1)} lb`, metric: `${kg.toFixed(2)} kg` };
+  }
+  return { imperial: `${oz} oz`, metric: `${grams}g` };
+};
+
 interface FoodItem {
   id: string;
   name: string;
@@ -392,10 +404,23 @@ export default function PartyFoodCalculator() {
                               <tr key={item.id} className="border-b border-gray-100 last:border-0">
                                 <td className="py-2 px-3 text-gray-700">{item.name}</td>
                                 <td className="py-2 px-3 text-right text-gray-500">
-                                  {item.perPerson.toFixed(1)} {item.unit}
+                                  {item.unit === "oz" ? (
+                                    <>
+                                      {item.perPerson.toFixed(1)} oz <span className="text-xs text-gray-400">({ozToG(item.perPerson)}g)</span>
+                                    </>
+                                  ) : (
+                                    <>{item.perPerson.toFixed(1)} {item.unit}</>
+                                  )}
                                 </td>
                                 <td className="py-2 px-3 text-right font-semibold text-coral">
-                                  {item.totalAmount} {item.unit}
+                                  {item.unit === "oz" ? (
+                                    <>
+                                      {formatWeight(item.totalAmount).imperial}
+                                      <span className="text-xs text-gray-500 ml-1">({formatWeight(item.totalAmount).metric})</span>
+                                    </>
+                                  ) : (
+                                    <>{item.totalAmount} {item.unit}</>
+                                  )}
                                 </td>
                               </tr>
                             ))}
@@ -457,7 +482,7 @@ export default function PartyFoodCalculator() {
                 </div>
                 <div className="text-center p-3 bg-gray-50 rounded-lg">
                   <p className="text-2xl font-bold text-gray-900">{Math.ceil(guestCount / 10)}</p>
-                  <p className="text-gray-600">Ice Bags (10lb)</p>
+                  <p className="text-gray-600">Ice Bags (10lb / 4.5kg)</p>
                 </div>
               </div>
             </div>
@@ -486,7 +511,7 @@ export default function PartyFoodCalculator() {
               {mealType === "buffet" && (
                 <InsightCard type="warning" title="Buffet Considerations">
                   <p className="text-sm">
-                    Guests take 20% more at buffets. Keep hot foods above 140°F and cold foods below 40°F.
+                    Guests take 20% more at buffets. Keep hot foods above 140°F (60°C) and cold foods below 40°F (4°C).
                     Replenish dishes regularly rather than leaving large quantities out.
                   </p>
                 </InsightCard>
@@ -509,9 +534,14 @@ export default function PartyFoodCalculator() {
                   const text = categories.map(category => {
                     const categoryResults = results.filter(r => r?.category === category);
                     if (categoryResults.length === 0) return "";
-                    return `${categoryLabels[category]}:\n${categoryResults.map(item =>
-                      item ? `  ${item.totalAmount} ${item.unit} - ${item.name}` : ""
-                    ).join("\n")}`;
+                    return `${categoryLabels[category]}:\n${categoryResults.map(item => {
+                      if (!item) return "";
+                      if (item.unit === "oz") {
+                        const w = formatWeight(item.totalAmount);
+                        return `  ${w.imperial} (${w.metric}) - ${item.name}`;
+                      }
+                      return `  ${item.totalAmount} ${item.unit} - ${item.name}`;
+                    }).join("\n")}`;
                   }).filter(Boolean).join("\n\n");
                   navigator.clipboard.writeText(`Party Shopping List (${guestCount} guests)\n\n${text}`);
                 }}
