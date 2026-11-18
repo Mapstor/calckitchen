@@ -29,7 +29,7 @@ const foodTypeInfo: Record<FoodType, { name: string; tip: string }> = {
   },
   "cookies": {
     name: "Cookies",
-    tip: "Reduce temperature by 25°F. Watch closely — cookies brown faster in convection."
+    tip: "Reduce temperature by 25°F (15°C). Watch closely — cookies brown faster in convection."
   },
   "breads": {
     name: "Breads",
@@ -37,7 +37,7 @@ const foodTypeInfo: Record<FoodType, { name: string; tip: string }> = {
   },
   "other": {
     name: "Other",
-    tip: "General rule: reduce temp by 25°F OR time by 25%, not both."
+    tip: "General rule: reduce temp by 25°F (15°C) OR time by 25%, not both."
   },
 };
 
@@ -519,17 +519,17 @@ export default function ConvectionOvenConverter() {
               </thead>
               <tbody className="text-gray-600">
                 {[
-                  { conv: 300, convc: 275, gas: "2" },
-                  { conv: 325, convc: 300, gas: "3" },
-                  { conv: 350, convc: 325, gas: "4" },
-                  { conv: 375, convc: 350, gas: "5" },
-                  { conv: 400, convc: 375, gas: "6" },
-                  { conv: 425, convc: 400, gas: "7" },
-                  { conv: 450, convc: 425, gas: "8" },
+                  { conv: 300, convC: 149, convc: 275, convcC: 135, gas: "2" },
+                  { conv: 325, convC: 163, convc: 300, convcC: 149, gas: "3" },
+                  { conv: 350, convC: 177, convc: 325, convcC: 163, gas: "4" },
+                  { conv: 375, convC: 191, convc: 350, convcC: 177, gas: "5" },
+                  { conv: 400, convC: 204, convc: 375, convcC: 191, gas: "6" },
+                  { conv: 425, convC: 218, convc: 400, convcC: 204, gas: "7" },
+                  { conv: 450, convC: 232, convc: 425, convcC: 218, gas: "8" },
                 ].map((row) => (
                   <tr key={row.conv} className="border-b border-gray-100">
-                    <td className="py-2 pr-4">{row.conv}°F</td>
-                    <td className="py-2 pr-4">{row.convc}°F</td>
+                    <td className="py-2 pr-4">{row.conv}°F ({row.convC}°C)</td>
+                    <td className="py-2 pr-4">{row.convc}°F ({row.convcC}°C)</td>
                     <td className="py-2">{row.gas}</td>
                   </tr>
                 ))}

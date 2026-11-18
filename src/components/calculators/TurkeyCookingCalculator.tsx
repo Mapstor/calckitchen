@@ -297,7 +297,7 @@ export default function TurkeyCookingCalculator() {
                 unit=" guests"
               />
               <p className="text-xs text-gray-500 mt-2 text-center">
-                A {weightInLbs.toFixed(1)} lb turkey yields approximately {Math.round(weightInLbs * 0.7)} lbs of edible meat
+                A {weightInLbs.toFixed(1)} lb ({(weightInLbs / 2.205).toFixed(1)} kg) turkey yields approximately {Math.round(weightInLbs * 0.7)} lbs ({(weightInLbs * 0.7 / 2.205).toFixed(1)} kg) of edible meat
               </p>
             </div>
 
@@ -320,7 +320,7 @@ export default function TurkeyCookingCalculator() {
                 </InsightCard>
               )}
               <InsightCard type="info" title="Temperature Check">
-                Check temperature in multiple spots. The thigh should read 165°F, and breast meat is best at 160°F.
+                Check temperature in multiple spots. The thigh should read 165°F (74°C), and breast meat is best at 160°F (71°C).
               </InsightCard>
             </div>
           </div>
@@ -478,7 +478,7 @@ export default function TurkeyCookingCalculator() {
                   <>
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                      <span className="text-sm"><strong>Day 1:</strong> Place turkey on tray in fridge (40°F or below)</span>
+                      <span className="text-sm"><strong>Day 1:</strong> Place turkey on tray in fridge (40°F / 4°C or below)</span>
                     </div>
                     {thawResult.days > 2 && (
                       <div className="flex items-center gap-3">
@@ -526,7 +526,7 @@ export default function TurkeyCookingCalculator() {
             {/* Safety Tips */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <InsightCard type="warning" title="Food Safety">
-                Never thaw turkey at room temperature. Bacteria grow rapidly between 40°F and 140°F.
+                Never thaw turkey at room temperature. Bacteria grow rapidly between 40°F (4°C) and 140°F (60°C).
               </InsightCard>
               <InsightCard type="tip" title="Pro Tip">
                 {thawMethod === "fridge"
@@ -569,7 +569,7 @@ export default function TurkeyCookingCalculator() {
                 className="w-4 h-4 text-coral rounded focus:ring-coral"
               />
               <span className="text-sm text-gray-700">
-                I want leftovers (1.5 lbs per person instead of 1 lb)
+                I want leftovers (1.5 lbs / 680g per person instead of 1 lb / 450g)
               </span>
             </label>
           </div>
@@ -605,13 +605,13 @@ export default function TurkeyCookingCalculator() {
               <StatCard
                 label="Per Person"
                 value={wantLeftovers ? "1.5 lbs" : "1 lb"}
-                sublabel="Raw weight"
+                sublabel={wantLeftovers ? "(680g) Raw weight" : "(450g) Raw weight"}
                 color="green"
               />
               <StatCard
                 label="Edible Meat"
                 value={`~${Math.round(recommendation.weight * 0.7)} lbs`}
-                sublabel="After cooking"
+                sublabel={`(${Math.round(recommendation.weight * 0.7 / 2.205)} kg) After cooking`}
                 color="amber"
               />
             </div>
@@ -634,10 +634,10 @@ export default function TurkeyCookingCalculator() {
               <ComparisonTable
                 headers={["Serves", "Standard", "With Leftovers"]}
                 rows={[
-                  { label: "6–8 guests", values: ["8–10 lbs", "10–12 lbs"], highlight: guestCount >= 6 && guestCount <= 8 },
-                  { label: "10–12 guests", values: ["12–14 lbs", "14–16 lbs"], highlight: guestCount >= 10 && guestCount <= 12 },
-                  { label: "14–16 guests", values: ["16–18 lbs", "18–20 lbs"], highlight: guestCount >= 14 && guestCount <= 16 },
-                  { label: "18–20 guests", values: ["20–22 lbs", "22–24 lbs"], highlight: guestCount >= 18 && guestCount <= 20 },
+                  { label: "6–8 guests", values: ["8–10 lbs (3.6–4.5 kg)", "10–12 lbs (4.5–5.4 kg)"], highlight: guestCount >= 6 && guestCount <= 8 },
+                  { label: "10–12 guests", values: ["12–14 lbs (5.4–6.4 kg)", "14–16 lbs (6.4–7.3 kg)"], highlight: guestCount >= 10 && guestCount <= 12 },
+                  { label: "14–16 guests", values: ["16–18 lbs (7.3–8.2 kg)", "18–20 lbs (8.2–9.1 kg)"], highlight: guestCount >= 14 && guestCount <= 16 },
+                  { label: "18–20 guests", values: ["20–22 lbs (9.1–10 kg)", "22–24 lbs (10–11 kg)"], highlight: guestCount >= 18 && guestCount <= 20 },
                   { label: "20+ guests", values: ["Two turkeys", "recommended"], highlight: guestCount > 20 },
                 ]}
               />
@@ -664,7 +664,7 @@ export default function TurkeyCookingCalculator() {
               <p className="text-sm text-gray-600">
                 A {recommendation.weight} lb unstuffed turkey will take approximately{" "}
                 <strong>{formatCookTime(calculateCookTime(recommendation.weight, "roasted", false, false).minMinutes)}</strong> to{" "}
-                <strong>{formatCookTime(calculateCookTime(recommendation.weight, "roasted", false, false).maxMinutes)}</strong> at 325°F.
+                <strong>{formatCookTime(calculateCookTime(recommendation.weight, "roasted", false, false).maxMinutes)}</strong> at 325°F (163°C).
               </p>
             </div>
           </div>

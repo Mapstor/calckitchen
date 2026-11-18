@@ -10,6 +10,23 @@ import {
 } from "@/components/charts";
 
 type CalculatorMode = "forward" | "reverse" | "target";
+type WeightUnit = "g" | "oz";
+
+// Unit conversion helpers
+const gToOz = (g: number) => g / 28.3495;
+const formatWeight = (g: number, unit: WeightUnit) => {
+  if (unit === "oz") {
+    const oz = gToOz(g);
+    return oz >= 16 ? `${(oz / 16).toFixed(2)} lb` : `${oz.toFixed(2)} oz`;
+  }
+  return g >= 1000 ? `${(g / 1000).toFixed(2)} kg` : `${g}g`;
+};
+const formatWeightShort = (g: number, unit: WeightUnit) => {
+  if (unit === "oz") {
+    return `${gToOz(g).toFixed(1)} oz`;
+  }
+  return `${g}g`;
+};
 
 interface Ingredient {
   id: string;
@@ -83,6 +100,7 @@ function generateId(): string {
 export default function BakersPercentageCalculator() {
   const [mode, setMode] = useState<CalculatorMode>("forward");
   const [showResults, setShowResults] = useState<boolean>(false);
+  const [weightUnit, setWeightUnit] = useState<WeightUnit>("g");
 
   const resetResults = useCallback(() => setShowResults(false), []);
   const [flourWeight, setFlourWeight] = useState<number>(500);
@@ -259,6 +277,35 @@ export default function BakersPercentageCalculator() {
           </div>
         </div>
 
+        {/* Weight Unit Toggle */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Weight Units
+          </label>
+          <div className="inline-flex rounded-lg overflow-hidden border border-gray-200">
+            <button
+              onClick={() => setWeightUnit("g")}
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                weightUnit === "g"
+                  ? "bg-coral text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Grams (g)
+            </button>
+            <button
+              onClick={() => setWeightUnit("oz")}
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                weightUnit === "oz"
+                  ? "bg-coral text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Ounces (oz)
+            </button>
+          </div>
+        </div>
+
         {/* Presets */}
         {(mode === "forward" || mode === "target") && (
           <div>
@@ -283,7 +330,7 @@ export default function BakersPercentageCalculator() {
         {mode === "forward" && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Total Flour Weight (g)
+              Total Flour Weight ({weightUnit})
             </label>
             <input
               type="number"
@@ -299,7 +346,7 @@ export default function BakersPercentageCalculator() {
         {mode === "target" && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Target Total Dough Weight (g)
+              Target Total Dough Weight ({weightUnit})
             </label>
             <input
               type="number"
@@ -344,7 +391,7 @@ export default function BakersPercentageCalculator() {
                       resetResults();
                     }}
                     className="input-field w-24"
-                    placeholder="g"
+                    placeholder={weightUnit}
                     min={0}
                   />
                 ) : (
@@ -440,13 +487,13 @@ export default function BakersPercentageCalculator() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <StatCard
               label="Total Flour"
-              value={`${results.flourWeight}g`}
+              value={formatWeightShort(results.flourWeight, weightUnit)}
               sublabel="100% base"
               color="amber"
             />
             <StatCard
               label="Total Dough"
-              value={`${results.totalWeight}g`}
+              value={formatWeight(results.totalWeight, weightUnit)}
               sublabel={`${results.totalPercentage.toFixed(0)}% total`}
               color="green"
             />
@@ -499,7 +546,7 @@ export default function BakersPercentageCalculator() {
                     </p>
                   </div>
                   <div className="text-sm text-gray-600">
-                    <p>Water weight: <span className="font-medium">{Math.round((results.flourWeight * (results.hydration / 100)))}g</span></p>
+                    <p>Water weight: <span className="font-medium">{formatWeightShort(Math.round(results.flourWeight * (results.hydration / 100)), weightUnit)}</span></p>
                   </div>
                 </div>
               </div>
@@ -523,9 +570,9 @@ export default function BakersPercentageCalculator() {
           <div className="p-5 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl">
             <div className="text-center">
               <p className="text-sm text-green-700 mb-1">Your Total Dough Weight</p>
-              <p className="text-4xl font-bold text-green-900">{results.totalWeight}g</p>
+              <p className="text-4xl font-bold text-green-900">{formatWeight(results.totalWeight, weightUnit)}</p>
               <p className="text-sm text-green-700 mt-2">
-                ({(results.totalWeight / 1000).toFixed(2)} kg • {(results.totalWeight / 28.35).toFixed(1)} oz)
+                ({formatWeight(results.totalWeight, weightUnit === "g" ? "oz" : "g")})
               </p>
             </div>
           </div>
@@ -539,7 +586,7 @@ export default function BakersPercentageCalculator() {
                   <tr className="border-b border-gray-200">
                     <th className="text-left py-2 px-2 font-medium text-gray-700">Ingredient</th>
                     <th className="text-center py-2 px-2 font-medium text-gray-700">Baker&apos;s %</th>
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Weight (g)</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Weight</th>
                     <th className="text-center py-2 px-2 font-medium text-gray-700">% of Total</th>
                   </tr>
                 </thead>
@@ -560,7 +607,8 @@ export default function BakersPercentageCalculator() {
                           {ing.percentage?.toFixed(1) || 0}%
                         </td>
                         <td className="text-center py-2 px-2 font-semibold text-gray-900">
-                          {ing.weight || 0}g
+                          {formatWeightShort(ing.weight || 0, weightUnit)}
+                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(ing.weight || 0, weightUnit === "g" ? "oz" : "g")})</span>
                         </td>
                         <td className="text-center py-2 px-2">
                           <div className="flex items-center justify-center gap-2">
@@ -584,7 +632,10 @@ export default function BakersPercentageCalculator() {
                   <tr className="bg-gray-100 font-semibold">
                     <td className="py-2 px-2 text-gray-900">Total</td>
                     <td className="text-center py-2 px-2 text-gray-900">{results.totalPercentage.toFixed(1)}%</td>
-                    <td className="text-center py-2 px-2 text-gray-900">{results.totalWeight}g</td>
+                    <td className="text-center py-2 px-2 text-gray-900">
+                      {formatWeight(results.totalWeight, weightUnit)}
+                      <span className="text-xs text-gray-500 ml-1">({formatWeight(results.totalWeight, weightUnit === "g" ? "oz" : "g")})</span>
+                    </td>
                     <td className="text-center py-2 px-2 text-gray-600">100%</td>
                   </tr>
                 </tfoot>
@@ -598,19 +649,19 @@ export default function BakersPercentageCalculator() {
             <div className="grid grid-cols-4 gap-3 text-center text-sm">
               <div>
                 <p className="text-xs text-gray-500">Half Recipe</p>
-                <p className="font-semibold text-gray-900">{Math.round(results.totalWeight / 2)}g</p>
+                <p className="font-semibold text-gray-900">{formatWeightShort(Math.round(results.totalWeight / 2), weightUnit)}</p>
               </div>
               <div className="bg-white p-2 rounded border border-gray-200">
                 <p className="text-xs text-gray-500">Current</p>
-                <p className="font-semibold text-gray-900">{results.totalWeight}g</p>
+                <p className="font-semibold text-gray-900">{formatWeightShort(results.totalWeight, weightUnit)}</p>
               </div>
               <div>
                 <p className="text-xs text-gray-500">1.5× Recipe</p>
-                <p className="font-semibold text-gray-900">{Math.round(results.totalWeight * 1.5)}g</p>
+                <p className="font-semibold text-gray-900">{formatWeightShort(Math.round(results.totalWeight * 1.5), weightUnit)}</p>
               </div>
               <div>
                 <p className="text-xs text-gray-500">Double Recipe</p>
-                <p className="font-semibold text-gray-900">{Math.round(results.totalWeight * 2)}g</p>
+                <p className="font-semibold text-gray-900">{formatWeightShort(Math.round(results.totalWeight * 2), weightUnit)}</p>
               </div>
             </div>
           </div>
@@ -620,15 +671,15 @@ export default function BakersPercentageCalculator() {
             <div className="grid grid-cols-3 gap-3 mt-2">
               <div>
                 <p className="font-medium text-sm">Pizza (10&quot;)</p>
-                <p className="text-xs">{Math.floor(results.totalWeight / 250)} balls @ 250g</p>
+                <p className="text-xs">{Math.floor(results.totalWeight / 250)} balls @ {formatWeightShort(250, weightUnit)}</p>
               </div>
               <div>
                 <p className="font-medium text-sm">Burger Buns</p>
-                <p className="text-xs">{Math.floor(results.totalWeight / 80)} buns @ 80g</p>
+                <p className="text-xs">{Math.floor(results.totalWeight / 80)} buns @ {formatWeightShort(80, weightUnit)}</p>
               </div>
               <div>
                 <p className="font-medium text-sm">Dinner Rolls</p>
-                <p className="text-xs">{Math.floor(results.totalWeight / 50)} rolls @ 50g</p>
+                <p className="text-xs">{Math.floor(results.totalWeight / 50)} rolls @ {formatWeightShort(50, weightUnit)}</p>
               </div>
             </div>
           </InsightCard>
@@ -637,7 +688,7 @@ export default function BakersPercentageCalculator() {
           <div className="flex gap-2">
             <button
               onClick={() => {
-                const text = `Baker's Percentage Recipe:\nTotal Dough: ${results.totalWeight}g\nHydration: ${results.hydration || "N/A"}%\n\n${validIngredients.map(i => `${i.name}: ${i.percentage?.toFixed(1)}% (${i.weight}g)`).join("\n")}`;
+                const text = `Baker's Percentage Recipe:\nTotal Dough: ${results.totalWeight}g / ${gToOz(results.totalWeight).toFixed(1)} oz\nHydration: ${results.hydration || "N/A"}%\n\n${validIngredients.map(i => `${i.name}: ${i.percentage?.toFixed(1)}% (${i.weight}g / ${gToOz(i.weight || 0).toFixed(1)} oz)`).join("\n")}`;
                 navigator.clipboard.writeText(text);
               }}
               className="flex-1 py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors"

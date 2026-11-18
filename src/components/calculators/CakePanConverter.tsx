@@ -4,12 +4,14 @@ import { useState, useMemo, useCallback } from "react";
 import {
   StatCard,
   InsightCard,
-  ComparisonBarChart,
-  ProgressRing,
-  CHART_COLORS,
 } from "@/components/charts";
 
 type PanShape = "round" | "square" | "rectangular" | "bundt" | "springform" | "loaf";
+
+// Unit conversion helpers
+const inToCm = (inches: number) => Math.round(inches * 2.54);
+const sqInToSqCm = (sqIn: number) => Math.round(sqIn * 6.4516);
+const cupsToMl = (cups: number) => Math.round(cups * 236.588);
 
 interface PanSize {
   shape: PanShape;
@@ -20,34 +22,34 @@ interface PanSize {
 
 const panSizes: PanSize[] = [
   // Round pans
-  { shape: "round", dimensions: '6" round', area: Math.PI * 3 * 3 },
-  { shape: "round", dimensions: '8" round', area: Math.PI * 4 * 4 },
-  { shape: "round", dimensions: '9" round', area: Math.PI * 4.5 * 4.5 },
-  { shape: "round", dimensions: '10" round', area: Math.PI * 5 * 5 },
-  { shape: "round", dimensions: '12" round', area: Math.PI * 6 * 6 },
+  { shape: "round", dimensions: '6" (15 cm) round', area: Math.PI * 3 * 3 },
+  { shape: "round", dimensions: '8" (20 cm) round', area: Math.PI * 4 * 4 },
+  { shape: "round", dimensions: '9" (23 cm) round', area: Math.PI * 4.5 * 4.5 },
+  { shape: "round", dimensions: '10" (25 cm) round', area: Math.PI * 5 * 5 },
+  { shape: "round", dimensions: '12" (30 cm) round', area: Math.PI * 6 * 6 },
 
   // Square pans
-  { shape: "square", dimensions: '8" square', area: 8 * 8 },
-  { shape: "square", dimensions: '9" square', area: 9 * 9 },
-  { shape: "square", dimensions: '10" square', area: 10 * 10 },
+  { shape: "square", dimensions: '8" (20 cm) square', area: 8 * 8 },
+  { shape: "square", dimensions: '9" (23 cm) square', area: 9 * 9 },
+  { shape: "square", dimensions: '10" (25 cm) square', area: 10 * 10 },
 
   // Rectangular pans
-  { shape: "rectangular", dimensions: '9" x 13"', area: 9 * 13 },
-  { shape: "rectangular", dimensions: '11" x 15" (jelly roll)', area: 11 * 15 },
-  { shape: "rectangular", dimensions: '12" x 18" (half sheet)', area: 12 * 18 },
+  { shape: "rectangular", dimensions: '9" x 13" (23×33 cm)', area: 9 * 13 },
+  { shape: "rectangular", dimensions: '11" x 15" (28×38 cm) jelly roll', area: 11 * 15 },
+  { shape: "rectangular", dimensions: '12" x 18" (30×46 cm) half sheet', area: 12 * 18 },
 
   // Bundt pans
-  { shape: "bundt", dimensions: '10" Bundt (12 cup)', area: 78.5, volume: 12 },
-  { shape: "bundt", dimensions: '9" Bundt (10 cup)', area: 63.6, volume: 10 },
+  { shape: "bundt", dimensions: '10" (25 cm) Bundt (12 cup / 2.8L)', area: 78.5, volume: 12 },
+  { shape: "bundt", dimensions: '9" (23 cm) Bundt (10 cup / 2.4L)', area: 63.6, volume: 10 },
 
   // Springform pans
-  { shape: "springform", dimensions: '8" springform', area: Math.PI * 4 * 4 },
-  { shape: "springform", dimensions: '9" springform', area: Math.PI * 4.5 * 4.5 },
-  { shape: "springform", dimensions: '10" springform', area: Math.PI * 5 * 5 },
+  { shape: "springform", dimensions: '8" (20 cm) springform', area: Math.PI * 4 * 4 },
+  { shape: "springform", dimensions: '9" (23 cm) springform', area: Math.PI * 4.5 * 4.5 },
+  { shape: "springform", dimensions: '10" (25 cm) springform', area: Math.PI * 5 * 5 },
 
   // Loaf pans
-  { shape: "loaf", dimensions: '8.5" x 4.5" loaf', area: 8.5 * 4.5 },
-  { shape: "loaf", dimensions: '9" x 5" loaf', area: 9 * 5 },
+  { shape: "loaf", dimensions: '8.5" x 4.5" (22×11 cm) loaf', area: 8.5 * 4.5 },
+  { shape: "loaf", dimensions: '9" x 5" (23×13 cm) loaf', area: 9 * 5 },
 ];
 
 const shapeLabels: Record<PanShape, string> = {
@@ -59,9 +61,173 @@ const shapeLabels: Record<PanShape, string> = {
   loaf: "Loaf",
 };
 
+// Extract dimensions from pan string like '9" (23 cm) round' or '9" x 13" (23×33 cm)'
+function parsePanDimensions(panStr: string): { width: number; height: number; isRound: boolean } {
+  const isRound = panStr.includes("round") || panStr.includes("Bundt") || panStr.includes("springform");
+
+  // Check for rectangular: '9" x 13"' pattern
+  const rectMatch = panStr.match(/(\d+(?:\.\d+)?)"?\s*[x×]\s*(\d+(?:\.\d+)?)"/);
+  if (rectMatch) {
+    return { width: parseFloat(rectMatch[1]), height: parseFloat(rectMatch[2]), isRound: false };
+  }
+
+  // Single dimension: '9"' pattern
+  const singleMatch = panStr.match(/(\d+(?:\.\d+)?)"/);
+  if (singleMatch) {
+    const size = parseFloat(singleMatch[1]);
+    return { width: size, height: size, isRound };
+  }
+
+  return { width: 9, height: 9, isRound: true }; // fallback
+}
+
+// SVG Pan Comparison Component
+function PanComparisonSVG({
+  originalPan,
+  newPan,
+}: {
+  originalPan: string;
+  newPan: string;
+}) {
+  const origDims = parsePanDimensions(originalPan);
+  const newDims = parsePanDimensions(newPan);
+
+  // Find the largest dimension to scale properly
+  const maxDim = Math.max(origDims.width, origDims.height, newDims.width, newDims.height);
+  const svgSize = 300;
+  const padding = 55;
+  const scale = (svgSize - padding * 2) / maxDim;
+
+  const centerX = svgSize / 2;
+  const centerY = svgSize / 2;
+
+  // Calculate scaled dimensions
+  const origW = origDims.width * scale;
+  const origH = origDims.height * scale;
+  const newW = newDims.width * scale;
+  const newH = newDims.height * scale;
+
+  // Determine which pan is larger (by area) to draw it behind
+  const origArea = origDims.width * origDims.height * (origDims.isRound ? Math.PI / 4 : 1);
+  const newArea2 = newDims.width * newDims.height * (newDims.isRound ? Math.PI / 4 : 1);
+  const origIsLarger = origArea >= newArea2;
+
+  // Pan shape renderer
+  const renderPan = (
+    dims: { width: number; height: number; isRound: boolean },
+    w: number,
+    h: number,
+    isOriginal: boolean
+  ) => {
+    const fill = isOriginal ? "#E5E7EB" : "rgba(232, 96, 76, 0.3)";
+    const stroke = isOriginal ? "#9CA3AF" : "#E8604C";
+    const strokeWidth = isOriginal ? 2.5 : 3;
+
+    if (dims.isRound) {
+      return (
+        <circle
+          cx={centerX}
+          cy={centerY}
+          r={w / 2}
+          fill={fill}
+          stroke={stroke}
+          strokeWidth={strokeWidth}
+        />
+      );
+    }
+    return (
+      <rect
+        x={centerX - w / 2}
+        y={centerY - h / 2}
+        width={w}
+        height={h}
+        fill={fill}
+        stroke={stroke}
+        strokeWidth={strokeWidth}
+        rx="6"
+      />
+    );
+  };
+
+  return (
+    <div className="flex justify-center">
+      <svg
+        width={svgSize}
+        height={svgSize}
+        viewBox={`0 0 ${svgSize} ${svgSize}`}
+        className="max-w-full"
+        style={{ maxHeight: '300px' }}
+      >
+        {/* Draw larger pan first (behind), smaller pan second (in front) */}
+        {origIsLarger ? (
+          <>
+            {renderPan(origDims, origW, origH, true)}
+            {renderPan(newDims, newW, newH, false)}
+          </>
+        ) : (
+          <>
+            {renderPan(newDims, newW, newH, false)}
+            {renderPan(origDims, origW, origH, true)}
+          </>
+        )}
+
+        {/* Original pan dimension label - top */}
+        <g>
+          <line
+            x1={centerX - origW / 2}
+            y1={25}
+            x2={centerX + origW / 2}
+            y2={25}
+            stroke="#9CA3AF"
+            strokeWidth="1.5"
+          />
+          {/* End caps */}
+          <line x1={centerX - origW / 2} y1={20} x2={centerX - origW / 2} y2={30} stroke="#9CA3AF" strokeWidth="1.5" />
+          <line x1={centerX + origW / 2} y1={20} x2={centerX + origW / 2} y2={30} stroke="#9CA3AF" strokeWidth="1.5" />
+          <text
+            x={centerX}
+            y={15}
+            textAnchor="middle"
+            fill="#6B7280"
+            fontSize="13"
+            fontWeight="500"
+          >
+            {origDims.width}" ({inToCm(origDims.width)} cm)
+          </text>
+        </g>
+
+        {/* New pan dimension label - bottom */}
+        <g>
+          <line
+            x1={centerX - newW / 2}
+            y1={svgSize - 25}
+            x2={centerX + newW / 2}
+            y2={svgSize - 25}
+            stroke="#E8604C"
+            strokeWidth="1.5"
+          />
+          {/* End caps */}
+          <line x1={centerX - newW / 2} y1={svgSize - 30} x2={centerX - newW / 2} y2={svgSize - 20} stroke="#E8604C" strokeWidth="1.5" />
+          <line x1={centerX + newW / 2} y1={svgSize - 30} x2={centerX + newW / 2} y2={svgSize - 20} stroke="#E8604C" strokeWidth="1.5" />
+          <text
+            x={centerX}
+            y={svgSize - 8}
+            textAnchor="middle"
+            fill="#E8604C"
+            fontSize="13"
+            fontWeight="600"
+          >
+            {newDims.width}" ({inToCm(newDims.width)} cm)
+          </text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 export default function CakePanConverter() {
-  const [originalPan, setOriginalPan] = useState<string>('9" round');
-  const [newPan, setNewPan] = useState<string>('8" square');
+  const [originalPan, setOriginalPan] = useState<string>('9" (23 cm) round');
+  const [newPan, setNewPan] = useState<string>('8" (20 cm) square');
   const [originalEggs, setOriginalEggs] = useState<number>(2);
   const [showResults, setShowResults] = useState<boolean>(false);
 
@@ -213,14 +379,14 @@ export default function CakePanConverter() {
               />
               <StatCard
                 label="Original Area"
-                value={`${results.originalArea.toFixed(0)}`}
-                sublabel="sq inches"
+                value={`${results.originalArea.toFixed(0)} sq in`}
+                sublabel={`${sqInToSqCm(results.originalArea)} sq cm`}
                 color="coral"
               />
               <StatCard
                 label="New Area"
-                value={`${results.newArea.toFixed(0)}`}
-                sublabel="sq inches"
+                value={`${results.newArea.toFixed(0)} sq in`}
+                sublabel={`${sqInToSqCm(results.newArea)} sq cm`}
                 color="amber"
               />
               <StatCard
@@ -231,55 +397,26 @@ export default function CakePanConverter() {
               />
             </div>
 
-            {/* Visual Pan Comparison */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 mb-4">Pan Size Comparison</h4>
-              <div className="flex items-center justify-center gap-6">
-                {/* Original Pan Visual */}
-                <div className="text-center">
-                  <div
-                    className="mx-auto border-4 border-gray-400 bg-gray-200 flex items-center justify-center"
-                    style={{
-                      width: `${Math.min(120, Math.sqrt(results.originalArea) * 3)}px`,
-                      height: `${Math.min(120, Math.sqrt(results.originalArea) * 3)}px`,
-                      borderRadius: originalPan.includes("round") || originalPan.includes("Bundt") || originalPan.includes("springform") ? "50%" : "8px",
-                    }}
-                  >
-                    <span className="text-xs text-gray-600">{results.originalArea.toFixed(0)} sq in</span>
-                  </div>
-                  <p className="text-sm font-medium text-gray-700 mt-2">{originalPan}</p>
-                  <p className="text-xs text-gray-500">Original</p>
+            {/* Visual Pan Comparison - SVG Overlay */}
+            <div className="bg-gray-50 rounded-xl p-6">
+              <h4 className="font-medium text-gray-900 mb-2 text-center">Pan Size Comparison</h4>
+              <p className="text-sm text-gray-500 text-center mb-6">Pans shown to scale, overlaid for direct comparison</p>
+
+              <PanComparisonSVG
+                originalPan={originalPan}
+                newPan={newPan}
+              />
+
+              {/* Legend */}
+              <div className="flex justify-center gap-8 mt-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full border-2 border-gray-400 bg-gray-100"></div>
+                  <span className="text-sm text-gray-600">Original: {results.originalArea.toFixed(0)} sq in ({sqInToSqCm(results.originalArea)} cm²)</span>
                 </div>
-
-                <div className="text-3xl text-gray-400">→</div>
-
-                {/* New Pan Visual */}
-                <div className="text-center">
-                  <div
-                    className="mx-auto border-4 border-coral bg-coral/20 flex items-center justify-center"
-                    style={{
-                      width: `${Math.min(120, Math.sqrt(results.newArea) * 3)}px`,
-                      height: `${Math.min(120, Math.sqrt(results.newArea) * 3)}px`,
-                      borderRadius: newPan.includes("round") || newPan.includes("Bundt") || newPan.includes("springform") ? "50%" : "8px",
-                    }}
-                  >
-                    <span className="text-xs text-coral">{results.newArea.toFixed(0)} sq in</span>
-                  </div>
-                  <p className="text-sm font-medium text-gray-700 mt-2">{newPan}</p>
-                  <p className="text-xs text-gray-500">New Pan</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full border-2 border-coral bg-coral/30"></div>
+                  <span className="text-sm text-gray-600">New: {results.newArea.toFixed(0)} sq in ({sqInToSqCm(results.newArea)} cm²)</span>
                 </div>
-              </div>
-
-              {/* Area Comparison Bar */}
-              <div className="mt-4">
-                <ComparisonBarChart
-                  data={[
-                    { name: originalPan, value: results.originalArea, fill: "#9CA3AF" },
-                    { name: newPan, value: results.newArea, fill: CHART_COLORS.primary },
-                  ]}
-                  height={80}
-                  unit=" sq in"
-                />
               </div>
             </div>
 
@@ -413,7 +550,7 @@ export default function CakePanConverter() {
               <InsightCard type="tip" title="Temperature Consideration">
                 <p className="text-sm">
                   {results.multiplier > 1.5
-                    ? "For significantly larger pans, consider reducing oven temperature by 25°F to prevent over-browning while the center bakes through."
+                    ? "For significantly larger pans, consider reducing oven temperature by 25°F (15°C) to prevent over-browning while the center bakes through."
                     : results.multiplier < 0.6
                       ? "For smaller pans with thinner batter layers, the original temperature should work fine, but watch closely as it will bake faster."
                       : "The original oven temperature should work well for this conversion. Just adjust the time as noted above."}
@@ -431,23 +568,23 @@ export default function CakePanConverter() {
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="text-left py-2 pr-4">Pan Size</th>
-                  <th className="text-left py-2 pr-4">Area (sq in)</th>
-                  <th className="text-left py-2">Volume (cups)</th>
+                  <th className="text-left py-2 pr-4">Area</th>
+                  <th className="text-left py-2">Volume</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600">
                 {[
-                  { pan: '8" round × 2"', area: "50", vol: "6" },
-                  { pan: '9" round × 2"', area: "64", vol: "8" },
-                  { pan: '8" square × 2"', area: "64", vol: "8" },
-                  { pan: '9" square × 2"', area: "81", vol: "10" },
-                  { pan: '9" × 13" × 2"', area: "117", vol: "14" },
-                  { pan: '10" Bundt', area: "79", vol: "12" },
+                  { pan: '8" (20 cm) round × 2"', areaSqIn: 50, volCups: 6 },
+                  { pan: '9" (23 cm) round × 2"', areaSqIn: 64, volCups: 8 },
+                  { pan: '8" (20 cm) square × 2"', areaSqIn: 64, volCups: 8 },
+                  { pan: '9" (23 cm) square × 2"', areaSqIn: 81, volCups: 10 },
+                  { pan: '9" × 13" (23×33 cm) × 2"', areaSqIn: 117, volCups: 14 },
+                  { pan: '10" (25 cm) Bundt', areaSqIn: 79, volCups: 12 },
                 ].map((row) => (
                   <tr key={row.pan} className="border-b border-gray-100">
                     <td className="py-2 pr-4">{row.pan}</td>
-                    <td className="py-2 pr-4">{row.area}</td>
-                    <td className="py-2">{row.vol}</td>
+                    <td className="py-2 pr-4">{row.areaSqIn} sq in <span className="text-gray-400">({sqInToSqCm(row.areaSqIn)} cm²)</span></td>
+                    <td className="py-2">{row.volCups} cups <span className="text-gray-400">({(row.volCups * 0.237).toFixed(1)}L)</span></td>
                   </tr>
                 ))}
               </tbody>

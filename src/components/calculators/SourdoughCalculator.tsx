@@ -11,6 +11,7 @@ import {
 
 type CalculatorMode = "starter" | "bread";
 type FeedingRatio = "1:1:1" | "1:2:2" | "1:3:3" | "1:5:5" | "1:10:10";
+type WeightUnit = "g" | "oz";
 
 interface FeedingRatioInfo {
   flour: number;
@@ -27,9 +28,26 @@ const feedingRatios: Record<FeedingRatio, FeedingRatioInfo> = {
   "1:10:10": { flour: 10, water: 10, peakTime: "18-24+ hours", bestFor: "Reviving neglected starters" },
 };
 
+// Unit conversion helpers
+const gToOz = (g: number) => g / 28.3495;
+const formatWeight = (g: number, unit: WeightUnit) => {
+  if (unit === "oz") {
+    const oz = gToOz(g);
+    return oz >= 16 ? `${(oz / 16).toFixed(2)} lb` : `${oz.toFixed(2)} oz`;
+  }
+  return g >= 1000 ? `${(g / 1000).toFixed(2)} kg` : `${g}g`;
+};
+const formatWeightShort = (g: number, unit: WeightUnit) => {
+  if (unit === "oz") {
+    return `${gToOz(g).toFixed(1)} oz`;
+  }
+  return `${g}g`;
+};
+
 export default function SourdoughCalculator() {
   const [mode, setMode] = useState<CalculatorMode>("bread");
   const [showResults, setShowResults] = useState<boolean>(false);
+  const [weightUnit, setWeightUnit] = useState<WeightUnit>("g");
 
   const resetResults = useCallback(() => setShowResults(false), []);
 
@@ -125,12 +143,41 @@ export default function SourdoughCalculator() {
           </button>
         </div>
 
+        {/* Weight Unit Toggle */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Weight Units
+          </label>
+          <div className="inline-flex rounded-lg overflow-hidden border border-gray-200">
+            <button
+              onClick={() => setWeightUnit("g")}
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                weightUnit === "g"
+                  ? "bg-coral text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Grams (g)
+            </button>
+            <button
+              onClick={() => setWeightUnit("oz")}
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                weightUnit === "oz"
+                  ? "bg-coral text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Ounces (oz)
+            </button>
+          </div>
+        </div>
+
         {mode === "starter" ? (
           <>
             {/* Starter Feeding Mode */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Amount of Starter to Keep (g)
+                Amount of Starter to Keep ({weightUnit})
               </label>
               <input
                 type="number"
@@ -181,19 +228,19 @@ export default function SourdoughCalculator() {
               <div className="grid grid-cols-3 gap-3">
                 <StatCard
                   label="Starter"
-                  value={`${starterAmount}g`}
+                  value={formatWeightShort(starterAmount, weightUnit)}
                   sublabel="keep"
                   color="coral"
                 />
                 <StatCard
                   label="Add Total"
-                  value={`${starterResults.flour + starterResults.water}g`}
-                  sublabel={`${starterResults.flour}g flour + ${starterResults.water}g water`}
+                  value={formatWeightShort(starterResults.flour + starterResults.water, weightUnit)}
+                  sublabel={`${formatWeightShort(starterResults.flour, weightUnit)} flour + ${formatWeightShort(starterResults.water, weightUnit)} water`}
                   color="blue"
                 />
                 <StatCard
                   label="After Feed"
-                  value={`${starterResults.total}g`}
+                  value={formatWeightShort(starterResults.total, weightUnit)}
                   sublabel={`${(starterResults.total / starterAmount).toFixed(0)}x growth`}
                   color="green"
                 />
@@ -217,9 +264,9 @@ export default function SourdoughCalculator() {
               <div className="p-5 bg-gradient-to-br from-coral/10 to-coral/5 border border-coral/20 rounded-xl text-center">
                 <p className="text-sm text-gray-600 mb-1">Feeding at {feedingRatio} ratio</p>
                 <p className="text-3xl font-bold text-gray-900">
-                  {starterAmount}g + {starterResults.flour}g + {starterResults.water}g
+                  {formatWeightShort(starterAmount, weightUnit)} + {formatWeightShort(starterResults.flour, weightUnit)} + {formatWeightShort(starterResults.water, weightUnit)}
                 </p>
-                <p className="text-gray-600 mt-1">= {starterResults.total}g total starter</p>
+                <p className="text-gray-600 mt-1">= {formatWeight(starterResults.total, weightUnit)} total starter</p>
               </div>
 
               {/* Ingredient Table */}
@@ -236,24 +283,36 @@ export default function SourdoughCalculator() {
                     <tr>
                       <td className="py-2 px-4 text-gray-700">Mature Starter</td>
                       <td className="py-2 px-4 text-right text-gray-600">1</td>
-                      <td className="py-2 px-4 text-right font-semibold text-gray-900">{starterAmount}g</td>
+                      <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                        {formatWeightShort(starterAmount, weightUnit)}
+                        <span className="text-xs text-gray-500 ml-1">({formatWeightShort(starterAmount, weightUnit === "g" ? "oz" : "g")})</span>
+                      </td>
                     </tr>
                     <tr>
                       <td className="py-2 px-4 text-gray-700">Flour (all-purpose or bread)</td>
                       <td className="py-2 px-4 text-right text-gray-600">{feedingRatios[feedingRatio].flour}</td>
-                      <td className="py-2 px-4 text-right font-semibold text-gray-900">{starterResults.flour}g</td>
+                      <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                        {formatWeightShort(starterResults.flour, weightUnit)}
+                        <span className="text-xs text-gray-500 ml-1">({formatWeightShort(starterResults.flour, weightUnit === "g" ? "oz" : "g")})</span>
+                      </td>
                     </tr>
                     <tr>
                       <td className="py-2 px-4 text-gray-700">Water (room temp)</td>
                       <td className="py-2 px-4 text-right text-gray-600">{feedingRatios[feedingRatio].water}</td>
-                      <td className="py-2 px-4 text-right font-semibold text-gray-900">{starterResults.water}g</td>
+                      <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                        {formatWeightShort(starterResults.water, weightUnit)}
+                        <span className="text-xs text-gray-500 ml-1">({formatWeightShort(starterResults.water, weightUnit === "g" ? "oz" : "g")})</span>
+                      </td>
                     </tr>
                   </tbody>
                   <tfoot className="bg-gray-50">
                     <tr>
                       <td className="py-2 px-4 font-medium text-gray-900">Total</td>
                       <td className="py-2 px-4"></td>
-                      <td className="py-2 px-4 text-right font-bold text-gray-900">{starterResults.total}g</td>
+                      <td className="py-2 px-4 text-right font-bold text-gray-900">
+                        {formatWeight(starterResults.total, weightUnit)}
+                        <span className="text-xs text-gray-500 ml-1">({formatWeight(starterResults.total, weightUnit === "g" ? "oz" : "g")})</span>
+                      </td>
                     </tr>
                   </tfoot>
                 </table>
@@ -298,7 +357,7 @@ export default function SourdoughCalculator() {
               {/* Copy Button */}
               <button
                 onClick={() => {
-                  const formula = `Sourdough Starter Feed (${feedingRatio})\n${"=".repeat(30)}\n\nKeep: ${starterAmount}g starter\nAdd: ${starterResults.flour}g flour\nAdd: ${starterResults.water}g water\nTotal: ${starterResults.total}g\n\nPeak time: ${starterResults.peakTime} at 75°F`;
+                  const formula = `Sourdough Starter Feed (${feedingRatio})\n${"=".repeat(30)}\n\nKeep: ${starterAmount}g / ${gToOz(starterAmount).toFixed(1)} oz starter\nAdd: ${starterResults.flour}g / ${gToOz(starterResults.flour).toFixed(1)} oz flour\nAdd: ${starterResults.water}g / ${gToOz(starterResults.water).toFixed(1)} oz water\nTotal: ${starterResults.total}g / ${gToOz(starterResults.total).toFixed(1)} oz\n\nPeak time: ${starterResults.peakTime} at 75°F (24°C)`;
                   navigator.clipboard.writeText(formula);
                 }}
                 className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
@@ -327,7 +386,7 @@ export default function SourdoughCalculator() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Flour per Loaf (g)
+                  Flour per Loaf ({weightUnit})
                 </label>
                 <input
                   type="number"
@@ -421,13 +480,13 @@ export default function SourdoughCalculator() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <StatCard
                   label="Total Dough"
-                  value={`${breadResults.totalDough}g`}
-                  sublabel={`${(breadResults.totalDough / 1000).toFixed(2)} kg`}
+                  value={formatWeight(breadResults.totalDough, weightUnit)}
+                  sublabel={formatWeight(breadResults.totalDough, weightUnit === "g" ? "oz" : "g")}
                   color="coral"
                 />
                 <StatCard
                   label="Per Loaf"
-                  value={`${breadResults.doughPerLoaf}g`}
+                  value={formatWeightShort(breadResults.doughPerLoaf, weightUnit)}
                   sublabel={`${loafCount} loaf${loafCount !== 1 ? "s" : ""}`}
                   color="blue"
                 />
@@ -439,7 +498,7 @@ export default function SourdoughCalculator() {
                 />
                 <StatCard
                   label="Starter"
-                  value={`${breadResults.starter}g`}
+                  value={formatWeightShort(breadResults.starter, weightUnit)}
                   sublabel={`${starterPercent}% inoculation`}
                   color="amber"
                 />
@@ -482,10 +541,10 @@ export default function SourdoughCalculator() {
               <div className="p-5 bg-gradient-to-br from-coral/10 to-coral/5 border border-coral/20 rounded-xl text-center">
                 <p className="text-sm text-gray-600 mb-1">Your sourdough recipe makes</p>
                 <p className="text-3xl font-bold text-gray-900">
-                  {loafCount} loaf{loafCount !== 1 ? "s" : ""} × {breadResults.doughPerLoaf}g
+                  {loafCount} loaf{loafCount !== 1 ? "s" : ""} × {formatWeightShort(breadResults.doughPerLoaf, weightUnit)}
                 </p>
                 <p className="text-gray-600 mt-1">
-                  {breadResults.totalDough}g total • {breadResults.trueHydration}% true hydration
+                  {formatWeight(breadResults.totalDough, weightUnit)} total • {breadResults.trueHydration}% true hydration
                 </p>
               </div>
 
@@ -505,29 +564,44 @@ export default function SourdoughCalculator() {
                       <tr className="bg-amber-50">
                         <td className="py-2 px-4 font-medium text-gray-900">Bread Flour</td>
                         <td className="py-2 px-4 text-right text-gray-700">100%</td>
-                        <td className="py-2 px-4 text-right font-semibold text-gray-900">{breadResults.flour}g</td>
+                        <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                          {formatWeightShort(breadResults.flour, weightUnit)}
+                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(breadResults.flour, weightUnit === "g" ? "oz" : "g")})</span>
+                        </td>
                       </tr>
                       <tr>
                         <td className="py-2 px-4 text-gray-700">Water</td>
                         <td className="py-2 px-4 text-right text-gray-600">{hydration}%</td>
-                        <td className="py-2 px-4 text-right font-semibold text-gray-900">{breadResults.water}g</td>
+                        <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                          {formatWeightShort(breadResults.water, weightUnit)}
+                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(breadResults.water, weightUnit === "g" ? "oz" : "g")})</span>
+                        </td>
                       </tr>
                       <tr>
                         <td className="py-2 px-4 text-gray-700">Sourdough Starter ({starterHydration}%)</td>
                         <td className="py-2 px-4 text-right text-gray-600">{starterPercent}%</td>
-                        <td className="py-2 px-4 text-right font-semibold text-gray-900">{breadResults.starter}g</td>
+                        <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                          {formatWeightShort(breadResults.starter, weightUnit)}
+                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(breadResults.starter, weightUnit === "g" ? "oz" : "g")})</span>
+                        </td>
                       </tr>
                       <tr>
                         <td className="py-2 px-4 text-gray-700">Salt</td>
                         <td className="py-2 px-4 text-right text-gray-600">{saltPercent}%</td>
-                        <td className="py-2 px-4 text-right font-semibold text-gray-900">{breadResults.salt}g</td>
+                        <td className="py-2 px-4 text-right font-semibold text-gray-900">
+                          {formatWeightShort(breadResults.salt, weightUnit)}
+                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(breadResults.salt, weightUnit === "g" ? "oz" : "g")})</span>
+                        </td>
                       </tr>
                     </tbody>
                     <tfoot className="bg-gray-50">
                       <tr>
                         <td className="py-2 px-4 font-medium text-gray-900">Total Dough</td>
                         <td className="py-2 px-4"></td>
-                        <td className="py-2 px-4 text-right font-bold text-gray-900">{breadResults.totalDough}g</td>
+                        <td className="py-2 px-4 text-right font-bold text-gray-900">
+                          {formatWeight(breadResults.totalDough, weightUnit)}
+                          <span className="text-xs text-gray-500 ml-1">({formatWeight(breadResults.totalDough, weightUnit === "g" ? "oz" : "g")})</span>
+                        </td>
                       </tr>
                     </tfoot>
                   </table>
@@ -539,20 +613,20 @@ export default function SourdoughCalculator() {
                 <h4 className="font-medium text-blue-900 mb-3">Levain Build (Night Before)</h4>
                 <div className="grid grid-cols-3 gap-4 text-center mb-3">
                   <div>
-                    <p className="text-2xl font-bold text-blue-800">{breadResults.levain.starter}g</p>
+                    <p className="text-2xl font-bold text-blue-800">{formatWeightShort(breadResults.levain.starter, weightUnit)}</p>
                     <p className="text-xs text-blue-600">starter</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-blue-800">{breadResults.levain.flour}g</p>
+                    <p className="text-2xl font-bold text-blue-800">{formatWeightShort(breadResults.levain.flour, weightUnit)}</p>
                     <p className="text-xs text-blue-600">flour</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-blue-800">{breadResults.levain.water}g</p>
+                    <p className="text-2xl font-bold text-blue-800">{formatWeightShort(breadResults.levain.water, weightUnit)}</p>
                     <p className="text-xs text-blue-600">water</p>
                   </div>
                 </div>
                 <p className="text-sm text-blue-800 text-center">
-                  = <strong>{breadResults.levain.total}g</strong> levain (builds 20% extra for waste)
+                  = <strong>{formatWeight(breadResults.levain.total, weightUnit)}</strong> levain (builds 20% extra for waste)
                 </p>
                 <p className="text-xs text-blue-600 text-center mt-2">
                   Feed before bed, use at peak in the morning
@@ -565,7 +639,7 @@ export default function SourdoughCalculator() {
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
                     <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">Night Before</span>
-                    <p className="text-gray-700">Build levain with {breadResults.levain.starter}g + {breadResults.levain.flour}g + {breadResults.levain.water}g</p>
+                    <p className="text-gray-700">Build levain with {formatWeightShort(breadResults.levain.starter, weightUnit)} + {formatWeightShort(breadResults.levain.flour, weightUnit)} + {formatWeightShort(breadResults.levain.water, weightUnit)}</p>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">8:00 AM</span>
@@ -585,7 +659,7 @@ export default function SourdoughCalculator() {
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="bg-green-100 text-green-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">Next Day</span>
-                    <p className="text-gray-700">Bake in preheated Dutch oven at 500°F (450°F uncovered)</p>
+                    <p className="text-gray-700">Bake in preheated Dutch oven at 500°F (260°C), then 450°F (230°C) uncovered</p>
                   </div>
                 </div>
               </div>
@@ -617,7 +691,7 @@ export default function SourdoughCalculator() {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => {
-                    const recipe = `Sourdough Bread Recipe\n${"=".repeat(30)}\nMakes ${loafCount} loaf${loafCount !== 1 ? "s" : ""} (${breadResults.doughPerLoaf}g each)\nTrue hydration: ${breadResults.trueHydration}%\n\nMain Dough:\n- Flour: ${breadResults.flour}g (100%)\n- Water: ${breadResults.water}g (${hydration}%)\n- Starter: ${breadResults.starter}g (${starterPercent}%)\n- Salt: ${breadResults.salt}g (${saltPercent}%)\nTotal: ${breadResults.totalDough}g\n\nLevain Build (night before):\n${breadResults.levain.starter}g starter + ${breadResults.levain.flour}g flour + ${breadResults.levain.water}g water = ${breadResults.levain.total}g`;
+                    const recipe = `Sourdough Bread Recipe\n${"=".repeat(30)}\nMakes ${loafCount} loaf${loafCount !== 1 ? "s" : ""} (${breadResults.doughPerLoaf}g / ${gToOz(breadResults.doughPerLoaf).toFixed(1)} oz each)\nTrue hydration: ${breadResults.trueHydration}%\n\nMain Dough:\n- Flour: ${breadResults.flour}g / ${gToOz(breadResults.flour).toFixed(1)} oz (100%)\n- Water: ${breadResults.water}g / ${gToOz(breadResults.water).toFixed(1)} oz (${hydration}%)\n- Starter: ${breadResults.starter}g / ${gToOz(breadResults.starter).toFixed(1)} oz (${starterPercent}%)\n- Salt: ${breadResults.salt}g / ${gToOz(breadResults.salt).toFixed(1)} oz (${saltPercent}%)\nTotal: ${breadResults.totalDough}g / ${gToOz(breadResults.totalDough).toFixed(1)} oz\n\nLevain Build (night before):\n${breadResults.levain.starter}g / ${gToOz(breadResults.levain.starter).toFixed(1)} oz starter\n${breadResults.levain.flour}g / ${gToOz(breadResults.levain.flour).toFixed(1)} oz flour\n${breadResults.levain.water}g / ${gToOz(breadResults.levain.water).toFixed(1)} oz water\n= ${breadResults.levain.total}g / ${gToOz(breadResults.levain.total).toFixed(1)} oz total\n\nBake at 500°F (260°C), then 450°F (230°C) uncovered`;
                     navigator.clipboard.writeText(recipe);
                   }}
                   className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
