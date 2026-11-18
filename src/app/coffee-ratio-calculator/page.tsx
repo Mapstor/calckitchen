@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import CoffeeRatioCalculator from "@/components/calculators/CoffeeRatioCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Coffee to Water Ratio Calculator — Every Brew Method",
@@ -91,6 +92,7 @@ export default function CoffeeRatioCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Coffee to Water Ratio Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Find the perfect coffee ratio for any brew method. Enter your cup size or coffee amount, select your method, and get exact measurements in grams and ounces. Whether you&apos;re dialing in pour over or making cold brew concentrate, get precision results every time.
           </p>

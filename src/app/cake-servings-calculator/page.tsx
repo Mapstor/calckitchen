@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import CakeServingsCalculator from "@/components/calculators/CakeServingsCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Cake Servings Calculator — How Many People Does a Cake Feed?",
@@ -91,6 +92,7 @@ export default function CakeServingsCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Cake Servings Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Find out how many people your cake will feed — or discover what size cake you need for your guest count. Works for round, square, sheet, and rectangular cakes. Based on{" "}
             <a

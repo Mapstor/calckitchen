@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import RecipeScaler from "@/components/calculators/RecipeScaler";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Recipe Scaler Calculator — Double, Halve, or Resize Any Recipe Instantly",
@@ -91,6 +92,7 @@ export default function RecipeScalerPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Recipe Scaler Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Double, halve, or resize any recipe instantly. Paste your ingredient list, set your scale factor, and get perfectly calculated quantities — with smart warnings for eggs, leavening, and seasonings.
           </p>

@@ -36,7 +36,7 @@ export default function PrivacyPolicyPage() {
             </h1>
             <p className="text-gray-600">
               <strong>Effective Date:</strong> February 21, 2026<br />
-              <strong>Last Updated:</strong> February 21, 2026
+              <strong>Last Updated:</strong> November 18, 2026
             </p>
           </div>
         </section>
@@ -240,9 +240,9 @@ export default function PrivacyPolicyPage() {
                 International Users
               </h2>
               <p className="text-gray-700">
-                CalcKitchen is operated from the United States. If you are visiting from outside the United
-                States, please be aware that your information may be transferred to, stored, and processed in
-                the United States where our servers and third-party service providers operate.
+                CalcKitchen is operated by Moving Data Systems d.o.o., Smolnik 62, 2342 Ruse, Slovenia. The site
+                is hosted by Vercel, and the third-party services described above may process your information in
+                the United States and other countries.
               </p>
 
               <h2 className="font-serif text-2xl font-bold text-gray-900 mt-10 mb-4">

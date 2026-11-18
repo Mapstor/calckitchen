@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import CookingMeasurementConverter from "@/components/calculators/CookingMeasurementConverter";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Cooking Measurement Converter — Cups, Tablespoons, Grams, Ounces",
@@ -91,6 +92,7 @@ export default function CookingMeasurementConverterPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Kitchen Measurement Converter
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Convert between cups, tablespoons, teaspoons, grams, ounces, and milliliters. Switch to Ingredient Mode for weight conversions that account for density — because 1 cup of flour doesn't weigh the same as 1 cup of sugar.
           </p>

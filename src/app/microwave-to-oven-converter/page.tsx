@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import MicrowaveToOvenConverter from "@/components/calculators/MicrowaveToOvenConverter";
+import { Byline } from "@/components/ui/Byline";
 import {
   FAQPageJsonLd,
   WebApplicationJsonLd,
@@ -122,6 +123,7 @@ export default function MicrowaveToOvenConverterPage() {
           <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Microwave to Oven Converter — Times, Temperatures & Wattage Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-600 mb-8 max-w-2xl">
             Convert microwave cooking times to oven times (and back). Plus a complete
             database of how long to microwave potatoes, corn, bacon, and 40+ common foods.

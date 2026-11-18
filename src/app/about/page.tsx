@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
-import { BreadcrumbJsonLd, OrganizationJsonLd } from '@/components/seo/JsonLd';
+import { BreadcrumbJsonLd, OrganizationJsonLd, PersonJsonLd } from '@/components/seo/JsonLd';
+import { AUTHOR } from '@/data/author';
 
 export const metadata: Metadata = {
-  title: 'About CalcKitchen | Kitchen Math, Solved',
-  description: 'CalcKitchen offers 20 free kitchen calculators for cooking times, temperature conversions, recipe scaling, and more. Built on USDA data and professional culinary standards.',
+  title: { absolute: 'About CalcKitchen' },
+  description: 'Who makes CalcKitchen: Marko Visic, MPharm (Faculty of Pharmacy, University of Ljubljana, Slovenia). 20 free kitchen calculators and where their food-safety figures come from.',
   openGraph: {
-    title: 'About CalcKitchen | Kitchen Math, Solved',
-    description: 'CalcKitchen offers 20 free kitchen calculators for cooking times, temperature conversions, recipe scaling, and more. Built on USDA data and professional culinary standards.',
+    title: 'About CalcKitchen',
+    description: 'Who makes CalcKitchen: Marko Visic, MPharm (Faculty of Pharmacy, University of Ljubljana, Slovenia). 20 free kitchen calculators and where their food-safety figures come from.',
     url: 'https://calckitchen.com/about',
     siteName: 'CalcKitchen',
     type: 'website',
@@ -31,6 +33,7 @@ export default function AboutPage() {
         url="https://calckitchen.com"
         description="Free kitchen calculators for cooking times, temperature conversions, recipe scaling, and more."
       />
+      <PersonJsonLd />
 
       <div className="min-h-screen bg-[#FAFAF8]">
         {/* Hero Section */}
@@ -59,6 +62,34 @@ export default function AboutPage() {
             <p className="text-xl text-gray-700 leading-relaxed">
               We&apos;ve been there. And we built CalcKitchen to make sure nobody has to guess.
             </p>
+          </section>
+
+          {/* Who makes CalcKitchen */}
+          <section id="author-bio" className="mb-12 scroll-mt-24">
+            <h2 className="font-serif text-3xl font-bold text-gray-900 mb-6">Who makes CalcKitchen</h2>
+            <div className="flex flex-col sm:flex-row gap-6 items-start bg-white rounded-lg p-6 border border-gray-100">
+              <Image
+                src={AUTHOR.image}
+                alt="Portrait of Marko Visic"
+                width={120}
+                height={120}
+                className="rounded-full shrink-0"
+              />
+              <div className="text-gray-700 space-y-3">
+                <p className="text-xl font-semibold text-gray-900">
+                  {AUTHOR.name}, {AUTHOR.credential}
+                </p>
+                <p>
+                  Marko holds an MPharm from the Faculty of Pharmacy, University of Ljubljana, Slovenia.
+                  He builds CalcKitchen&apos;s calculators and writes its pages.
+                </p>
+                <p>
+                  <a href={AUTHOR.linkedin} rel="me noopener" target="_blank" className="text-[#E8604C] underline underline-offset-2">
+                    Marko Visic on LinkedIn
+                  </a>
+                </p>
+              </div>
+            </div>
           </section>
 
           {/* Our Story */}
@@ -179,7 +210,7 @@ export default function AboutPage() {
                 We take accuracy seriously — because in the kitchen, a few degrees or a few minutes
                 can be the difference between perfectly cooked and overcooked, between safe to eat and not.
               </p>
-              <p>Every calculator on CalcKitchen is built on data from trusted, authoritative sources:</p>
+              <p>Safe temperatures, cooking times and thawing times come from these sources:</p>
             </div>
 
             <div className="mt-6 space-y-4">
@@ -206,21 +237,10 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 bg-white rounded-lg p-4 border border-gray-100">
-                <div className="w-2 h-2 rounded-full bg-[#E8604C] mt-2.5 flex-shrink-0"></div>
-                <div>
-                  <strong className="text-gray-900">Professional cooking standards</strong>
-                  <p className="text-gray-600 mt-1">
-                    Our conversion formulas, appliance adjustment factors, baker&apos;s percentages,
-                    and serving size guidelines are drawn from professional culinary industry standards,
-                    cross-referenced with real-world testing.
-                  </p>
-                </div>
-              </div>
             </div>
 
             <p className="text-gray-700 mt-6">
-              We update our data regularly. When we recommend you use a food thermometer (and we will — often),
+              When we recommend you use a food thermometer (and we will — often),
               it&apos;s because no calculator can replace one. We give you the best possible estimate;
               the thermometer gives you the confirmation.
             </p>

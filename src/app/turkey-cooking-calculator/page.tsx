@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import TurkeyCookingCalculator from "@/components/calculators/TurkeyCookingCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 const SRC = {
   roast: "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/poultry/lets-talk-turkey-roasting",
@@ -126,6 +127,7 @@ export default function TurkeyCookingCalculatorPage() {
       <section className="bg-gradient-to-b from-warm-white to-white py-8 md:py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">Turkey Cooking Time Calculator</h1>
+          <Byline updated="2026-11-18" />
           <p className="text-lg text-gray-700 mb-3">
             How long to cook a whole turkey by weight, straight from the{" "}
             <a href={SRC.roast} target="_blank" rel="noopener noreferrer" className="text-coral hover:underline">

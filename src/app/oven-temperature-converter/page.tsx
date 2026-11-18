@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import OvenTemperatureConverter from "@/components/calculators/OvenTemperatureConverter";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Oven Temperature Converter — Fahrenheit, Celsius & Gas Mark Chart",
@@ -91,6 +92,7 @@ export default function OvenTemperatureConverterPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Oven Temperature Converter — °F, °C & Gas Mark
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Convert oven temperatures between Fahrenheit, Celsius, and Gas Mark instantly. Type in any one value and the other two update automatically.
           </p>

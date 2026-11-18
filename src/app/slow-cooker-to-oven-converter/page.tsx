@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import SlowCookerConverter from "@/components/calculators/SlowCookerConverter";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Slow Cooker to Oven Converter Calculator (+ Instant Pot & Dutch Oven)",
@@ -91,6 +92,7 @@ export default function SlowCookerConverterPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Slow Cooker to Oven Converter
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Convert cooking times between slow cooker, oven, Instant Pot, stovetop, and Dutch oven — with automatic liquid adjustments and helpful tips.
           </p>

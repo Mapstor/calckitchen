@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import MeatTemperatureChart from "@/components/calculators/MeatTemperatureChart";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Meat Internal Temperature Chart — USDA Safe Cooking Temps & Doneness Guide",
@@ -91,6 +92,7 @@ export default function MeatTemperatureChartPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Safe Meat Cooking Temperatures — USDA Chart
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Complete internal temperature chart for beef, pork, chicken, lamb, turkey, fish, and more. Includes USDA safe temps, doneness levels, and carryover cooking guide.
           </p>

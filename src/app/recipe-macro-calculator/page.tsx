@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import RecipeMacroCalculator from "@/components/calculators/RecipeMacroCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Recipe Macro Calculator — Calories, Protein, Carbs & Fat Per Serving",
@@ -91,6 +92,7 @@ export default function RecipeMacroCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Recipe Macro Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Calculate the calories and macros in any recipe. Enter your ingredients to get protein, carbs, fat, fiber, and calories per serving. Powered by USDA FoodData Central.
           </p>

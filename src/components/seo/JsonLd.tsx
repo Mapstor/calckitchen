@@ -1,3 +1,5 @@
+import { AUTHOR } from "@/data/author";
+
 interface FAQ {
   question: string;
   answer: string;
@@ -49,6 +51,7 @@ export function WebApplicationJsonLd({
     url,
     applicationCategory,
     operatingSystem: "Any",
+    author: { "@type": "Person", "@id": AUTHOR.id, name: AUTHOR.name },
     offers: {
       "@type": "Offer",
       price: "0",
@@ -136,6 +139,35 @@ export function OrganizationJsonLd({
     url,
     description,
     ...(logo && { logo }),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+export function PersonJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": AUTHOR.id,
+    name: AUTHOR.name,
+    honorificSuffix: AUTHOR.credential,
+    url: AUTHOR.id,
+    image: `https://calckitchen.com${AUTHOR.image}`,
+    description: `${AUTHOR.name} holds an MPharm from the Faculty of Pharmacy, University of Ljubljana, Slovenia, and makes CalcKitchen.`,
+    alumniOf: { "@type": "CollegeOrUniversity", name: "University of Ljubljana", department: { "@type": "Organization", name: "Faculty of Pharmacy" } },
+    hasCredential: {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "degree",
+      name: "Master of Pharmacy (MPharm)",
+      recognizedBy: { "@type": "CollegeOrUniversity", name: "University of Ljubljana" },
+    },
+    knowsAbout: ["Pharmacy"],
+    sameAs: [AUTHOR.linkedin],
   };
 
   return (

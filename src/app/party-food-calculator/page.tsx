@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import PartyFoodCalculator from "@/components/calculators/PartyFoodCalculator";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { Byline } from "@/components/ui/Byline";
 
 export const metadata: Metadata = {
   title: "Party Food Calculator — How Much Food Per Person",
@@ -91,6 +92,7 @@ export default function PartyFoodCalculatorPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Party Food Calculator
           </h1>
+          <Byline />
           <p className="text-lg text-gray-700 mb-8">
             Calculate exactly how much food you need for your party. Enter your guest count, event type, and get instant quantities for appetizers, mains, sides, and drinks.
           </p>
