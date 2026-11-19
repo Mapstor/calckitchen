@@ -5,6 +5,8 @@ import LiveDial from "@/components/instrument/LiveDial";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { SRC_WILTON, WILTON } from "@/data/wilton";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/cake-servings-calculator";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on Wilton's cake serving chart
@@ -120,6 +122,25 @@ export default function CakeServingsPage() {
             both cut the full height of the cake. Height changes less than you might think: cakes 3 to 6 inches tall in the same pan give the
             same number of servings, and a cake under 3 inches tall gives half.
           </p>
+          <Dumbbells
+            title="Round cakes: party and wedding servings"
+            label="Party and wedding servings for round two-layer cakes"
+            min={0}
+            step={20}
+            unit="servings"
+            keys={[
+              { name: "Party slices, 1½ × 2 in.", tone: TONE.blue },
+              { name: "Wedding slices, 1 × 2 in.", tone: TONE.orange },
+            ]}
+            rows={WILTON.filter((r) => r.shape === "Round").map((r) => ({
+              name: `${r.size} round`,
+              marks: [
+                { lo: r.party, tone: TONE.blue },
+                { lo: r.wedding, tone: TONE.orange },
+              ],
+              text: `${r.party} · ${r.wedding}`,
+            }))}
+          />
         </Sec>
 
         <Sec title="Tiered cakes">

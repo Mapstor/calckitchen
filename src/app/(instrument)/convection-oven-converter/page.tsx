@@ -6,6 +6,8 @@ import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { CONV, SRC_CONV, bakeF, roastMin } from "@/data/convection";
 import { fToC } from "@/data/oven-temps";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/convection-oven-converter";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on Frigidaire and GE Appliances guidance
@@ -122,6 +124,17 @@ export default function ConvectionOvenConverterPage() {
             rows={TEMPS.map((f) => [`${f}°F`, `${bakeF(f)}°F`, `${r0(fToC(f))}°C`, `${r0(fToC(bakeF(f)))}°C`])}
           />
           <p className="p-note">Celsius values are the Fahrenheit settings converted and rounded to whole degrees.</p>
+          <Dumbbells
+            title="Recipe temperature and convection bake temperature"
+            label="Convection bake temperatures"
+            step={50}
+            unit="°F"
+            keys={[
+              { name: "Recipe, regular oven", tone: TONE.blue },
+              { name: "Convection bake", tone: TONE.orange },
+            ]}
+            rows={TEMPS.map((f) => ({ name: `${f}°F recipe`, marks: [{ lo: f, tone: TONE.blue }, { lo: bakeF(f), tone: TONE.orange }], text: `${bakeF(f)}°F` }))}
+          />
         </Sec>
 
         <Sec title="Convection roast times">

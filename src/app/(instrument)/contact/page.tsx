@@ -6,7 +6,7 @@ import { RAIL_DEFAULT } from "@/data/site-nav";
 
 const UPDATED = "2026-11-19"; // CK-009: contact page in the picked look
 const TITLE = "Contact CalcKitchen";
-const DESC = "Email CalcKitchen at hello@calckitchen.com about a wrong number, a broken calculator or a calculator you'd like to see.";
+const DESC = "Email CalcKitchen at info@calckitchen.com about a wrong number, a broken calculator or a calculator you'd like to see.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -33,7 +33,7 @@ export default function ContactPage() {
         h1="Contact CalcKitchen"
         answer={
           <>
-            Email <a href="mailto:hello@calckitchen.com">hello@calckitchen.com</a>.
+            Email <a href="mailto:info@calckitchen.com">info@calckitchen.com</a>.
           </>
         }
         sub="About a wrong number, a calculator that misbehaves, or a calculator you would like to see."

@@ -4,6 +4,7 @@ import PartyFoodCalculator from "@/components/calculators/PartyFoodCalculator";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { ITEMS, SRC_PARTY, totalText } from "@/data/party";
+import Bars, { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/party-food-calculator";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt on the FDA and USDA reference amounts customarily consumed per eating occasion
@@ -109,6 +110,13 @@ export default function PartyFoodCalculatorPage() {
             head={["Food", "Per guest", "25 guests", "50 guests", "100 guests"]}
             hi={0}
             rows={ITEMS.map((i) => [i.name, i.per, totalText(i, 25), totalText(i, 50), totalText(i, 100)])}
+          />
+          <Bars
+            title="Grams per guest, for the foods weighed in grams"
+            label="Reference amount per guest"
+            rows={ITEMS.filter((i) => i.unit === "g")
+              .sort((a, b) => b.amount - a.amount)
+              .map((i) => ({ name: i.name, v: i.amount, text: `${i.amount} g`, tone: TONE.blue }))}
           />
         </Sec>
 

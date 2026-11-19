@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
         <Sec title="Who runs the site">
           <p className="p-p">
             CalcKitchen (calckitchen.com) is operated by Moving Data Systems d.o.o., Smolnik 62, 2342 Ruse, Slovenia, which is responsible for the
-            data described here. Contact: <a href="mailto:hello@calckitchen.com">hello@calckitchen.com</a>.
+            data described here. Contact: <a href="mailto:info@calckitchen.com">info@calckitchen.com</a>.
           </p>
         </Sec>
 
@@ -90,7 +90,7 @@ export default function PrivacyPolicyPage() {
             processing of your personal data, and to complain to a data protection authority; in Slovenia that is the Information Commissioner. We
             use Google Analytics on the basis of our legitimate interest in knowing how the site is used. California residents have the right to know
             what is collected and to ask for deletion; we don&apos;t sell personal information. For any request, email{" "}
-            <a href="mailto:hello@calckitchen.com">hello@calckitchen.com</a>.
+            <a href="mailto:info@calckitchen.com">info@calckitchen.com</a>.
           </p>
           <p className="p-p">
             Google and Vercel may process data in the United States and other countries. CalcKitchen is meant for a general audience and is not

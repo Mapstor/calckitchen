@@ -4,6 +4,8 @@ import MicrowaveToOvenConverter from "@/components/calculators/MicrowaveToOvenCo
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { SRC_MW, forWattage, toMicrowave } from "@/data/microwave";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/microwave-to-oven-converter";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt on GE Appliances' microwave recipe-conversion rules
@@ -117,6 +119,21 @@ export default function MicrowaveToOvenPage() {
             })}
           />
           <p className="p-note">GE also suggests about a third less liquid than the conventional recipe, though not always.</p>
+          <Dumbbells
+            title="Oven or stovetop time and the microwave time for it"
+            label="Oven or stovetop to microwave times"
+            min={0}
+            step={30}
+            unit="min"
+            keys={[
+              { name: "Oven or stovetop", tone: TONE.blue },
+              { name: "Microwave, ¼ to ⅓ of it", tone: TONE.orange },
+            ]}
+            rows={CONV.map((m) => {
+              const r = toMicrowave(m);
+              return { name: `${m} min`, marks: [{ lo: m, tone: TONE.blue }, { lo: r.lo, hi: r.hi, tone: TONE.orange }], text: `${r1(r.lo)}–${r1(r.hi)} min` };
+            })}
+          />
         </Sec>
 
         <Sec title="Half or double a microwave recipe">

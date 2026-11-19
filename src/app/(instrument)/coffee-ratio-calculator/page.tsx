@@ -4,6 +4,7 @@ import CoffeeRatioCalculator from "@/components/calculators/CoffeeRatioCalculato
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { METHODS, ML_PER_FLOZ, SRC_COFFEE, coffeeRange, d1, ratioText, waterGrams } from "@/data/coffee";
+import { RatioRows, TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/coffee-ratio-calculator";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt on the SCA brewer standard and the National Coffee Association's brewing guides
@@ -127,6 +128,15 @@ export default function CoffeeRatioCalculatorPage() {
               const r = coffeeRange(waterGrams(ml), m);
               return g(r.lo, r.hi);
             })])}
+          />
+          <RatioRows
+            title="The five ratios side by side: a longer row is a weaker brew"
+            label="Coffee ratios by method"
+            aName="Coffee"
+            bName="Water (espresso: the liquid shot)"
+            aTone={TONE.orange}
+            bTone={TONE.blue}
+            rows={METHODS.map((m) => ({ name: m.name, b: m.lo, bHi: m.hi, text: ratioText(m) }))}
           />
         </Sec>
 

@@ -4,6 +4,7 @@ import CookingMeasurementConverter from "@/components/calculators/CookingMeasure
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { FDC_FOOD, INGREDIENTS, MASS, SRC_MEASURES, VOL, dec, gramsPerCup, gtxt } from "@/data/measures";
+import Bars, { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/cooking-measurement-converter";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt; ingredient weights from USDA FoodData Central, units from NIST
@@ -141,6 +142,13 @@ export default function CookingMeasurementConverterPage() {
             })}
           />
           <p className="p-note">How you fill the cup changes the weight: USDA lists brown sugar at 220 g packed and 145 g unpacked.</p>
+          <Bars
+            title="What one cup weighs"
+            label="Grams in one US cup, USDA FoodData Central"
+            rows={INGREDIENTS.filter((i) => i.per === "cup")
+              .map((i) => ({ name: i.name, v: gramsPerCup(i), text: `${gtxt(gramsPerCup(i))} g`, tone: TONE.blue }))
+              .sort((a, b) => b.v - a.v)}
+          />
         </Sec>
 
         <Sec title="US volume measures">

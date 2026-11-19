@@ -4,6 +4,7 @@ import ButterConverter from "@/components/calculators/ButterConverter";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { CHART_GRAMS, CHART_STICKS, FDC_BUTTER, SRC_BUTTER, STICK_G, amt, fromSticks, grams, toSticks } from "@/data/butter";
+import Strips from "@/components/instrument/Strips";
 
 const URL = "https://calckitchen.com/butter-converter";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt on Land O'Lakes' stick table and USDA FoodData Central
@@ -176,6 +177,19 @@ export default function ButterConverterPage() {
               <strong>1 pound:</strong> 4 sticks.
             </li>
           </ul>
+          <Strips
+            title="The marks on two sticks"
+            label="Butter measured by the wrapper marks"
+            stripName="One tablespoon mark"
+            cells={8}
+            per={2}
+            rows={[
+              { name: "¼ cup", amount: 4, text: "4 marks" },
+              { name: "⅓ cup", amount: 16 / 3, text: "5⅓ marks" },
+              { name: "½ cup", amount: 8, text: "1 stick" },
+              { name: "¾ cup", amount: 12, text: "1 stick + 4 marks" },
+            ]}
+          />
         </Sec>
 
         <Sec title="Calories and fat in butter">

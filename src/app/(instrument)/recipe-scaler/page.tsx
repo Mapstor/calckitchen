@@ -4,6 +4,7 @@ import RecipeScaler from "@/components/calculators/RecipeScaler";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { EGG_G, SRC_SCALE, measure, toTsp, type EggSize } from "@/data/scaler";
+import Strips from "@/components/instrument/Strips";
 
 const URL = "https://calckitchen.com/recipe-scaler";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt; cup and spoon measures from NIST, egg weights from USDA FoodData Central
@@ -136,6 +137,24 @@ export default function RecipeScalerPage() {
             label="Half and double of common cup and spoon measures"
             head={["Recipe says", "Half", "Double"]}
             rows={MEASURES.map(([label, q, u]) => [label, measure(toTsp(q / 2, u)), measure(toTsp(q * 2, u))])}
+          />
+          <Strips
+            title="A cup is 16 tablespoons, a tablespoon 3 teaspoons"
+            label="Cup fractions in tablespoons and teaspoons"
+            stripName="Tablespoon; the small marks are teaspoons"
+            cells={16}
+            minor={3}
+            rows={[
+              ["¼ cup", 1 / 4],
+              ["⅓ cup", 1 / 3],
+              ["½ cup", 1 / 2],
+              ["⅔ cup", 2 / 3],
+              ["¾ cup", 3 / 4],
+            ].map(([name, q]) => {
+              const tsp = Math.round(toTsp(q as number, "cup"));
+              const tb = Math.floor(tsp / 3);
+              return { name: name as string, amount: tsp / 3, text: `${tb} tbsp${tsp - 3 * tb ? ` + ${tsp - 3 * tb} tsp` : ""}` };
+            })}
           />
         </Sec>
 

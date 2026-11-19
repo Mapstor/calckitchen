@@ -5,6 +5,8 @@ import LiveDial from "@/components/instrument/LiveDial";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { NAPOLETANA as N, NAPOLETANA_PCT as P, SRC_BAKERS, bakersPct, d1 } from "@/data/bakers";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/pizza-dough-calculator";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on the EU Pizza Napoletana rules and King Arthur's baker's percentage
@@ -19,6 +21,8 @@ export const metadata: Metadata = {
   alternates: { canonical: URL },
 };
 
+/** minutes as "6 h 20 min" */
+const hm = (min: number) => `${Math.floor(min / 60)} h${min % 60 ? ` ${min % 60} min` : ""}`;
 const faqs: QA[] = [
   {
     question: "What is the hydration of Neapolitan pizza dough?",
@@ -125,6 +129,44 @@ export default function PizzaDoughCalculatorPage() {
             ]}
           />
           <p className="p-note">1 litre of water is taken as 1000 g. The calculator uses the middle of the salt range, 52.5 g.</p>
+          <Dumbbells
+            title={`From kneading to the oven: ${hm(N.kneadMin + 60 * (N.firstRiseH + N.secondRiseLoH))} to ${hm(N.kneadMin + 60 * (N.firstRiseH + N.secondRiseHiH))}`}
+            label="Pizza Napoletana timeline"
+            min={0}
+            step={1}
+            unit="hours"
+            keys={[
+              { name: "Knead", tone: TONE.ink },
+              { name: "First rise", tone: TONE.blue },
+              { name: "Second rise, as dough balls", tone: TONE.orange },
+              { name: `Up to ${N.secondRiseHiH} hours`, tone: "#F6C9B0" },
+              { name: "Into the oven", tone: TONE.purple },
+            ]}
+            rows={[
+              { name: "Knead", marks: [{ lo: 0, hi: N.kneadMin / 60, tone: TONE.ink }], text: `${N.kneadMin} min` },
+              {
+                name: "First rise",
+                marks: [{ lo: N.kneadMin / 60, hi: N.kneadMin / 60 + N.firstRiseH, tone: TONE.blue }],
+                text: `${N.firstRiseH} h at ${N.fermentC}°C`,
+              },
+              {
+                name: "Second rise",
+                marks: [
+                  { lo: N.kneadMin / 60 + N.firstRiseH, hi: N.kneadMin / 60 + N.firstRiseH + N.secondRiseLoH, tone: TONE.orange },
+                  { lo: N.kneadMin / 60 + N.firstRiseH + N.secondRiseLoH, hi: N.kneadMin / 60 + N.firstRiseH + N.secondRiseHiH, tone: "#F6C9B0" },
+                ],
+                text: `${N.secondRiseLoH} to ${N.secondRiseHiH} h`,
+              },
+              {
+                name: "Bake",
+                marks: [
+                  { lo: N.kneadMin / 60 + N.firstRiseH + N.secondRiseLoH, tone: TONE.purple },
+                  { lo: N.kneadMin / 60 + N.firstRiseH + N.secondRiseHiH, tone: TONE.purple },
+                ],
+                text: `${N.bakeLoS}–${N.bakeHiS} s at ${N.ovenC}°C`,
+              },
+            ]}
+          />
         </Sec>
 
         <Sec title="How the calculator works">

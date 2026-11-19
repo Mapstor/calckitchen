@@ -5,6 +5,8 @@ import LiveKnob from "@/components/instrument/LiveKnob";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { GAS_ROWS, SRC_OVEN, cToF, fToC, fmt1 } from "@/data/oven-temps";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/oven-temperature-converter";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on NIST, Which? and Hotpoint figures
@@ -166,6 +168,17 @@ export default function OvenTemperatureConverterPage() {
             follows that: gas mark 4 is 180°C, or 160°C with the fan on. US recipes for convection ovens use Fahrenheit; the{" "}
             <Link href="/convection-oven-converter">convection oven converter</Link> handles those.
           </p>
+          <Dumbbells
+            title="Each gas mark: conventional and fan oven °C from the chart"
+            label="Conventional and fan oven temperatures"
+            step={40}
+            unit="°C"
+            keys={[
+              { name: "Conventional oven", tone: TONE.blue },
+              { name: "Fan oven", tone: TONE.orange },
+            ]}
+            rows={GAS_ROWS.map((r) => ({ name: `Gas mark ${r.gm}`, marks: [{ lo: r.c, tone: TONE.blue }, { lo: r.fan, tone: TONE.orange }], text: `${r.c} → ${r.fan}°C` }))}
+          />
         </Sec>
 
         <Faq faqs={faqs} />
