@@ -201,7 +201,7 @@ Scoreboard (2026-11-19)
 ### 2026-11-19 · CK-013 EU CONSENT + BRAND IMAGES · chat · done (preview; waiting for the owner's OK, not merged)
 - What: analytics consent for EU/EEA/UK/CH (D-11) and privacy text for it; icon, apple icon, OG and Twitter images redrawn with the thermometer mark and Public Sans from the repo (old ones: emoji + gradients, and the emoji made shell builds fail); og:image + page-level Twitter cards on all 25 pages (page openGraph had dropped the image); custom 404 listing every calculator; shared src/app/fonts.ts.
 - Verified: tsc 0 errors; eslint 0 errors on changed files; check:numbers 18 scripts, 0 failed, 0 skipped; full npm run build in the shell passes; next start: /no-such-page 404 with the new page; meta tags on /, /air-fryer-converter, /turkey-cooking-calculator, /privacy-policy carry og:image and their own twitter:title; portfolio-qa prose-score 0.15 tells/1k; sweep P0 0, P1 0 (was 1: default 404), P2 41.
-- Unverified until the preview check: consent bar behaviour in Chrome.
+- Chrome on the preview (Europe/Ljubljana): bar shows, Allow sets consent granted and _ga cookies, Cookie settings reopens it, No thanks sets denied and removes the 2 _ga cookies; phone 390 px bar fits, no sideways scroll; /no-such-page shows the new 404 with 20 calculator links. Unverified: a non-European visit (bar should stay hidden, analytics granted).
 - Commit: see branch (pushed: yes)
 
 ## §7 History & archive
