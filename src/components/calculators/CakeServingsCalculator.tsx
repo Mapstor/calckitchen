@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import CakeStack from "@/components/instrument/CakeStack";
 import { setLive } from "@/components/instrument/live";
 import { SHAPES, WILTON, frac } from "@/data/wilton";
 
@@ -68,6 +69,7 @@ export default function CakeServingsCalculator() {
         <Read v={fmtCups(batter)} u="cups" c="Batter, both layers of every tier" />
         <Read v={fmtCups(icing)} u="cups" c="Icing to ice and decorate" />
       </ul>
+      <CakeStack tiers={rows.map((r) => ({ shape: r.shape, size: r.size, party: r.party, wedding: r.wedding }))} />
     </div>
   );
 }

@@ -41,3 +41,8 @@ export const NAV = [
     ],
   },
 ] as const;
+
+/** every calculator, in menu order */
+export const ALL_TOOLS: { name: string; href: string }[] = NAV.reduce<{ name: string; href: string }[]>((a, g) => [...a, ...g.links], []);
+/** the rail on pages that aren't calculators */
+export const RAIL_DEFAULT = ALL_TOOLS.slice(0, 6).map((l) => ({ href: l.href, title: l.name }));

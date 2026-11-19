@@ -1,753 +1,283 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
-import {
-  StatCard,
-  InsightCard,
-  ComparisonBarChart,
-  ProgressRing,
-  CHART_COLORS,
-} from "@/components/charts";
+import { useEffect, useState } from "react";
+import Read from "@/components/instrument/Read";
+import { Split, StackBars, TONE } from "@/components/instrument/Bars";
+import { setLive } from "@/components/instrument/live";
+import { KA_FEED, build, dough, feed, gr, p1 } from "@/data/sourdough";
 
-type CalculatorMode = "starter" | "bread";
-type FeedingRatio = "1:1:1" | "1:2:2" | "1:3:3" | "1:5:5" | "1:10:10";
-type WeightUnit = "g" | "oz";
+type Mode = "dough" | "feed" | "build";
+const MODES: { key: Mode; label: string }[] = [
+  { key: "dough", label: "Bread dough" },
+  { key: "feed", label: "Feed the starter" },
+  { key: "build", label: "Build starter for a recipe" },
+];
 
-interface FeedingRatioInfo {
-  flour: number;
-  water: number;
-  peakTime: string;
-  bestFor: string;
-}
+const RATIOS = [
+  { label: "1:1:1", f: 1, w: 1 },
+  { label: "1:2:2", f: 2, w: 2 },
+  { label: "1:3:3", f: 3, w: 3 },
+  { label: "1:5:5", f: 5, w: 5 },
+];
 
-const feedingRatios: Record<FeedingRatio, FeedingRatioInfo> = {
-  "1:1:1": { flour: 1, water: 1, peakTime: "4-6 hours", bestFor: "Quick builds, daily maintenance" },
-  "1:2:2": { flour: 2, water: 2, peakTime: "8-10 hours", bestFor: "Standard maintenance, overnight feeds" },
-  "1:3:3": { flour: 3, water: 3, peakTime: "10-14 hours", bestFor: "Slow rise, before long absences" },
-  "1:5:5": { flour: 5, water: 5, peakTime: "14-18 hours", bestFor: "Pre-vacation feed" },
-  "1:10:10": { flour: 10, water: 10, peakTime: "18-24+ hours", bestFor: "Reviving neglected starters" },
-};
+/** King Arthur's Naturally Leavened Sourdough Bread as baker's percentages of its 685 g flour */
+const KA = { flour: "685", water: "57.96", starter: "66.28", salt: "2.19", hyd: "100", loaves: "2" };
 
-// Unit conversion helpers
-const gToOz = (g: number) => g / 28.3495;
-const formatWeight = (g: number, unit: WeightUnit) => {
-  if (unit === "oz") {
-    const oz = gToOz(g);
-    return oz >= 16 ? `${(oz / 16).toFixed(2)} lb` : `${oz.toFixed(2)} oz`;
-  }
-  return g >= 1000 ? `${(g / 1000).toFixed(2)} kg` : `${g}g`;
-};
-const formatWeightShort = (g: number, unit: WeightUnit) => {
-  if (unit === "oz") {
-    return `${gToOz(g).toFixed(1)} oz`;
-  }
-  return `${g}g`;
+const parse = (t: string) => {
+  const n = Number(t.trim().replace(",", "."));
+  return t.trim() !== "" && Number.isFinite(n) && n >= 0 ? n : null;
 };
 
 export default function SourdoughCalculator() {
-  const [mode, setMode] = useState<CalculatorMode>("bread");
-  const [showResults, setShowResults] = useState<boolean>(false);
-  const [weightUnit, setWeightUnit] = useState<WeightUnit>("g");
+  const [mode, setMode] = useState<Mode>("dough");
+  const [v, setV] = useState(KA);
+  const [keepText, setKeepText] = useState(String(KA_FEED.keepG));
+  const [ratio, setRatio] = useState(0);
+  const [needText, setNeedText] = useState(String(KA_FEED.exampleNeedG));
+  const [buildKeepText, setBuildKeepText] = useState(String(KA_FEED.keepG));
 
-  const resetResults = useCallback(() => setShowResults(false), []);
+  const set = (k: keyof typeof KA, t: string) => setV({ ...v, [k]: t });
+  const flour = parse(v.flour);
+  const water = parse(v.water);
+  const starter = parse(v.starter);
+  const salt = parse(v.salt);
+  const hyd = parse(v.hyd);
+  const loaves = parse(v.loaves);
+  const doughOk = flour !== null && flour > 0 && water !== null && starter !== null && salt !== null && hyd !== null && loaves !== null && loaves >= 1;
+  const d = doughOk ? dough(flour as number, water as number, starter as number, salt as number, hyd as number) : null;
+  const isKA = JSON.stringify(v) === JSON.stringify(KA);
 
-  // Starter feeding mode
-  const [starterAmount, setStarterAmount] = useState<number>(20);
-  const [feedingRatio, setFeedingRatio] = useState<FeedingRatio>("1:2:2");
+  const keep = parse(keepText);
+  const keepOk = keep !== null && keep > 0;
+  const r = RATIOS[ratio];
+  const fd = keepOk ? feed(keep as number, r.f, r.w) : null;
 
-  // Bread recipe mode
-  const [loafCount, setLoafCount] = useState<number>(1);
-  const [flourWeight, setFlourWeight] = useState<number>(500);
-  const [hydration, setHydration] = useState<number>(70);
-  const [starterPercent, setStarterPercent] = useState<number>(20);
-  const [starterHydration, setStarterHydration] = useState<number>(100);
-  const [saltPercent, setSaltPercent] = useState<number>(2);
+  const need = parse(needText);
+  const bKeep = parse(buildKeepText);
+  const buildOk = need !== null && need > 0 && bKeep !== null;
+  const b = buildOk ? build(need as number, bKeep as number) : null;
 
-  const starterResults = useMemo(() => {
-    const ratio = feedingRatios[feedingRatio];
-    const flourNeeded = starterAmount * ratio.flour;
-    const waterNeeded = starterAmount * ratio.water;
-    const totalAfterFeeding = starterAmount + flourNeeded + waterNeeded;
+  const scale = mode === "dough" ? d?.total : mode === "feed" ? fd?.total : b?.makes;
+  useEffect(() => {
+    if (scale !== undefined) setLive("sourdough", Math.round(scale));
+  }, [scale]);
 
-    return {
-      flour: flourNeeded,
-      water: waterNeeded,
-      total: totalAfterFeeding,
-      peakTime: ratio.peakTime,
-      bestFor: ratio.bestFor,
-    };
-  }, [starterAmount, feedingRatio]);
-
-  const breadResults = useMemo(() => {
-    const totalFlour = flourWeight * loafCount;
-    const water = Math.round(totalFlour * (hydration / 100));
-    const starter = Math.round(totalFlour * (starterPercent / 100));
-    const salt = Math.round(totalFlour * (saltPercent / 100) * 10) / 10;
-
-    // Calculate starter flour and water contribution
-    const starterWater = starter * (starterHydration / (100 + starterHydration));
-    const starterFlour = starter - starterWater;
-
-    // True hydration
-    const trueHydration = ((water + starterWater) / (totalFlour + starterFlour)) * 100;
-
-    const totalDough = totalFlour + water + starter + salt;
-
-    // Levain build recommendation (build 120% of needed amount)
-    const levainToBuild = Math.round(starter * 1.2);
-    const levainStarter = Math.round(levainToBuild / 5); // 1:2:2 ratio
-    const levainFlour = Math.round(levainToBuild * 2 / 5);
-    const levainWater = Math.round(levainToBuild * 2 / 5);
-
-    return {
-      flour: totalFlour,
-      water,
-      starter,
-      salt,
-      totalDough,
-      doughPerLoaf: Math.round(totalDough / loafCount),
-      trueHydration: Math.round(trueHydration * 10) / 10,
-      levain: {
-        total: levainToBuild,
-        starter: levainStarter,
-        flour: levainFlour,
-        water: levainWater,
-      },
-    };
-  }, [loafCount, flourWeight, hydration, starterPercent, starterHydration, saltPercent]);
+  const pctField = (k: "water" | "starter" | "salt" | "hyd", label: string) => (
+    <label className="p-pct">
+      <span>{label}</span>
+      <input
+        className="p-in p-in-pct"
+        type="text"
+        inputMode="decimal"
+        autoComplete="off"
+        value={v[k]}
+        onChange={(e) => set(k, e.target.value)}
+        aria-invalid={parse(v[k]) === null}
+      />
+      <span>%</span>
+    </label>
+  );
 
   return (
-    <div className="calculator-card p-6 md:p-8">
-      <div className="space-y-6">
-        {/* Mode Toggle */}
-        <div className="flex gap-2">
-          <button
-            onClick={() => { setMode("bread"); resetResults(); }}
-            className={`flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-              mode === "bread"
-                ? "bg-coral text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            Bread Recipe Calculator
+    <div>
+      <div className="p-tabs" role="group" aria-label="What to work out">
+        {MODES.map((m) => (
+          <button key={m.key} type="button" className={`p-opt${mode === m.key ? " p-on" : ""}`} aria-pressed={mode === m.key} onClick={() => setMode(m.key)}>
+            {m.label}
           </button>
-          <button
-            onClick={() => { setMode("starter"); resetResults(); }}
-            className={`flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-              mode === "starter"
-                ? "bg-coral text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            Starter Feeding Calculator
-          </button>
-        </div>
+        ))}
+      </div>
 
-        {/* Weight Unit Toggle */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Weight Units
-          </label>
-          <div className="inline-flex rounded-lg overflow-hidden border border-gray-200">
-            <button
-              onClick={() => setWeightUnit("g")}
-              className={`px-4 py-2 text-sm font-medium transition-colors ${
-                weightUnit === "g"
-                  ? "bg-coral text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-50"
-              }`}
-            >
-              Grams (g)
-            </button>
-            <button
-              onClick={() => setWeightUnit("oz")}
-              className={`px-4 py-2 text-sm font-medium transition-colors ${
-                weightUnit === "oz"
-                  ? "bg-coral text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-50"
-              }`}
-            >
-              Ounces (oz)
-            </button>
-          </div>
-        </div>
-
-        {mode === "starter" ? (
-          <>
-            {/* Starter Feeding Mode */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Amount of Starter to Keep ({weightUnit})
+      {mode === "dough" && (
+        <>
+          <form className="p-panel p-panel-2" aria-label="Sourdough bread dough" onSubmit={(e) => e.preventDefault()}>
+            <div className="p-cell">
+              <label className="p-lab" htmlFor="sd-flour">
+                Flour, g (all flours)
               </label>
               <input
-                type="number"
-                value={starterAmount}
-                onChange={(e) => { setStarterAmount(Number(e.target.value)); resetResults(); }}
-                className="input-field w-32"
-                min={5}
-                max={200}
+                className="p-in p-in-ot"
+                id="sd-flour"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                value={v.flour}
+                onChange={(e) => set("flour", e.target.value)}
+                aria-invalid={flour === null || flour <= 0}
+              />
+              <label className="p-lab p-mt" htmlFor="sd-loaves">
+                Loaves
+              </label>
+              <input
+                className="p-in p-in-ot"
+                id="sd-loaves"
+                type="text"
+                inputMode="numeric"
+                autoComplete="off"
+                value={v.loaves}
+                onChange={(e) => set("loaves", e.target.value)}
+                aria-invalid={loaves === null || loaves < 1}
               />
             </div>
+            <div className="p-cell" role="group" aria-labelledby="sd-pcts">
+              <span className="p-lab" id="sd-pcts">
+                Baker&apos;s percentages, of the flour weight
+              </span>
+              <div className="p-pcts p-pcts-4">
+                {pctField("water", "Water")}
+                {pctField("starter", "Starter")}
+                {pctField("salt", "Salt")}
+                {pctField("hyd", "Starter hydration")}
+              </div>
+              <div className="p-quick p-mt">
+                <button type="button" className={`p-opt p-opt-wide${isKA ? " p-on" : ""}`} aria-pressed={isKA} onClick={() => setV(KA)}>
+                  King Arthur&apos;s loaf
+                </button>
+              </div>
+            </div>
+          </form>
+          <ul className="p-reads p-reads-3 p-reads-live" aria-live="polite">
+            <Read v={d ? gr(d.water) : "—"} u={d ? "g" : undefined} c="Water" />
+            <Read v={d ? gr(d.starter) : "—"} u={d ? "g" : undefined} c="Ripe starter" />
+            <Read v={d ? gr(d.salt) : "—"} u={d ? "g" : undefined} c="Salt" />
+            <Read v={d ? gr(d.total) : "—"} u={d ? "g" : undefined} c="Total dough" />
+            <Read v={d ? gr(d.total / (loaves as number)) : "—"} u={d ? "g" : undefined} c={d ? `Per loaf, for ${loaves} ${loaves === 1 ? "loaf" : "loaves"}` : "Per loaf"} />
+            <Read v={d ? p1(d.overall) : "—"} u={d ? "%" : undefined} c="Hydration counting the starter's flour and water" />
+          </ul>
+          {d && (
+            <StackBars
+              title="All the flour and water in the dough, the starter's included"
+              label="Dough by weight"
+              keys={[
+                { name: "Added to the bowl", tone: TONE.blue },
+                { name: "Inside the starter", tone: TONE.orange },
+              ]}
+              rows={[
+                { name: "Flour", parts: [flour as number, d.sFlour], text: `${gr((flour as number) + d.sFlour)} g` },
+                { name: "Water", parts: [d.water, d.sWater], text: `${gr(d.water + d.sWater)} g` },
+                { name: "Salt", parts: [d.salt, 0], text: `${gr(d.salt)} g` },
+              ]}
+            />
+          )}
+          <p className="p-res-basis p-mt">
+            {d
+              ? `The starter adds ${gr(d.sFlour)} g flour and ${gr(d.sWater)} g water: (${gr(d.water)} + ${gr(d.sWater)}) ÷ (${gr(flour as number)} + ${gr(d.sFlour)}) = ${p1(d.overall)}%.`
+              : "Enter the flour weight and the percentages."}
+          </p>
+        </>
+      )}
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Feeding Ratio
+      {mode === "feed" && (
+        <>
+          <form className="p-panel p-panel-2" aria-label="Starter feeding" onSubmit={(e) => e.preventDefault()}>
+            <div className="p-cell">
+              <label className="p-lab" htmlFor="sd-keep">
+                Starter you keep, g
               </label>
-              <div className="flex flex-wrap gap-2">
-                {(Object.keys(feedingRatios) as FeedingRatio[]).map((ratio) => (
-                  <button
-                    key={ratio}
-                    onClick={() => { setFeedingRatio(ratio); resetResults(); }}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      feedingRatio === ratio
-                        ? "bg-coral text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    {ratio}
+              <input
+                className="p-in p-in-ot"
+                id="sd-keep"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                value={keepText}
+                onChange={(e) => setKeepText(e.target.value)}
+                aria-invalid={!keepOk}
+              />
+            </div>
+            <div className="p-cell" role="group" aria-labelledby="sd-ratio">
+              <span className="p-lab" id="sd-ratio">
+                Starter : flour : water, by weight
+              </span>
+              <div className="p-quick">
+                {RATIOS.map((x, i) => (
+                  <button key={x.label} type="button" className={`p-opt${ratio === i ? " p-on" : ""}`} aria-pressed={ratio === i} onClick={() => setRatio(i)}>
+                    {x.label}
                   </button>
                 ))}
               </div>
             </div>
+          </form>
+          <ul className="p-reads p-reads-live" aria-live="polite">
+            <Read v={fd ? gr(fd.flour) : "—"} u={fd ? "g" : undefined} c="Flour" />
+            <Read v={fd ? gr(fd.water) : "—"} u={fd ? "g" : undefined} c="Water" />
+            <Read v={fd ? gr(fd.total) : "—"} u={fd ? "g" : undefined} c="Starter after feeding" />
+            <Read v={fd ? p1(fd.hydration) : "—"} u={fd ? "%" : undefined} c="Starter hydration" />
+          </ul>
+          {fd && (
+            <Split
+              title="The jar after feeding"
+              label="Starter after feeding"
+              parts={[
+                { name: "Starter kept", v: fd.total - fd.flour - fd.water, text: `${gr(fd.total - fd.flour - fd.water)} g`, tone: TONE.orange },
+                { name: "Flour", v: fd.flour, text: `${gr(fd.flour)} g`, tone: TONE.blue },
+                { name: "Water", v: fd.water, text: `${gr(fd.water)} g`, tone: TONE.purple },
+              ]}
+            />
+          )}
+          <p className="p-res-basis p-mt">
+            King Arthur keeps {KA_FEED.keepG} g and feeds it {KA_FEED.keepG} g each of flour and water: every {KA_FEED.roomHours} hours at room
+            temperature, at least once a week in the fridge.
+          </p>
+        </>
+      )}
 
-            <button
-              onClick={() => setShowResults(true)}
-              className="btn-primary w-full sm:w-auto"
-            >
-              Calculate
-            </button>
-
-            {/* Starter Results */}
-            {showResults && (
-            <div className="results-panel space-y-6">
-              <h3 className="font-serif text-lg font-semibold text-gray-900">
-                Feeding Formula ({feedingRatio})
-              </h3>
-
-              {/* Stats Overview */}
-              <div className="grid grid-cols-3 gap-3">
-                <StatCard
-                  label="Starter"
-                  value={formatWeightShort(starterAmount, weightUnit)}
-                  sublabel="keep"
-                  color="coral"
-                />
-                <StatCard
-                  label="Add Total"
-                  value={formatWeightShort(starterResults.flour + starterResults.water, weightUnit)}
-                  sublabel={`${formatWeightShort(starterResults.flour, weightUnit)} flour + ${formatWeightShort(starterResults.water, weightUnit)} water`}
-                  color="blue"
-                />
-                <StatCard
-                  label="After Feed"
-                  value={formatWeightShort(starterResults.total, weightUnit)}
-                  sublabel={`${(starterResults.total / starterAmount).toFixed(0)}x growth`}
-                  color="green"
-                />
-              </div>
-
-              {/* Visual Composition */}
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-3">Feeding Composition</h4>
-                <ComparisonBarChart
-                  data={[
-                    { name: "Starter", value: starterAmount, fill: CHART_COLORS.primary },
-                    { name: "Flour", value: starterResults.flour, fill: CHART_COLORS.quaternary },
-                    { name: "Water", value: starterResults.water, fill: CHART_COLORS.tertiary },
-                  ]}
-                  height={100}
-                  unit="g"
-                />
-              </div>
-
-              {/* Main Result */}
-              <div className="p-5 bg-gradient-to-br from-coral/10 to-coral/5 border border-coral/20 rounded-xl text-center">
-                <p className="text-sm text-gray-600 mb-1">Feeding at {feedingRatio} ratio</p>
-                <p className="text-3xl font-bold text-gray-900">
-                  {formatWeightShort(starterAmount, weightUnit)} + {formatWeightShort(starterResults.flour, weightUnit)} + {formatWeightShort(starterResults.water, weightUnit)}
-                </p>
-                <p className="text-gray-600 mt-1">= {formatWeight(starterResults.total, weightUnit)} total starter</p>
-              </div>
-
-              {/* Ingredient Table */}
-              <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-                <table className="w-full text-sm">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="text-left py-2 px-4 font-medium text-gray-700">Ingredient</th>
-                      <th className="text-right py-2 px-4 font-medium text-gray-700">Ratio Part</th>
-                      <th className="text-right py-2 px-4 font-medium text-gray-700">Weight</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    <tr>
-                      <td className="py-2 px-4 text-gray-700">Mature Starter</td>
-                      <td className="py-2 px-4 text-right text-gray-600">1</td>
-                      <td className="py-2 px-4 text-right font-semibold text-gray-900">
-                        {formatWeightShort(starterAmount, weightUnit)}
-                        <span className="text-xs text-gray-500 ml-1">({formatWeightShort(starterAmount, weightUnit === "g" ? "oz" : "g")})</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 px-4 text-gray-700">Flour (all-purpose or bread)</td>
-                      <td className="py-2 px-4 text-right text-gray-600">{feedingRatios[feedingRatio].flour}</td>
-                      <td className="py-2 px-4 text-right font-semibold text-gray-900">
-                        {formatWeightShort(starterResults.flour, weightUnit)}
-                        <span className="text-xs text-gray-500 ml-1">({formatWeightShort(starterResults.flour, weightUnit === "g" ? "oz" : "g")})</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 px-4 text-gray-700">Water (room temp)</td>
-                      <td className="py-2 px-4 text-right text-gray-600">{feedingRatios[feedingRatio].water}</td>
-                      <td className="py-2 px-4 text-right font-semibold text-gray-900">
-                        {formatWeightShort(starterResults.water, weightUnit)}
-                        <span className="text-xs text-gray-500 ml-1">({formatWeightShort(starterResults.water, weightUnit === "g" ? "oz" : "g")})</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot className="bg-gray-50">
-                    <tr>
-                      <td className="py-2 px-4 font-medium text-gray-900">Total</td>
-                      <td className="py-2 px-4"></td>
-                      <td className="py-2 px-4 text-right font-bold text-gray-900">
-                        {formatWeight(starterResults.total, weightUnit)}
-                        <span className="text-xs text-gray-500 ml-1">({formatWeight(starterResults.total, weightUnit === "g" ? "oz" : "g")})</span>
-                      </td>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-              {/* Peak Time & Tips */}
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                  <h4 className="font-medium text-amber-900 mb-2">Peak Timing</h4>
-                  <p className="text-2xl font-bold text-amber-800">{starterResults.peakTime}</p>
-                  <p className="text-sm text-amber-700 mt-1">at 75°F (24°C) room temperature</p>
-                  <p className="text-xs text-amber-600 mt-2">
-                    Warmer = faster, Cooler = slower
-                  </p>
-                </div>
-
-                <InsightCard type="tip" title="This Ratio Is Best For">
-                  <p className="text-sm">{starterResults.bestFor}</p>
-                  <div className="mt-2 pt-2 border-t border-blue-100">
-                    <p className="text-xs text-gray-600">
-                      {feedingRatio === "1:1:1" && "Quick rise, use within 4-6 hours of peak"}
-                      {feedingRatio === "1:2:2" && "Overnight feed, ready for morning bake"}
-                      {feedingRatio === "1:3:3" && "Extended timing without over-fermenting"}
-                      {feedingRatio === "1:5:5" && "2-3 day buffer before needing another feed"}
-                      {feedingRatio === "1:10:10" && "Rebuilding strength after neglect"}
-                    </p>
-                  </div>
-                </InsightCard>
-              </div>
-
-              {/* Signs of Readiness */}
-              <InsightCard type="info" title="Signs Your Starter Is Ready">
-                <ul className="text-sm space-y-1">
-                  <li>• Doubled or tripled in volume from feed</li>
-                  <li>• Domed top (not yet collapsed)</li>
-                  <li>• Lots of bubbles on surface and sides</li>
-                  <li>• Pleasant yeasty/tangy aroma</li>
-                  <li>• Passes the float test (optional)</li>
-                </ul>
-              </InsightCard>
-
-              {/* Copy Button */}
-              <button
-                onClick={() => {
-                  const formula = `Sourdough Starter Feed (${feedingRatio})\n${"=".repeat(30)}\n\nKeep: ${starterAmount}g / ${gToOz(starterAmount).toFixed(1)} oz starter\nAdd: ${starterResults.flour}g / ${gToOz(starterResults.flour).toFixed(1)} oz flour\nAdd: ${starterResults.water}g / ${gToOz(starterResults.water).toFixed(1)} oz water\nTotal: ${starterResults.total}g / ${gToOz(starterResults.total).toFixed(1)} oz\n\nPeak time: ${starterResults.peakTime} at 75°F (24°C)`;
-                  navigator.clipboard.writeText(formula);
-                }}
-                className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-              >
-                Copy Formula
-              </button>
-            </div>
-            )}
-          </>
-        ) : (
-          <>
-            {/* Bread Recipe Mode */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Number of Loaves
-                </label>
-                <input
-                  type="number"
-                  value={loafCount}
-                  onChange={(e) => { setLoafCount(Number(e.target.value)); resetResults(); }}
-                  className="input-field w-full"
-                  min={1}
-                  max={10}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Flour per Loaf ({weightUnit})
-                </label>
-                <input
-                  type="number"
-                  value={flourWeight}
-                  onChange={(e) => { setFlourWeight(Number(e.target.value)); resetResults(); }}
-                  className="input-field w-full"
-                  min={200}
-                  max={1500}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Hydration: {hydration}%
+      {mode === "build" && (
+        <>
+          <form className="p-panel p-panel-2" aria-label="Build starter for a recipe" onSubmit={(e) => e.preventDefault()}>
+            <div className="p-cell">
+              <label className="p-lab" htmlFor="sd-need">
+                Starter the recipe needs, g
               </label>
               <input
-                type="range"
-                value={hydration}
-                onChange={(e) => { setHydration(Number(e.target.value)); resetResults(); }}
-                className="w-full"
-                min={60}
-                max={85}
+                className="p-in p-in-ot"
+                id="sd-need"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                value={needText}
+                onChange={(e) => setNeedText(e.target.value)}
+                aria-invalid={need === null || need <= 0}
               />
-              <div className="flex justify-between text-xs text-gray-500">
-                <span>60% (firm)</span>
-                <span>85% (wet)</span>
-              </div>
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Starter: {starterPercent}%
-                </label>
-                <input
-                  type="range"
-                  value={starterPercent}
-                  onChange={(e) => { setStarterPercent(Number(e.target.value)); resetResults(); }}
-                  className="w-full"
-                  min={5}
-                  max={40}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Salt: {saltPercent}%
-                </label>
-                <input
-                  type="range"
-                  value={saltPercent}
-                  onChange={(e) => { setSaltPercent(Number(e.target.value)); resetResults(); }}
-                  className="w-full"
-                  min={1.5}
-                  max={3}
-                  step={0.1}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Starter Hydration: {starterHydration}%
+            <div className="p-cell">
+              <label className="p-lab" htmlFor="sd-bkeep">
+                Starter to keep afterwards, g
               </label>
-              <select
-                value={starterHydration}
-                onChange={(e) => { setStarterHydration(Number(e.target.value)); resetResults(); }}
-                className="input-field w-full"
-              >
-                <option value={100}>100% (equal flour and water)</option>
-                <option value={80}>80% (stiff starter)</option>
-                <option value={125}>125% (liquid starter)</option>
-              </select>
+              <input
+                className="p-in p-in-ot"
+                id="sd-bkeep"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                value={buildKeepText}
+                onChange={(e) => setBuildKeepText(e.target.value)}
+                aria-invalid={bKeep === null}
+              />
             </div>
-
-            <button
-              onClick={() => setShowResults(true)}
-              className="btn-primary w-full sm:w-auto"
-            >
-              Calculate
-            </button>
-
-            {/* Bread Results */}
-            {showResults && (
-            <div className="results-panel space-y-6">
-              <h3 className="font-serif text-lg font-semibold text-gray-900">
-                Sourdough Bread Recipe
-              </h3>
-
-              {/* Stats Overview */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <StatCard
-                  label="Total Dough"
-                  value={formatWeight(breadResults.totalDough, weightUnit)}
-                  sublabel={formatWeight(breadResults.totalDough, weightUnit === "g" ? "oz" : "g")}
-                  color="coral"
-                />
-                <StatCard
-                  label="Per Loaf"
-                  value={formatWeightShort(breadResults.doughPerLoaf, weightUnit)}
-                  sublabel={`${loafCount} loaf${loafCount !== 1 ? "s" : ""}`}
-                  color="blue"
-                />
-                <StatCard
-                  label="True Hydration"
-                  value={`${breadResults.trueHydration}%`}
-                  sublabel={breadResults.trueHydration >= 75 ? "Wet dough" : breadResults.trueHydration >= 68 ? "Medium" : "Beginner-friendly"}
-                  color="green"
-                />
-                <StatCard
-                  label="Starter"
-                  value={formatWeightShort(breadResults.starter, weightUnit)}
-                  sublabel={`${starterPercent}% inoculation`}
-                  color="amber"
-                />
-              </div>
-
-              {/* Visual Hydration & Composition */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-3 text-center">True Hydration</h4>
-                  <div className="flex justify-center">
-                    <ProgressRing
-                      value={breadResults.trueHydration}
-                      max={90}
-                      size={140}
-                      color={breadResults.trueHydration >= 75 ? CHART_COLORS.tertiary : CHART_COLORS.secondary}
-                      sublabel="hydration"
-                    />
-                  </div>
-                  <p className="text-xs text-center text-gray-500 mt-2">
-                    Accounts for water in starter ({starterHydration}% hydration starter)
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-3">Dough Composition</h4>
-                  <ComparisonBarChart
-                    data={[
-                      { name: "Flour", value: breadResults.flour, fill: CHART_COLORS.quaternary },
-                      { name: "Water", value: breadResults.water, fill: CHART_COLORS.tertiary },
-                      { name: "Starter", value: breadResults.starter, fill: CHART_COLORS.primary },
-                      { name: "Salt", value: Math.round(breadResults.salt * 10), fill: "#9CA3AF" },
-                    ]}
-                    height={120}
-                    unit="g"
-                  />
-                </div>
-              </div>
-
-              {/* Main Result Box */}
-              <div className="p-5 bg-gradient-to-br from-coral/10 to-coral/5 border border-coral/20 rounded-xl text-center">
-                <p className="text-sm text-gray-600 mb-1">Your sourdough recipe makes</p>
-                <p className="text-3xl font-bold text-gray-900">
-                  {loafCount} loaf{loafCount !== 1 ? "s" : ""} × {formatWeightShort(breadResults.doughPerLoaf, weightUnit)}
-                </p>
-                <p className="text-gray-600 mt-1">
-                  {formatWeight(breadResults.totalDough, weightUnit)} total • {breadResults.trueHydration}% true hydration
-                </p>
-              </div>
-
-              {/* Ingredient Table */}
-              <div>
-                <h4 className="font-medium text-gray-900 mb-3">Ingredients (Baker&apos;s Percentages)</h4>
-                <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-                  <table className="w-full text-sm">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="text-left py-2 px-4 font-medium text-gray-700">Ingredient</th>
-                        <th className="text-right py-2 px-4 font-medium text-gray-700">Baker&apos;s %</th>
-                        <th className="text-right py-2 px-4 font-medium text-gray-700">Weight</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                      <tr className="bg-amber-50">
-                        <td className="py-2 px-4 font-medium text-gray-900">Bread Flour</td>
-                        <td className="py-2 px-4 text-right text-gray-700">100%</td>
-                        <td className="py-2 px-4 text-right font-semibold text-gray-900">
-                          {formatWeightShort(breadResults.flour, weightUnit)}
-                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(breadResults.flour, weightUnit === "g" ? "oz" : "g")})</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="py-2 px-4 text-gray-700">Water</td>
-                        <td className="py-2 px-4 text-right text-gray-600">{hydration}%</td>
-                        <td className="py-2 px-4 text-right font-semibold text-gray-900">
-                          {formatWeightShort(breadResults.water, weightUnit)}
-                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(breadResults.water, weightUnit === "g" ? "oz" : "g")})</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="py-2 px-4 text-gray-700">Sourdough Starter ({starterHydration}%)</td>
-                        <td className="py-2 px-4 text-right text-gray-600">{starterPercent}%</td>
-                        <td className="py-2 px-4 text-right font-semibold text-gray-900">
-                          {formatWeightShort(breadResults.starter, weightUnit)}
-                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(breadResults.starter, weightUnit === "g" ? "oz" : "g")})</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="py-2 px-4 text-gray-700">Salt</td>
-                        <td className="py-2 px-4 text-right text-gray-600">{saltPercent}%</td>
-                        <td className="py-2 px-4 text-right font-semibold text-gray-900">
-                          {formatWeightShort(breadResults.salt, weightUnit)}
-                          <span className="text-xs text-gray-500 ml-1">({formatWeightShort(breadResults.salt, weightUnit === "g" ? "oz" : "g")})</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                    <tfoot className="bg-gray-50">
-                      <tr>
-                        <td className="py-2 px-4 font-medium text-gray-900">Total Dough</td>
-                        <td className="py-2 px-4"></td>
-                        <td className="py-2 px-4 text-right font-bold text-gray-900">
-                          {formatWeight(breadResults.totalDough, weightUnit)}
-                          <span className="text-xs text-gray-500 ml-1">({formatWeight(breadResults.totalDough, weightUnit === "g" ? "oz" : "g")})</span>
-                        </td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </div>
-
-              {/* Levain Build */}
-              <div className="p-5 bg-blue-50 border border-blue-200 rounded-lg">
-                <h4 className="font-medium text-blue-900 mb-3">Levain Build (Night Before)</h4>
-                <div className="grid grid-cols-3 gap-4 text-center mb-3">
-                  <div>
-                    <p className="text-2xl font-bold text-blue-800">{formatWeightShort(breadResults.levain.starter, weightUnit)}</p>
-                    <p className="text-xs text-blue-600">starter</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-blue-800">{formatWeightShort(breadResults.levain.flour, weightUnit)}</p>
-                    <p className="text-xs text-blue-600">flour</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-blue-800">{formatWeightShort(breadResults.levain.water, weightUnit)}</p>
-                    <p className="text-xs text-blue-600">water</p>
-                  </div>
-                </div>
-                <p className="text-sm text-blue-800 text-center">
-                  = <strong>{formatWeight(breadResults.levain.total, weightUnit)}</strong> levain (builds 20% extra for waste)
-                </p>
-                <p className="text-xs text-blue-600 text-center mt-2">
-                  Feed before bed, use at peak in the morning
-                </p>
-              </div>
-
-              {/* Baking Timeline */}
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-3">Suggested Timeline</h4>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-start gap-3">
-                    <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">Night Before</span>
-                    <p className="text-gray-700">Build levain with {formatWeightShort(breadResults.levain.starter, weightUnit)} + {formatWeightShort(breadResults.levain.flour, weightUnit)} + {formatWeightShort(breadResults.levain.water, weightUnit)}</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">8:00 AM</span>
-                    <p className="text-gray-700">Mix flour & water, autolyse 30-60 min</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">9:00 AM</span>
-                    <p className="text-gray-700">Add levain and salt, mix well, start bulk fermentation</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">9:00-1:00</span>
-                    <p className="text-gray-700">Bulk ferment 4-5 hours with 3-4 stretch & folds</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">1:00 PM</span>
-                    <p className="text-gray-700">Pre-shape, rest 20 min, final shape, cold retard 12-16h</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="bg-green-100 text-green-800 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">Next Day</span>
-                    <p className="text-gray-700">Bake in preheated Dutch oven at 500°F (260°C), then 450°F (230°C) uncovered</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Tips */}
-              <div className="grid md:grid-cols-2 gap-4">
-                <InsightCard type="tip" title="Hydration Tips">
-                  {hydration < 68 ? (
-                    <p className="text-sm">At {hydration}% hydration, your dough will be firm and easy to shape. Good for beginners!</p>
-                  ) : hydration < 75 ? (
-                    <p className="text-sm">At {hydration}% hydration, expect a slightly tacky dough with moderate open crumb. Use wet hands.</p>
-                  ) : (
-                    <p className="text-sm">At {hydration}% hydration, you&apos;ll have a very wet, slack dough. Requires experience with coil folds and gentle shaping.</p>
-                  )}
-                </InsightCard>
-
-                <InsightCard type="info" title="Inoculation Rate">
-                  {starterPercent <= 15 ? (
-                    <p className="text-sm">Low inoculation ({starterPercent}%) = longer fermentation, more sour flavor, more complex taste.</p>
-                  ) : starterPercent <= 25 ? (
-                    <p className="text-sm">Standard inoculation ({starterPercent}%) = balanced timing (4-5 hour bulk), moderate sourness.</p>
-                  ) : (
-                    <p className="text-sm">High inoculation ({starterPercent}%) = faster fermentation, milder flavor. Watch for over-proofing!</p>
-                  )}
-                </InsightCard>
-              </div>
-
-              {/* Print/Copy */}
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => {
-                    const recipe = `Sourdough Bread Recipe\n${"=".repeat(30)}\nMakes ${loafCount} loaf${loafCount !== 1 ? "s" : ""} (${breadResults.doughPerLoaf}g / ${gToOz(breadResults.doughPerLoaf).toFixed(1)} oz each)\nTrue hydration: ${breadResults.trueHydration}%\n\nMain Dough:\n- Flour: ${breadResults.flour}g / ${gToOz(breadResults.flour).toFixed(1)} oz (100%)\n- Water: ${breadResults.water}g / ${gToOz(breadResults.water).toFixed(1)} oz (${hydration}%)\n- Starter: ${breadResults.starter}g / ${gToOz(breadResults.starter).toFixed(1)} oz (${starterPercent}%)\n- Salt: ${breadResults.salt}g / ${gToOz(breadResults.salt).toFixed(1)} oz (${saltPercent}%)\nTotal: ${breadResults.totalDough}g / ${gToOz(breadResults.totalDough).toFixed(1)} oz\n\nLevain Build (night before):\n${breadResults.levain.starter}g / ${gToOz(breadResults.levain.starter).toFixed(1)} oz starter\n${breadResults.levain.flour}g / ${gToOz(breadResults.levain.flour).toFixed(1)} oz flour\n${breadResults.levain.water}g / ${gToOz(breadResults.levain.water).toFixed(1)} oz water\n= ${breadResults.levain.total}g / ${gToOz(breadResults.levain.total).toFixed(1)} oz total\n\nBake at 500°F (260°C), then 450°F (230°C) uncovered`;
-                    navigator.clipboard.writeText(recipe);
-                  }}
-                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-                >
-                  Copy Recipe
-                </button>
-                <button
-                  onClick={() => window.print()}
-                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-                >
-                  Print Recipe
-                </button>
-              </div>
-            </div>
-            )}
-          </>
-        )}
-
-        {/* Hydration Guide */}
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <h4 className="font-medium text-gray-900 mb-3">Hydration Guide</h4>
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-2 pr-4">Hydration</th>
-                  <th className="text-left py-2 pr-4">Dough Feel</th>
-                  <th className="text-left py-2">Crumb</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-600">
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 pr-4">60-65%</td>
-                  <td className="py-2 pr-4">Firm, easy to shape</td>
-                  <td className="py-2">Tight, even (beginner)</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 pr-4">65-70%</td>
-                  <td className="py-2 pr-4">Slightly tacky</td>
-                  <td className="py-2">Moderate openness</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 pr-4">70-75%</td>
-                  <td className="py-2 pr-4">Sticky, requires technique</td>
-                  <td className="py-2">Open, irregular holes</td>
-                </tr>
-                <tr className="border-b border-gray-100">
-                  <td className="py-2 pr-4">75-80%</td>
-                  <td className="py-2 pr-4">Very wet, slack</td>
-                  <td className="py-2">Very open (advanced)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+          </form>
+          <ul className="p-reads p-reads-live" aria-live="polite">
+            <Read v={b ? gr(b.each) : "—"} u={b ? "g" : undefined} c="Starter to feed; discard the rest" />
+            <Read v={b ? gr(b.each) : "—"} u={b ? "g" : undefined} c="Flour" />
+            <Read v={b ? gr(b.each) : "—"} u={b ? "g" : undefined} c="Water" />
+            <Read v={b ? gr(b.makes) : "—"} u={b ? "g" : undefined} c={b ? `${gr(need as number)} g for the recipe + ${gr(bKeep as number)} g to keep` : "Makes"} />
+          </ul>
+          {b && (
+            <Split
+              title="What the build makes"
+              label="Starter the build makes"
+              parts={[
+                { name: "For the recipe", v: need as number, text: `${gr(need as number)} g`, tone: TONE.blue },
+                { name: "To keep", v: bKeep as number, text: `${gr(bKeep as number)} g`, tone: TONE.orange },
+              ]}
+            />
+          )}
+          <p className="p-res-basis p-mt">
+            One feeding of equal weights, rested {KA_FEED.restLoH} to {KA_FEED.restHiH} hours at room temperature until bubbly, as in King
+            Arthur&apos;s guide.
+          </p>
+        </>
+      )}
     </div>
   );
 }

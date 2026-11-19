@@ -1,0 +1,47 @@
+{
+  "retrieved": "2026-11-19",
+  "loaf": {
+    "id": "KA-SD-LOAF",
+    "url": "https://www.kingarthurbaking.com/recipes/naturally-leavened-sourdough-bread-recipe",
+    "title": "Naturally Leavened Sourdough Bread",
+    "publisher": "King Arthur Baking",
+    "read": "Chrome, 2026-11-19",
+    "ingredients": [
+      "2 cups (454g) ripe sourdough starter",
+      "5 cups (600g) King Arthur Unbleached All-Purpose Flour or King Arthur Baker's Reserve Bread Flour*",
+      "3/4 cup (85g) King Arthur Whole Wheat Flour",
+      "1 3/4 cups (397g) water, at room temperature",
+      "2 1/2 teaspoons (15g) table salt"
+    ],
+    "yield": "2 loaves",
+    "quotes": [
+      "About 60 minutes before the bread is ready to bake, preheat the oven with a baking stone in it (if you have a stone) to 450°F.",
+      "Bake the bread until it’s crusty and golden, about 35 to 40 minutes."
+    ],
+    "values": { "starterG": 454, "apFlourG": 600, "wwFlourG": 85, "waterG": 397, "saltG": 15, "loaves": 2, "ovenF": 450, "bakeLoMin": 35, "bakeHiMin": 40 }
+  },
+  "guide": {
+    "id": "KA-SD-GUIDE",
+    "maintain": "https://www.kingarthurbaking.com/learn/guides/sourdough/maintain",
+    "create": "https://www.kingarthurbaking.com/learn/guides/sourdough/create",
+    "publisher": "King Arthur Baking",
+    "read": "Chrome, 2026-11-19",
+    "quotes": [
+      "For best results, feed your room-temperature starter twice a day, and your refrigerated starter at least once a week.",
+      "Measure out 113g (1/2 cup) of the starter; discard the rest (or bake something with it).",
+      "Feed this 113g of starter with 113g each water and flour.",
+      "Room-temperature starter should be fed every 12 hours (twice a day) using the standard maintenance feeding procedure: discard all but 113g, and feed that 113g starter with 113g each water and flour.",
+      "If your recipe calls for more than 227g (about 1 cup) of starter, feed it without discarding until you've reached the amount you need (plus 113g to keep and feed again).",
+      "Your starter can almost certainly be revived by feeding it every 12 hours until it's healthy, then putting it back on its regular feeding schedule.",
+      "Discard all but 189g, then feed it 189g of water and 189g of flour.",
+      "However much you've fed it, let the starter rest at room temperature for 6 to 8 hours; it should be active, with bubbles breaking the surface.",
+      "Your new starter is ready to bake with when it's reliably becoming very bubbly and doubling in size within 6 to 8 hours of feeding."
+    ],
+    "values": { "keepG": 113, "roomHours": 12, "buildAboveG": 227, "exampleNeedG": 454, "exampleEachG": 189, "restLoH": 6, "restHiH": 8 }
+  },
+  "bakers": {
+    "id": "KA-BAKERS",
+    "url": "https://www.kingarthurbaking.com/pro/reference/bakers-percentage",
+    "note": "Definition snapshot in research/sources/bakers.json"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "retrieved": "2026-11-19",
+  "url": "https://products.geappliances.com/appliance/gea-support-search-content?contentId=18793",
+  "title": "Microwave - Recipe Conversion",
+  "publisher": "GE Appliances",
+  "quotes": [
+    "Follow the power level designated in the similar recipe or use power level 10, if there is not a designation.",
+    "Reduce the actual cooking time to 1/4 to 1/3 of that given in the conventional recipe.",
+    "if something takes 1 hour conventionally, then it would just take 15 - 20 minutes in the Microwave.",
+    "Reduce the liquid by approximately 1/3, although this is not always necessary.",
+    "To reduce a recipe in half, reduce the cooking time by 1/3 and keep the power level the same.",
+    "To double a recipe, add 1/2 to 2/3 more cooking time (do not double the time), and decrease the liquid by 1/4 to 1/2."
+  ],
+  "values": { "fracLo": 0.25, "fracHi": 0.3333333333333333, "powerLevel": 10, "liquidCut": 0.3333333333333333, "halfTimeCut": 0.3333333333333333, "doubleAddLo": 0.5, "doubleAddHi": 0.6666666666666666, "doubleLiquidCutLo": 0.25, "doubleLiquidCutHi": 0.5 }
+}

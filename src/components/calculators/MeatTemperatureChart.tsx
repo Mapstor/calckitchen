@@ -2,8 +2,28 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import { MeatThermometer } from "@/components/instrument/Scales";
 import { setLive } from "@/components/instrument/live";
 import { GROUPS, SAFE, type Group } from "@/data/meat-temps";
+
+/** short names for the thermometer labels (same rows, same temperatures as the USDA chart in src/data/meat-temps.ts) */
+const SHORT: Record<string, string> = {
+  "beef-whole": "Steaks, roasts, chops of beef, pork, lamb, veal, goat, bison",
+  "pork-whole": "Steaks, roasts, chops of beef, pork, lamb, veal, goat, bison",
+  "ham-raw": "Raw ham",
+  fish: "Fish",
+  "beef-ground": "Ground meat and sausage",
+  "pork-ground": "Ground meat and sausage",
+  game: "Rabbit, venison",
+  "egg-dishes": "Egg dishes",
+  poultry: "All poultry",
+  "ham-precooked": "Precooked ham, reheated",
+  casseroles: "Casseroles",
+  leftovers: "Leftovers",
+};
+const STOPS = [...new Set(SAFE.flatMap((r) => (r.f === null ? [] : [r.f])))]
+  .sort((a, b) => a - b)
+  .map((f) => ({ f, items: [...new Set(SAFE.filter((r) => r.f === f).map((r) => SHORT[r.id] ?? r.short))] }));
 
 const label = (food: string, cut: string) => (cut ? `${food}: ${cut.charAt(0).toLowerCase()}${cut.slice(1)}` : food);
 
@@ -54,6 +74,7 @@ export default function MeatTemperatureChart() {
         <Read v={row.c !== null ? String(row.c) : "—"} u={row.c !== null ? "°C" : undefined} c="Celsius, as the USDA chart prints it" />
         <Read v={String(row.restMin)} u="min" c={row.restMin ? "Rest time before carving or eating" : "No rest time on the USDA chart"} />
       </ul>
+      <MeatThermometer stops={STOPS} hiF={row.f} choice={row.cut && row.cut.length <= 40 ? label(row.food, row.cut) : row.food} />
       <p className="p-res-basis p-mt">
         <strong>{label(row.food, row.cut)}.</strong> {row.note}
       </p>

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { TONE } from "@/components/instrument/Bars";
+import { TempCompare } from "@/components/instrument/Scales";
 import { setLive } from "@/components/instrument/live";
 import { AF_RULE, toAirFryerF, toAirFryerMin, toOvenF, toOvenMin } from "@/data/air-fryer";
 import { cToF, fToC } from "@/data/oven-temps";
@@ -97,6 +99,26 @@ export default function AirFryerConverter() {
         <Read v={outMin !== null ? String(r0(outMin)) : "—"} u={outMin !== null ? "min" : undefined} c={toAF ? `${AF_RULE.timeCutPct}% less time` : `Air fryer time ÷ ${1 - AF_RULE.timeCutPct / 100}`} />
         {toAF && <Read v={outMin !== null ? String(r0(outMin / 2)) : "—"} u={outMin !== null ? "min" : undefined} c="Halfway: shake the basket or flip" />}
       </ul>
+      {out && inF !== null && (
+        <TempCompare
+          title="Temperature"
+          unit={unit}
+          rows={[
+            { name: toAF ? "Oven, the recipe" : "Air fryer, the recipe", lo: inF, hi: inF, tone: TONE.blue },
+            { name: toAF ? "Air fryer" : "Oven", lo: out.lo, hi: out.hi, tone: TONE.orange },
+          ]}
+        />
+      )}
+      {outMin !== null && m !== null && (
+        <Bars
+          title="Time"
+          label="Cooking time"
+          rows={[
+            { name: toAF ? "Oven, the recipe" : "Air fryer, the recipe", v: m, text: `${r0(m)} min`, tone: TONE.blue },
+            { name: toAF ? "Air fryer" : "Oven", v: outMin, text: `${r0(outMin)} min`, tone: TONE.orange },
+          ]}
+        />
+      )}
     </div>
   );
 }

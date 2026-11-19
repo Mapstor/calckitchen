@@ -1,0 +1,16 @@
+{
+  "retrieved": "2026-11-19",
+  "crockpot": {
+    "url": "https://www.manualslib.com/manual/398830/Crock-Pot-3850.html?page=8",
+    "title": "Crock-Pot 3850 (2 1/2 quart) instruction manual, page 8: Guide to Adapting Recipes",
+    "rows": [[15, 30, 4, 6, 1.5, 2], [35, 45, 6, 10, 3, 4], [50, 180, 8, 18, 4, 6]],
+    "quotes": ["Most uncooked meat and vegetables combinations will requiere at least 8 hours on LOW", "EXCEPTION: milk, sour cream or cream should be added during last hour.", "Do not add as much water as some recipes indicate.", "Remember - liquids don't \"boil away\" as in conventional cooking.", "Cook with cover on."],
+    "note": "Chart mixes English and Spanish units (minutos, horas); 50 minutes to 3 hours = 50-180 min."
+  },
+  "fsis": {
+    "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/slow-cookers-and-food-safety",
+    "title": "Slow Cookers and Food Safety",
+    "quotes": ["Always thaw meat or poultry before putting it into a slow cooker.", "Fill cooker no less than half full and no more than two-thirds full.", "Vegetables cook slower than meat and poultry in a slow cooker so if using them, put the vegetables in first.", "Keep the lid in place, removing only to stir the food or check for doneness."],
+    "read_from": "FSIS fact sheet text (archived copy) and current summaries by Clemson HGIC (2022) and NC State Extension (2023) citing the FSIS page"
+  }
+}
