@@ -333,3 +333,10 @@
 .p-in-name{width:100%;min-width:0;font-family:var(--font-ui),system-ui,sans-serif;font-weight:700;font-size:16px;height:48px}
 .p-ing .p-in-pct{width:90px;flex:none}
 @media (max-width:640px){ .p-ings{grid-template-columns:minmax(0,1fr)} }
+.p-tiers{display:flex;flex-direction:column;gap:10px}
+.p-tier{display:grid;grid-template-columns:70px minmax(0,1fr) minmax(0,1fr) auto;gap:8px;align-items:center}
+.p-tier-n{font-weight:800;font-size:15px}
+.p-add{align-self:flex-start;min-width:150px;text-align:center}
+.p-x{min-height:48px}
+@media (max-width:640px){ .p-tier{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} .p-tier-n{grid-column:1 / -1} .p-x{grid-column:1 / -1} }
+.p-unit-wide button{width:auto;padding:0 12px;height:44px}
