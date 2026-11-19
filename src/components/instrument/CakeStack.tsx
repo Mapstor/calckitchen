@@ -9,7 +9,7 @@ const INK = "#0E1621";
 const TIER_IN = 4;
 
 /** "8 in." -> 8; "9 x 13 in." -> 13 (the long side faces you) */
-const widthIn = (size: string) => Math.max(...(size.match(/[\d.]+/g) ?? ["0"]).map(Number));
+const widthIn = (size: string) => Math.max(0, ...(size.match(/\d+(?:\.\d+)?/g) ?? []).map(Number));
 export const tierName = (t: Tier) => `${t.size.replace(" x ", " × ")} ${t.shape.toLowerCase()}`;
 const bottomUp = (tiers: Tier[]) => [...tiers].sort((a, b) => widthIn(b.size) - widthIn(a.size));
 

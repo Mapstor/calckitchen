@@ -6,6 +6,23 @@
 /** lo: draw a range, solid up to lo and a lighter band from lo to v */
 export type BarRow = { name: string; v: number; text: string; tone?: string; note?: string; lo?: number };
 
+/** % and ° signs set in the text face: the readout face (Michroma) draws them oddly (DESIGN.md: degree sign in Public Sans) */
+export function G({ t }: { t: string }) {
+  return (
+    <>
+      {t.split(/(°[FC]?|%)/).map((p, i) =>
+        /^(°[FC]?|%)$/.test(p) ? (
+          <span key={i} className="p-ui">
+            {p}
+          </span>
+        ) : (
+          p
+        ),
+      )}
+    </>
+  );
+}
+
 export const TONE = { blue: "#1D5FBF", orange: "#E35A0F", purple: "#7B4FC4", green: "#0A8F6A", ink: "#0E1621", steel: "#9AA4B1" } as const;
 
 /** horizontal bars on one shared axis (zero at the left) */
@@ -29,7 +46,9 @@ export default function Bars({ rows, label, title, max }: { rows: BarRow[]; labe
               <span className="p-vbar-n">{r.name}</span>
               <span className="p-vbar-t">
                 <span className="p-vbar-f" style={{ width: `calc((100% - ${room}px) * ${f.toFixed(4)})`, background: bg }} />
-                <span className="p-vbar-v">{r.text}</span>
+                <span className="p-vbar-v">
+                  <G t={r.text} />
+                </span>
               </span>
             </div>
           );
@@ -59,7 +78,9 @@ export function Split({ parts, label, title }: { parts: { name: string; v: numbe
       <div className="p-viz-cap">
         {parts.map((p, pi) => (
           <span key={`${pi}-${p.name}`} className="p-vkey">
-            <span className="p-vsw" style={{ background: p.tone }} /> {p.name} <span className="p-vkey-v">{p.text}</span>
+            <span className="p-vsw" style={{ background: p.tone }} /> {p.name} <span className="p-vkey-v">
+              <G t={p.text} />
+            </span>
           </span>
         ))}
       </div>
@@ -155,7 +176,9 @@ export function StackBars({
                     v > 0 ? <span key={i} className="p-vbar-sp" style={{ flexGrow: v, background: keys[i]?.tone ?? TONE.blue }} /> : null,
                   )}
                 </span>
-                <span className="p-vbar-v">{r.text}</span>
+                <span className="p-vbar-v">
+                  <G t={r.text} />
+                </span>
               </span>
             </div>
           );
@@ -185,6 +208,9 @@ export function Balls({ n, text }: { n: number; text: string }) {
         ))}
         {n > shown && <span className="p-ball-more">+{n - shown} more</span>}
       </div>
+      <p className="p-viz-cap">
+        {n} dough {n === 1 ? "ball" : "balls"}, {text} each
+      </p>
     </div>
   );
 }

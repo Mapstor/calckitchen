@@ -77,7 +77,7 @@ export default function Sticks({ sticks }: { sticks: number }) {
   if (n < 1 || n > 12) return null;
   return (
     <figure className="p-viz">
-      <Row sticks={sticks} vw={1000} cols={4} w={n <= 2 ? 330 : 214} cls="p-viz-wide" />
+      <Row sticks={sticks} vw={1000} cols={4} w={n <= 2 ? 330 : n === 3 ? 290 : 214} cls="p-viz-wide" />
       <Row sticks={sticks} vw={420} cols={n === 1 ? 1 : 2} w={n === 1 ? 330 : 186} cls="p-viz-tall" />
       <figcaption className="p-viz-cap">
         <span className="p-vkey">

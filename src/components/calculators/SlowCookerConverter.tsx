@@ -96,7 +96,7 @@ export default function SlowCookerConverter() {
           title="Hours of cooking"
           label="Cooking time"
           rows={[
-            { name: "Oven or stove, the recipe", v: m / 60, text: `${hrsText(m / 60)} h`, tone: TONE.blue },
+            { name: "Oven or stove, the recipe", v: m / 60, text: m < 60 ? `${hrsText(m)} min` : `${hrsText(m / 60)} h`, tone: TONE.blue },
             { name: "Slow cooker on High", v: fwd.band.highHi, lo: fwd.band.highLo, text: `${hrs(fwd.band.highLo)}–${hrs(fwd.band.highHi)} h`, tone: TONE.orange },
             { name: "Slow cooker on Low", v: fwd.band.lowHi, lo: fwd.band.lowLo, text: `${hrs(fwd.band.lowLo)}–${hrs(fwd.band.lowHi)} h`, tone: TONE.purple },
           ]}

@@ -10,6 +10,23 @@ const TINT = "#F6C9B0";
 
 const r0 = (n: number) => Math.round(n).toString();
 
+/** SVG text with °F/°C/% in the text face (see G in Bars.tsx) */
+function TG({ t }: { t: string }) {
+  return (
+    <>
+      {t.split(/(°[FC]?|%)/).map((p, i) =>
+        /^(°[FC]?|%)$/.test(p) ? (
+          <tspan key={i} className="p-ui">
+            {p}
+          </tspan>
+        ) : (
+          p
+        ),
+      )}
+    </>
+  );
+}
+
 function Frame({ vw, vh, cls, label, children }: { vw: number; vh: number; cls: string; label: string; children: ReactNode }) {
   return (
     <svg className={cls} viewBox={`0 0 ${vw} ${vh}`} role="img" aria-label={label}>
@@ -59,6 +76,12 @@ function Ruler({ vw, cls, valueF, marks, label }: { vw: number; cls: string; val
           )}
         </g>
       ))}
+      {on && valueF !== null && (
+        <g className="p-sc-needle" key={Math.round(valueF)}>
+          <line x1={x(valueF)} y1={yF - 2} x2={x(valueF)} y2={yC + 2} stroke={ORANGE} strokeWidth={4} strokeLinecap="round" />
+          <path d={`M ${x(valueF) - 8} ${yF - 14} L ${x(valueF) + 8} ${yF - 14} L ${x(valueF)} ${yF - 3} Z`} fill={ORANGE} />
+        </g>
+      )}
       {marks.map((m) => (
         <g key={m.gm}>
           <circle cx={x(m.f)} cy={yG} r={r} fill={hit === m.gm ? ORANGE : "#FFFFFF"} stroke={hit === m.gm ? ORANGE : INK} strokeWidth={2} />
@@ -81,12 +104,6 @@ function Ruler({ vw, cls, valueF, marks, label }: { vw: number; cls: string; val
           </g>
         );
       })}
-      {on && valueF !== null && (
-        <g className="p-sc-needle" key={Math.round(valueF)}>
-          <line x1={x(valueF)} y1={yF - 2} x2={x(valueF)} y2={yC + 2} stroke={ORANGE} strokeWidth={4} strokeLinecap="round" />
-          <path d={`M ${x(valueF) - 8} ${yF - 14} L ${x(valueF) + 8} ${yF - 14} L ${x(valueF)} ${yF - 3} Z`} fill={ORANGE} />
-        </g>
-      )}
     </Frame>
   );
 }
@@ -140,7 +157,7 @@ function Tube({ vw, cls, stops, hiF, label }: { vw: number; cls: string; stops: 
   const wide = vw > 600;
   const tx = wide ? 120 : 62;
   const lx = tx + (wide ? 96 : 60);
-  const ix = lx + (wide ? 82 : 70);
+  const ix = lx + (wide ? 104 : 86);
   const max = wide ? 70 : 23;
   const lh = wide ? 21 : 22;
   const ticks = Array.from({ length: (hi - lo) / 5 + 1 }, (_, i) => lo + 5 * i);
@@ -183,7 +200,7 @@ function Tube({ vw, cls, stops, hiF, label }: { vw: number; cls: string; stops: 
           <g key={st.f}>
             <path d={`M ${tx + 14} ${ty} L ${lx - 30} ${ty} L ${lx - 10} ${c}`} fill="none" stroke={on ? ORANGE : INK} strokeWidth={on ? 3 : 1.5} />
             <text className={on ? "p-th-f p-th-on" : "p-th-f"} x={lx} y={c + 7}>
-              {`${st.f}°F`}
+              <TG t={`${st.f}°F`} />
             </text>
             {lines.map((l, i) => (
               <text key={i} className={on ? "p-th-t p-th-on" : "p-th-t"} x={ix} y={y0 + i * lh}>
@@ -383,7 +400,7 @@ function Temps({ vw, cls, rows, unit, label }: { vw: number; cls: string; rows: 
             )}
             {wide && (
               <text className="p-tr-v" x={x2 + 22} y={y + 6}>
-                {txt(r)}
+                <TG t={txt(r)} />
               </text>
             )}
           </g>

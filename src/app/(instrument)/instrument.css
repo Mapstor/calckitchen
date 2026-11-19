@@ -463,3 +463,4 @@
 .p-tr-n{font-family:var(--font-ui),system-ui,sans-serif;font-weight:700;font-size:17px;fill:#0E1621}
 .p-tr-v{font-family:var(--font-readout),system-ui,sans-serif;font-size:17px;fill:#0E1621}
 .p-viz-tall .p-tr-n{font-size:18px}
+.p-ui{font-family:var(--font-ui),system-ui,sans-serif;font-weight:700}
