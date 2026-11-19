@@ -108,7 +108,7 @@ export default function PizzaDoughCalculator() {
                   inputMode="decimal"
                   autoComplete="off"
                   disabled={napo}
-                  value={napo ? d1(pcts[f.key] ?? 0) : own[f.key]}
+                  value={napo ? ((pcts[f.key] ?? 0) > 0 && (pcts[f.key] ?? 0) < 1 ? (pcts[f.key] ?? 0).toFixed(2) : d1(pcts[f.key] ?? 0)) : own[f.key]}
                   onChange={(e) => setOwn({ ...own, [f.key]: e.target.value })}
                   aria-invalid={!napo && (pcts[f.key] === null || (pcts[f.key] as number) < 0)}
                 />
