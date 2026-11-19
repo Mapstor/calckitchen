@@ -6,15 +6,15 @@ _last update: 2026-11-19 · CK-011_
 - Step: all pages: all 25 pages live in the picked look with result visuals (CK-009 + CK-010 merged 2026-11-19). Now CK-011: drawings in the page sections of 15 pages (owner: "lets do this for most pages"). canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
 - Last confirmed: CK-009 REST + CK-010 VISUALS — live 2026-11-19 (PR #7 merged, main a64fb07; first production build failed on the Google Fonts fetch, redeploy dpl_GP1DpKn6MkLFJEiioVG1N7SUFRW5 READY; Chrome: cake pan visuals and turkey checkboxes correct on calckitchen.com).
-- In flight (NOT merged): CK-011 BODY VISUALS on claude/ck-011-body-visuals — built, checks pass; Chrome check and the owner's look pending.
-- Next action: Chrome-check CK-011 on its preview → owner looks → merge → production READY + live check. GSC: request indexing for the 14 CK-009 pages and bakers-percentage, cake-servings, recipe-cost (~9 a day; 2026-11-19 quota already used).
-- Waiting on owner: look at the CK-011 preview; confirm hello@calckitchen.com receives mail; decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
+- In flight: CK-011 BODY VISUALS — Chrome-checked on its preview; merged by Claude under the standing merge rule (owner: "lets do this for most pages"); live check in the next entry.
+- Next action: confirm CK-011 production READY + live check → GSC indexing requests in daily batches (the 14 CK-009 pages, bakers-percentage, cake-servings, recipe-cost; ~9 a day; 2026-11-19 quota already used) → Stage 2 prose-score.
+- Waiting on owner: confirm hello@calckitchen.com receives mail; decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-19)
     Stage 1 numbers and sources: 25 of 25 pages live on registry rows + check scripts; npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
     Stage 2 anti-slop: 25 pages rewritten plain, 0 scored (prose-score not run) · bad at start 6/10
-    Stage 3 impeccable and user tests: 25 pages in the picked look, Chrome-checked at 390 and 1280 (no sideways scroll, readouts and modes tested); result visuals on 17 calculators (CK-010), Chrome-checked at 390 and desktop; no Playwright suite yet · bad at start ?/10
+    Stage 3 impeccable and user tests: 25 pages in the picked look, Chrome-checked at 390 and 1280 (no sideways scroll, readouts and modes tested); result visuals on 17 calculators (CK-010) and section visuals on 15 pages (CK-011), Chrome-checked at 390 and desktop; no Playwright suite yet · bad at start ?/10
     Stage 4 Raptive: ~45% (author identity sitewide, About rewritten, privacy and terms match the stack; mailbox, consent, top-30 read pending) · bad at start 7/10
     Whole site: ~72% live (stage weights 30, 20, 30, 20)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
@@ -173,6 +173,13 @@ Scoreboard (2026-11-19)
 - What: PR #7 (CK-009 + CK-010) merged by Claude after the owner's "looks good, lets merge"; main a64fb07.
 - Verified: first production build ERROR (Google Fonts fetch, see §4); redeploy dpl_GP1DpKn6MkLFJEiioVG1N7SUFRW5 READY, aliased to calckitchen.com; Chrome on calckitchen.com: /cake-pan-converter shows both figures, no sideways scroll; /turkey-cooking-calculator checkboxes flex column, 44 px.
 - Commit: a64fb07 (merge)
+
+### 2026-11-19 · CK-011 BODY VISUALS · chat · done (merged; production check next)
+- What: owner: "lets do this for most pages". Section drawings on 15 pages: Dumbbells (oven→air fryer, recipe→convection bake, conventional→fan °C by gas mark, oven→microwave minutes, Crock-Pot chart in hours, ATK pull→serve temperatures, minutes per pound by cut, party vs wedding servings for rounds, Pizza Napoletana timeline from the EU durations); Strips (butter wrapper marks; a cup as 16 tbsp of 3 tsp); Bars (kcal per 100 g, 23 USDA foods; grams per guest; grams per cup, 23 ingredients); RatioRows (five coffee ratios on one block grid).
+- Files: src/components/instrument/{Dumbbells,Strips}.tsx (new), Bars.tsx (RatioRows), 15 pages in src/app/(instrument)/, instrument.css (p-db, p-st, p-rr).
+- Verified: tsc 0 errors; eslint 0 errors (1 old warning); check:numbers 18 scripts, 0 failed, 0 skipped (slow cooker check caught a "<" in page code; fixed); preview 7a71fdc READY; Chrome on the preview: all 15 section visuals on desktop, phone 390 px for slow cooker, meat temperature, butter, coffee; no sideways scroll. Fixed in Chrome: doubled °F in doneness values, crowded hour and °C axes.
+- Unverified: phone view of air fryer, convection, oven fan, microwave, meat time, cake servings, pizza, scaler, macros, party, measures sections (same components as the phone-checked ones).
+- Commit: 4f698f9, 7a71fdc + this DEVLOG commit (pushed: yes)
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)
