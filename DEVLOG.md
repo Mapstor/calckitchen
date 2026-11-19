@@ -2,21 +2,21 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-18 · CK-003_
-- Step: one page (turkey, on the preview of claude/ck-003-design1, waiting for the owner's OK) · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5 (boards "Pick, B with A's knob", "Pick, phone")
-- Phase: live site, not on Raptive, not yet in Google's index (GSC 2026-11-18: "URL is unknown to Google"; sitemap submitted). Four-stage pass on all 25 pages started with the turkey page.
-- Last confirmed: CK-006 AUTHOR — live 2026-11-18 (production dpl_GaKXqxERLfMWZrmqtf6kk5xMGMMi, main 15dd9ae, checked on calckitchen.com in Chrome); before it CK-002/004/005 live (f2e9be6).
-- In flight (handed, NOT confirmed): CK-003 DESIGN1 — turkey page in the picked look, preview only, PR not merged until the owner says yes.
-- Next action: owner reviews the turkey preview → merge CK-003, then ten pages in the look (page-looks step 7), each through the four stages; retry GSC indexing requests (quota).
-- Waiting on owner: top-30 read for Raptive later (Stage 4).
+_last update: 2026-11-19 · CK-008_
+- Step: ten pages (CK-008 on claude/ck-008-ten-pages, all 10 built and pushed, on the branch preview; waiting for the owner's OK before merging) · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
+- Phase: live site, not on Raptive. GSC 2026-11-19: 7 pages indexed (/, recipe-cost, cake-servings, oven-temperature, cake-pan, bakers-percentage, pizza-dough); Performance 2026-11-17 only: 0 clicks, 2 impressions. Indexing requested 2026-11-19 for / and /turkey-cooking-calculator.
+- Last confirmed: CK-003 DESIGN1 — live 2026-11-19 (main a98ea78, dpl_GeNxfVKGBmpcYA39DTvUMka6wpcv).
+- In flight (NOT merged): CK-008 TENPAGES — oven-temperature-converter, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, pizza-dough-calculator, bakers-percentage-calculator, cake-servings-calculator, cake-pan-converter, recipe-cost-calculator. Preview: https://calckitchen-git-claude-ck-008-ten-pages-marko-visics-projects.vercel.app
+- Next action: owner reviews the preview → merge (PR from claude/ck-008-ten-pages), set each page's UPDATED to the merge day if it isn't 2026-11-19, confirm production READY, check live, request indexing for the 10 URLs in GSC (daily quota). Then the remaining 14 pages in the look (page-looks step 7: the rest), and run portfolio-qa prose-score on the 11 rebuilt pages (Stage 2 not yet measured).
+- Waiting on owner: OK on the ten pages; top-30 read for Raptive later (Stage 4).
 - Open questions: Bing Webmaster account? Raptive application timing?
 
-Scoreboard (2026-11-18)
-    Stage 1 numbers and sources: 4% (1 of 25 pages, live) · bad at start 7/10
-    Stage 2 anti-slop: 0 of 25 pages · bad at start 6/10 (estimate from 2 pages)
-    Stage 3 impeccable and user tests: 0% · bad at start ?/10 (not measured)
-    Stage 4 Raptive: 0% · bad at start 7/10
-    Whole site: 1% (stage weights 30, 20, 30, 20)
+Scoreboard (2026-11-19)
+    Stage 1 numbers and sources: 44% (11 of 25 pages: turkey live + 10 on preview) · bad at start 7/10
+    Stage 2 anti-slop: 11 pages rewritten plain, 0 scored (prose-score not run) · bad at start 6/10
+    Stage 3 impeccable and user tests: ~30% (11 pages in the picked look, Chrome-checked at 390 and 1280; no Playwright suite yet) · bad at start ?/10
+    Stage 4 Raptive: ~20% (author identity sitewide; About rewrite, privacy/Raptive wording, top-30 read pending) · bad at start 7/10
+    Whole site: ~26% (stage weights 30, 20, 30, 20)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
 
 ## §1 Site card
@@ -44,6 +44,8 @@ Scoreboard (2026-11-18)
 - D-05 · 2026-11-17 · Page titles carry no " | CalcKitchen"; the layout template adds it.
 - D-07 · 2026-11-18 · Byline on every tool page: "By Marko Visic, MPharm, Faculty of Pharmacy, University of Ljubljana, Slovenia", linking to /about#author-bio; "Updated" date only after a real content change (turkey 2026-11-18) — owner's wording; raptive-ready identity standard. MPharm only, no BSc Physics on this site (owner: "mpharm is better for this site").
 - D-06 · 2026-11-18 · GitHub main is the source of truth; production deploys only from main (Vercel API until Git is connected) — the 2026-02-22 CLI deploy from a local folder carried 13 calculator files GitHub never had.
+- D-08 · 2026-11-19 · A figure with no primary source is removed, not softened: NY/Detroit/Sicilian pizza presets, convection "25% less time" for baking, cup-to-gram densities in recipe cost, lamb leg 7-9 lb row — why: one wrong number can sink Raptive review and Google trust; the page says what was left out where it matters.
+- D-09 · 2026-11-19 · Every rebuilt page has a research/sources/*.json snapshot and a scripts/check-*.mjs that checks the data and every figure written in the page text; npm run check:numbers runs them all — why: catches typos and drift; each check was tested with planted errors.
 
 ## §3 Rejected — don't re-propose
 - 2026-11-17 · Look A (red enamel oven panel) and look C (Roasting Facts label) as whole looks — owner picked B and took only A's knob.
@@ -58,10 +60,16 @@ Scoreboard (2026-11-18)
 - docs/mac-notes/content/*.md are the Feb 2026 drafts the pages were generated from, with the same unsourced figures. Never use them as a source.
 - Moving a page to the look = git mv src/app/(classic)/<slug> src/app/(instrument)/<slug>, then rebuild its markup with the p-* classes (URLs don't change). Classic pages render in system UI fonts in production (globals.css font vars resolve to nothing): keep that until they move.
 - Ad slots: the design reserves the rail and gaps; no empty .p-ad boxes before Raptive runs. The sticky-footer padding (124px, 80px phone) comes back with Raptive.
-- Google had never seen the site: on 2026-11-18 URL Inspection said "URL is unknown to Google" for / and /turkey-cooking-calculator (live test: indexable). Indexing requests hit the daily quota that day; retry. Expect days to weeks before pages appear.
+- GSC: 7 pages were already indexed by 2026-11-19 (Google crawled the site before 2026-11-18). URL Inspection of a page not yet indexed says "URL is unknown to Google"; that is per page, not the site. Indexing requests are capped per day: if the quota is hit, retry the next day.
+- Gas mark °C values differ between UK charts (gas mark 3 is 160°C on Which?, 170°C on Currys): follow Which? only (research/sources/oven-temps.json); a new chart needs its own registry row.
+- The oven dial is a component: src/components/instrument/Knob.tsx (tempF prop); LiveKnob.tsx follows the oven converter. CSS var --k turns it; the old static KNOB_325_SVG string is gone.
+- Instrument page kit: src/components/instrument/kit.tsx (Hero, Main, Sec, Table, Faq, Sources), Knob/LiveKnob (oven dial), Dial/LiveDial (needle dial, any scale), live.ts (calculator -> hero instrument), Read.tsx. New page = data module + snapshot + check script + calculator + page.tsx in src/app/(instrument)/<slug>.
+- Michroma has no proper degree sign: keep °F/°C in the UI font (p-read-u, tspan p-dial-vu, p-formula uses Public Sans).
+- WebFetch needs the URL to have appeared in a search result; when the owner is away and a fetch needs approval, read the page in Chrome instead (Frigidaire pages were read that way). frigidaire.com FAQ URLs 404; the .ca copies are live.
+- Check scripts that strip JSX tags also strip <Table rows=...> content; check table strings against the raw source (see check-cost-data.mjs).
 
 ## §5 Backlog (priority order)
-- [P1] Request indexing in GSC (daily quota) for the homepage, the turkey page and the top tool pages; check GSC Pages/Performance after a few days.
+- [P1] GSC: indexing requested 2026-11-19 for / and /turkey-cooking-calculator; request the CK-008 pages after they go live (daily quota); check Pages/Performance weekly.
 - [P1] CK-003 build the picked look on the turkey page, preview, owner review; then 10 pages, then all.
 - [P1] Search Console access, then order pages by impressions.
 - [P1] Stage 1 on the other 24 pages: registry rows + checks; known suspects: meat-cooking-time rest/carryover table, party-food quantities, air-fryer presets, homepage temperature tables; full external-link check.
@@ -118,6 +126,19 @@ Scoreboard (2026-11-18)
 - Files: src/app/(instrument)/**, src/app/(classic)/** (moved, unchanged except 3 titles), src/app/layout.tsx, src/components/instrument/*, src/components/calculators/TurkeyCookingCalculator.tsx, src/data/site-nav.ts
 - Verified: tsc 0; eslint 0 on new files; check:numbers 27/0/0; Vercel previews READY (fc7e4e2, 84b9f71). Chrome on the preview: 1280 and 390 px, no sideways scroll, Public Sans + Michroma loaded; all four modes return the USDA values (16 lb → 3¾–4¼ h; thaw 3–4 days / 8 h; 10 guests → 15 lb; timeline 10:25 AM, 2:10, 2:40, 3:00 PM on Thursday Nov 26); 16-lb deep-fry shows the 12-lb limit; classic pages keep their header, footer and production fonts.
 - Commit: fc7e4e2, 84b9f71, de27247 + this DEVLOG commit (pushed: yes; PR not merged)
+
+### 2026-11-19 · CK-003 DESIGN1 · chat · live
+- What: owner said yes ("1 yes", 2026-11-19); PR #5 merged.
+- Verified: Vercel production dpl_GeNxfVKGBmpcYA39DTvUMka6wpcv READY for a98ea78; calckitchen.com/turkey-cooking-calculator checked in Chrome (new look, calculator works). GSC: indexing requested for / and the turkey page.
+- Commit: a98ea78 (merge)
+- Notes: corrects the 2026-11-18 note that Google had never seen the site: 7 pages were indexed.
+
+### 2026-11-19 · CK-008 TENPAGES · chat · done (preview; waiting for owner review, not merged)
+- What: 10 pages rebuilt in the picked look, each on primary sources: oven temps (NIST, Which?, Hotpoint), meat temps (FoodSafety.gov chart, Beef Checkoff, America's Test Kitchen, USDA placement), meat cooking times (FoodSafety.gov roasting charts), air fryer (Illinois Extension), convection (Frigidaire, GE), pizza dough (EU Reg. 97/2010, King Arthur), baker's % (King Arthur), cake servings and pan converter (Wilton), recipe cost (exact unit definitions). Fabricated personas/examples, unsourced presets, guides and advice removed. Shared kit, live hero dials, shared header menu fix.
+- Files: src/app/(instrument)/{10 slugs}/page.tsx (moved from (classic)), src/components/calculators/{10}.tsx, src/components/instrument/{kit,Knob,LiveKnob,Dial,LiveDial,live,Read}, src/data/{oven-temps,meat-temps,roasting-times,air-fryer,convection,bakers,wilton,units}.ts, research/sources/*.json, research/data-sources.csv (+14 rows), scripts/check-*.mjs (8 new), package.json check:numbers; src/data/meat-cooking-data.ts removed.
+- Verified: tsc 0; eslint 0 on new files; check:numbers 0 failed, 0 skipped across 10 scripts (turkey 27, oven 71, meat 50, roast 82, air fryer 15, convection 8, bakers 35, cake 63, cost 22), each check tested with planted errors; Vercel previews READY through 87b08eb; Chrome on the branch preview: all 10 + turkey load with correct default readouts at 390 and 1280; 390 sideways scroll found on air fryer and meat cooking time, fixed in 29313ee (re-check on the final preview); interactions checked on oven (425°F, unit switches), meat chart (tabs, dial). Unverified: prose-score (Stage 2), Playwright suite, phone tap-through of every calculator.
+- Commit: 4f7eec1 … a981381 (pushed: yes; PR not opened/merged)
+- Notes: UPDATED dates are 2026-11-19; change them to the merge day if later.
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)

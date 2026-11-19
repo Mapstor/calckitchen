@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import TurkeyCookingCalculator from "@/components/calculators/TurkeyCookingCalculator";
 import RoastChart from "@/components/instrument/RoastChart";
-import { KNOB_325_SVG, THERMO_165_NARROW_SVG, THERMO_165_WIDE_SVG, TURKEY_CHECK_SVG } from "@/components/instrument/svg";
+import Knob from "@/components/instrument/Knob";
+import { THERMO_165_NARROW_SVG, THERMO_165_WIDE_SVG, TURKEY_CHECK_SVG } from "@/components/instrument/svg";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { AUTHOR } from "@/data/author";
 
@@ -157,7 +158,7 @@ export default function TurkeyCookingCalculatorPage() {
       <div className="p-hero">
         <div className="p-wrap">
           <div className="p-hgrid">
-            <span dangerouslySetInnerHTML={{ __html: KNOB_325_SVG }} />
+            <Knob tempF={325} label="Oven knob turned to 325 degrees Fahrenheit" />
             <div className="p-htext">
               <nav className="p-crumb" aria-label="Breadcrumb">
                 <Link href="/">Home</Link> / Cooking time / Turkey

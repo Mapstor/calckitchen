@@ -1,0 +1,24 @@
+{
+  "retrieved": "2026-11-19",
+  "frigidaire_bake": {
+    "url": "https://www.frigidaire.ca/Owner-Centre/FAQs/Cooking/RangesStoves-WallOvens-Cooktops/all-power-types/how-do-i-use-convection-bake/",
+    "title": "How do I use Convection Bake?",
+    "read_in": "Chrome (page text)",
+    "text": ["For Convection Bake, It is recommended to preheat the oven before baking food such as cookies, biscuits and breads.", "You will want to reduce the oven temperature by 25 degrees from the recipe's recommended oven temperature. You can then follow the remainder of the recipe's instructions using the minimum cooking time."],
+    "dropF": 25
+  },
+  "frigidaire_roast": {
+    "url": "https://www.frigidaire.ca/Owner-Centre/FAQs/Cooking/RangesStoves-WallOvens-Cooktops/all-power-types/how-do-i-use-convection-roast/",
+    "title": "How do I use Convection Roast?",
+    "read_in": "Chrome (page text)",
+    "text": ["Convection Roast is best for cooking tender cuts of beef, lamb, pork, and poultry.", "Preheating is not necessary when roasting foods using Convect Roast.", "Since Convect Roast cooks faster, reduce cook times by 25% from the recommended time on your recipe.", "You will need to check your food at that time and determine if additional time is needed.", "It is recommended that you do not cover foods when dry roasting since this may prevent the meat from browning properly.", "Turn temperature selector to desired roasting temperature."],
+    "timeCutPct": 25
+  },
+  "ge": {
+    "url": "https://products.geappliances.com/appliance/gea-support-search-content?contentId=16878",
+    "title": "Range & Wall Oven - Oven Temperature Incorrect with Convection Cooking",
+    "text": "When the oven is set for Auto Recipe Conversion ... the oven will automatically be set for 25 degrees less than the temperature entered. On most newer Ranges, the display will show the set temperature, not the converted temperature.",
+    "dropF": 25,
+    "manual_note": "GE owner's manuals (e.g. P2S975 p.27): this feature only converts cooking temperatures, not cooking times."
+  }
+}

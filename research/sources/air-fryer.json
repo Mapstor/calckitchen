@@ -1,0 +1,18 @@
+{
+  "retrieved": "2026-11-19",
+  "url": "https://extension.illinois.edu/sites/default/files/2024-12/air_fryer.pdf",
+  "title": "Kitchen Appliances: Air Fryers",
+  "publisher": "University of Illinois Extension (College of ACES)",
+  "last_modified": "2024-12",
+  "rule": { "dropLoF": 25, "dropHiF": 30, "timeCutPct": 20 },
+  "text": ["Reduce temperature by 25 to 30 F.", "Reduce cooking time by 20%."],
+  "tips": { "preheatMin": 3, "reheatF": 350, "reheatInternalF": 165 },
+  "tips_text": [
+    "Preheat: Follow the instruction manual — but typically preheat for 3 minutes.",
+    "In the middle of cooking time, shake fryer basket or use tongs to flip foods.",
+    "Do not overcrowd the basket; this can prevent food from cooking evenly.",
+    "Avoid flipping basket to remove food as oil in the bottom drawer may spill and cover the food.",
+    "Use oils with high smoke points. Examples include peanut, safflower, grapeseed, and olive oils, excluding virgin or extra virgin olive oils.",
+    "Set air fryer temperature to 350 F and cook until food reaches internal temperature of 165 F."
+  ]
+}
