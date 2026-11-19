@@ -1,0 +1,15 @@
+{
+  "retrieved": "2026-11-19",
+  "king_arthur": {
+    "url": "https://www.kingarthurbaking.com/pro/reference/bakers-percentage",
+    "title": "Baker's Percentage",
+    "text": ["In using baker's percentage, each ingredient in a formula is expressed as a percentage of the flour weight, and the flour weight is always expressed as 100%.", "To determine the percentage of the other ingredients, we divide the weight of each one by the weight of the flour, and then multiply the result (which is in decimal form) by 100 to convert it to a percent.", "(33 ÷ 50) x 100 = 66%"]
+  },
+  "eu_napoletana": {
+    "url": "https://www.legislation.gov.uk/eur/2010/97/annexes",
+    "title": "Commission Regulation (EU) No 97/2010, Annex II: Pizza Napoletana TSG product specification",
+    "quotes": ["Pour a litre of water into the dough kneader, dissolve in a quantity of between 50 and 55 g of sea salt, add 10 % of the prescribed total quantity of flour, then add 3 g of brewer's yeast.", "gradually add 1,8 kg of W 220-380 flour", "for 20 minutes at low speed", "it must be left for two hours", "Fermentation temperature 25 °C", "the dough balls must weigh between 180 and 250 g", "a second rising phase lasting four to six hours takes place inside food containers", "with a variable diameter not exceeding 35 cm", "with a baking temperature of 485 °C", "The baking time must not exceed 60 to 90 seconds"],
+    "values": { "waterG": 1000, "flourG": 1800, "saltLoG": 50, "saltHiG": 55, "yeastG": 3, "ballLoG": 180, "ballHiG": 250, "kneadMin": 20, "firstRiseH": 2, "fermentC": 25, "secondRiseLoH": 4, "secondRiseHiH": 6, "diameterMaxCm": 35, "ovenC": 485, "bakeLoS": 60, "bakeHiS": 90 },
+    "note": "1 litre of water is taken as 1000 g. Some copies of the APN rules say 1.7 kg flour; the EU regulation says 1.8 kg."
+  }
+}
