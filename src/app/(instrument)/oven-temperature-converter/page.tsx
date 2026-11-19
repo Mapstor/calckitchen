@@ -126,11 +126,11 @@ export default function OvenTemperatureConverterPage() {
             })}
           />
           <p className="p-note">
-            Gas marks 1 to 9 and their °C and fan settings are from Which?. Gas mark ½ is from{" "}
+            Which? lists gas marks 1 to 9 with their °C and fan settings. Gas mark ½ is from{" "}
             <a href={SRC_OVEN.hotpoint} {...ext}>
               Hotpoint&apos;s cooker manual
             </a>
-            ; Which? starts at gas mark 1. A dash means the chart has no gas mark for that temperature.
+            . A dash means the chart has no gas mark for that temperature.
           </p>
         </Sec>
 

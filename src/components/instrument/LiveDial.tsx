@@ -20,5 +20,5 @@ type Props = {
 
 export default function LiveDial({ liveKey, value, suffix, label, ...rest }: Props) {
   const v = useLive(liveKey, value);
-  return <Dial {...rest} value={v} readout={`${v}${suffix}`} label={`${label} ${v}${suffix}`} />;
+  return <Dial {...rest} value={v} readout={String(v)} readoutUnit={suffix} label={`${label} ${v}${suffix}`} />;
 }

@@ -28,6 +28,8 @@ const parseMark = (t: string) => {
 export default function OvenTemperatureConverter() {
   const [unit, setUnit] = useState<Unit>("F");
   const [text, setText] = useState("350");
+  // exact °F kept across a unit switch, so 425°F -> 218.3°C -> back reads 425, not 424.9
+  const [anchorF, setAnchorF] = useState<number | null>(null);
 
   let f: number | null = null;
   let row: GasRow | undefined;
@@ -40,7 +42,9 @@ export default function OvenTemperatureConverter() {
     const n = Number(text.trim().replace(",", "."));
     if (text.trim() !== "" && Number.isFinite(n)) {
       f = unit === "F" ? n : cToF(n);
-      row = unit === "F" ? GAS_ROWS.find((r) => r.f === n) : GAS_ROWS.find((r) => r.c === n);
+      if (anchorF !== null && fmt1(unit === "F" ? anchorF : fToC(anchorF)) === text.trim()) f = anchorF;
+      const exactF = f;
+      row = GAS_ROWS.find((r) => r.f === exactF) ?? (unit === "C" ? GAS_ROWS.find((r) => r.c === n) : undefined);
     }
   }
   const fv = f ?? 0;
@@ -57,8 +61,14 @@ export default function OvenTemperatureConverter() {
     if (ok) setDial(fv);
   }, [ok, fv]);
 
+  const edit = (t: string) => {
+    setText(t);
+    setAnchorF(null);
+  };
+
   const switchUnit = (u: Unit) => {
     if (u === unit) return;
+    setAnchorF(ok ? fv : null);
     if (ok) {
       if (u === "GM") setText(row ? row.gm : "4");
       else if (unit === "GM" && row) setText(u === "F" ? String(row.f) : String(row.c));
@@ -81,13 +91,13 @@ export default function OvenTemperatureConverter() {
           </label>
           <div className="p-row">
             <input
-              className="p-in"
+              className="p-in p-in-ot"
               id="ot-temp"
               type="text"
               inputMode="decimal"
               autoComplete="off"
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => edit(e.target.value)}
               aria-invalid={!ok}
               aria-describedby="ot-help"
             />
@@ -109,7 +119,7 @@ export default function OvenTemperatureConverter() {
           </span>
           <div className="p-quick">
             {QUICK[unit].map((q) => (
-              <button key={q} type="button" className={`p-opt${text === q ? " p-on" : ""}`} aria-pressed={text === q} onClick={() => setText(q)}>
+              <button key={q} type="button" className={`p-opt${text === q ? " p-on" : ""}`} aria-pressed={text === q} onClick={() => edit(q)}>
                 {q}
               </button>
             ))}

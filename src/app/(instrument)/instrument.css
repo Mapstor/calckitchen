@@ -309,3 +309,6 @@
 @media (max-width:640px){ .p-reads-3{grid-template-columns:repeat(2,minmax(0,1fr))} .p-reads-3 .p-read:nth-child(3){border-left:0;padding-left:0;border-top:1px solid #D5DAE1} }
 @media (prefers-reduced-motion: reduce){ .p-ndl{animation:none} .p-ndl-k{transition:none} }
 .p-mt{margin-top:16px}
+.p-dial-vu{font-family:var(--font-ui),system-ui,sans-serif;font-weight:800;font-size:18px}
+.p-in-ot{width:132px}
+.p-formula{font-family:var(--font-ui),system-ui,sans-serif;font-weight:700}

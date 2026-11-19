@@ -10,8 +10,9 @@ type Props = {
   value: number;
   /** values drawn as orange ticks */
   marks?: number[];
-  /** big readout under the hub, e.g. "145°F" */
+  /** big readout under the hub: number in the readout face, unit in the UI face (Michroma has no proper °) */
   readout?: string;
+  readoutUnit?: string;
   /** small unit label above the hub, e.g. "°F" */
   unit?: string;
   label: string;
@@ -24,7 +25,7 @@ const pt = (a: number, r: number) => {
   return { x: +(200 + r * Math.sin(rad)).toFixed(1), y: +(200 - r * Math.cos(rad)).toFixed(1) };
 };
 
-export default function Dial({ min, max, major, minor, value, marks = [], readout, unit, label, fmt = String }: Props) {
+export default function Dial({ min, max, major, minor, value, marks = [], readout, readoutUnit, unit, label, fmt = String }: Props) {
   const ang = (v: number) => -135 + (270 * (Math.min(max, Math.max(min, v)) - min)) / (max - min);
   const k = ang(value);
   const style = { "--k": `${k}deg`, "--k0": `${-135 - k}deg` } as CSSProperties;
@@ -65,6 +66,7 @@ export default function Dial({ min, max, major, minor, value, marks = [], readou
           <rect className="p-dial-win" x="128" y="262" width="144" height="46" rx="4" />
           <text className="p-dial-v" x="200" y="286">
             {readout}
+            {readoutUnit && <tspan className="p-dial-vu">{readoutUnit}</tspan>}
           </text>
         </>
       )}
