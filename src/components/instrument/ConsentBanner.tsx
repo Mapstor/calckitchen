@@ -24,6 +24,16 @@ function setConsent(granted: boolean) {
   }
   const g = (window as unknown as { gtag?: Gtag }).gtag;
   if (g) g("consent", "update", { analytics_storage: granted ? "granted" : "denied" });
+  if (!granted) {
+    // a "no" after a "yes": remove the analytics cookies already set (_ga, _ga_<ID>) on this host and its parent domain
+    const host = location.hostname;
+    const parent = host.split(".").slice(-2).join(".");
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!name.startsWith("_ga")) continue;
+      for (const d of ["", `; domain=${host}`, `; domain=.${parent}`]) document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d}`;
+    }
+  }
 }
 
 export default function ConsentBanner() {
