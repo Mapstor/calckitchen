@@ -38,6 +38,7 @@ export default function RecipeCostCalculator() {
 
   const costs = rows.map(cost);
   const total = costs.reduce((a, c) => a + (c.v ?? 0), 0);
+  const incomplete = costs.some((c) => c.why);
   const servings = parse(servingsText);
   const sOk = servings !== null && servings >= 1;
   const per = sOk ? total / (servings as number) : null;
@@ -112,7 +113,7 @@ export default function RecipeCostCalculator() {
       </form>
 
       <ul className="p-reads p-reads-live" aria-live="polite">
-        <Read v={money(total)} c="Recipe cost" />
+        <Read v={money(total)} c={incomplete ? "Recipe cost, leaving out a row that mixes weight and volume" : "Recipe cost"} />
         <Read v={per !== null ? money(per) : "—"} c="Cost per serving" />
         <Read v={menu !== null ? money(menu) : "—"} c={pOk ? `Menu price at ${pct}% food cost` : "Menu price"} />
         <Read v={sOk ? String(servings) : "—"} c="Servings" />
