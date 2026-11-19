@@ -7,6 +7,7 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { DONE, ROASTS, SRC_ROAST, STUFFED_ADD, hm, type RoastRow } from "@/data/roasting-times";
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const URL = "https://calckitchen.com/meat-cooking-time-calculator";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on the FoodSafety.gov roasting charts
@@ -17,7 +18,8 @@ const DESC =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
-  openGraph: { title: TITLE, description: DESC, url: URL, type: "website" },
+  openGraph: { title: TITLE, description: DESC, url: URL, type: "website", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: URL },
 };
 

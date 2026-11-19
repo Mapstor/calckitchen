@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { SRC_MW, forWattage, toMicrowave } from "@/data/microwave";
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const URL = "https://calckitchen.com/microwave-to-oven-converter";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt on GE Appliances' microwave recipe-conversion rules
@@ -16,7 +17,8 @@ const DESC =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
-  openGraph: { title: TITLE, description: DESC, url: URL, type: "website" },
+  openGraph: { title: TITLE, description: DESC, url: URL, type: "website", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: URL },
 };
 

@@ -6,6 +6,7 @@ import Knob from "@/components/instrument/Knob";
 import { THERMO_165_NARROW_SVG, THERMO_165_WIDE_SVG, TURKEY_CHECK_SVG } from "@/components/instrument/svg";
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { AUTHOR } from "@/data/author";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const SRC = {
   roast: "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/poultry/lets-talk-turkey-roasting",
@@ -27,6 +28,14 @@ export const metadata: Metadata = {
       "How long to cook a turkey by weight, from the USDA's 325°F roasting timetable, stuffed or not. Plus frying, grilling and smoking times, thawing and a dinner timeline.",
     url: "https://calckitchen.com/turkey-cooking-calculator",
     type: "website",
+    images: OG_IMAGES,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Turkey Cooking Time Calculator by Weight (+ Thawing Times)",
+    description:
+      "How long to cook a turkey by weight, from the USDA's 325°F roasting timetable, stuffed or not. Plus frying, grilling and smoking times, thawing and a dinner timeline.",
+    images: TW_IMAGES,
   },
   alternates: {
     canonical: "https://calckitchen.com/turkey-cooking-calculator",

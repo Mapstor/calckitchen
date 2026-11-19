@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LOGO_SVG } from "./svg";
+import { ConsentLink } from "./ConsentBanner";
 
 export default function InstrumentFooter() {
   return (
@@ -14,6 +15,7 @@ export default function InstrumentFooter() {
           <Link href="/contact">Contact</Link>
           <Link href="/privacy-policy">Privacy policy</Link>
           <Link href="/terms-of-use">Terms of use</Link>
+          <ConsentLink />
         </nav>
         <p className="p-copy">© 2026 CalcKitchen</p>
       </div>

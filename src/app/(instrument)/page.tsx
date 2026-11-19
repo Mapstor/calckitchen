@@ -4,6 +4,7 @@ import Knob from "@/components/instrument/Knob";
 import { Hero, Main, Sec } from "@/components/instrument/kit";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { NAV, RAIL_DEFAULT } from "@/data/site-nav";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const UPDATED = "2026-11-19"; // CK-009: home rebuilt in the picked look; descriptions match the rebuilt pages
 const TITLE = "CalcKitchen: Kitchen Calculators for Cooking Times, Conversions and Baking";
@@ -13,7 +14,8 @@ const DESC =
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESC,
-  openGraph: { title: TITLE, description: DESC, url: "https://calckitchen.com", type: "website", siteName: "CalcKitchen" },
+  openGraph: { title: TITLE, description: DESC, url: "https://calckitchen.com", type: "website", siteName: "CalcKitchen", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: "https://calckitchen.com" },
 };
 

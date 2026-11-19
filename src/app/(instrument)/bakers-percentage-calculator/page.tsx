@@ -6,6 +6,7 @@ import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { SRC_BAKERS, bakersPct, d1 } from "@/data/bakers";
 import { Split, TONE } from "@/components/instrument/Bars";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const URL = "https://calckitchen.com/bakers-percentage-calculator";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on King Arthur Baking's baker's percentage method
@@ -16,7 +17,8 @@ const DESC =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
-  openGraph: { title: TITLE, description: DESC, url: URL, type: "website" },
+  openGraph: { title: TITLE, description: DESC, url: URL, type: "website", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: URL },
 };
 

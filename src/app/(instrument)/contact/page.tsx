@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Hero, Main, Sec } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { RAIL_DEFAULT } from "@/data/site-nav";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const UPDATED = "2026-11-19"; // CK-009: contact page in the picked look
 const TITLE = "Contact CalcKitchen";
@@ -11,7 +12,8 @@ const DESC = "Email CalcKitchen at info@calckitchen.com about a wrong number, a 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESC,
-  openGraph: { title: TITLE, description: DESC, url: "https://calckitchen.com/contact", siteName: "CalcKitchen", type: "website" },
+  openGraph: { title: TITLE, description: DESC, url: "https://calckitchen.com/contact", siteName: "CalcKitchen", type: "website", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: "https://calckitchen.com/contact" },
 };
 
