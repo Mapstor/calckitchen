@@ -3,11 +3,11 @@
 
 ## §0 Resume here
 _last update: 2026-11-19 · CK-008_
-- Step: ten pages (CK-008 on claude/ck-008-ten-pages, building; 1 of 10 built: /oven-temperature-converter) · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5 (boards "Pick, B with A's knob", "Pick, phone")
+- Step: ten pages (CK-008 on claude/ck-008-ten-pages, building; 5 of 10 built and pushed: oven-temperature-converter, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter) · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5 (boards "Pick, B with A's knob", "Pick, phone")
 - Phase: live site, not on Raptive. GSC 2026-11-19: 7 pages indexed (/, /recipe-cost-calculator, /cake-servings-calculator, /oven-temperature-converter, /cake-pan-converter, /bakers-percentage-calculator, /pizza-dough-calculator); Performance 2026-11-17 only: 0 clicks, 2 impressions. Indexing requested 2026-11-19 for / and /turkey-cooking-calculator.
 - Last confirmed: CK-003 DESIGN1 — live 2026-11-19 (PR #5 merged, main a98ea78, production dpl_GeNxfVKGBmpcYA39DTvUMka6wpcv READY, turkey page checked on calckitchen.com in Chrome).
 - In flight (handed, NOT confirmed): CK-008 TENPAGES — building, not pushed for review yet.
-- Next action: CK-008: build the other 9 pages (meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, pizza-dough-calculator, cake-pan-converter, bakers-percentage-calculator, cake-servings-calculator, recipe-cost-calculator) with src/components/instrument/kit.tsx, each through the four stages; push, Chrome-check the preview at 390/1280, show the owner (page-looks step 7) before merging. Set each page's UPDATED to the day it goes live.
+- Next action: CK-008: build pizza-dough-calculator, cake-pan-converter, bakers-percentage-calculator, cake-servings-calculator, recipe-cost-calculator with src/components/instrument/kit.tsx (Hero/Main/Sec/Table/Faq/Sources), Knob/Dial/LiveKnob/LiveDial + live.ts, a data module, a research/sources snapshot and a scripts/check-*.mjs wired into check:numbers; then Chrome-check every page of the batch at 390 and 1280 on the branch preview and show the owner before merging. Set each page's UPDATED to the day it goes live.
 - Waiting on owner: OK on the ten pages (after preview); top-30 read for Raptive later (Stage 4).
 - Open questions: Bing Webmaster account? Raptive application timing?
 
