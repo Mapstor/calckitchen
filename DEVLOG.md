@@ -2,21 +2,21 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-19 · CK-010_
-- Step: all pages (page-looks step 7, "the rest"): all 25 pages in the picked look on the preview (claude/ck-009-rest), plus result visuals on 17 calculators (CK-010, owner asked 2026-11-19), waiting for the owner's look before merging. 11 of 25 live · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
+_last update: 2026-11-19 · CK-011_
+- Step: all pages: all 25 pages live in the picked look with result visuals (CK-009 + CK-010 merged 2026-11-19). Now CK-011: drawings in the page sections of 15 pages (owner: "lets do this for most pages"). canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
-- Last confirmed: CK-008 TENPAGES — live 2026-11-19 (PR #6 merged, main 1e03706, production dpl_4nnmNd7Pk1ghV6R5qsR22QYpo43M READY).
-- In flight (NOT merged): CK-009 REST + CK-010 VISUALS on one branch, PR #7 — done on the preview (14 pages rebuilt; drawn results on 17 calculators); owner's look pending.
-- Next action: owner looks at the preview (pages + visuals) → merge PR #7 → confirm production READY → Chrome-check the 14 pages on calckitchen.com → GSC indexing requests (bakers-percentage, cake-servings, recipe-cost first, then the CK-009 pages, ~9 a day).
-- Waiting on owner: look at the CK-009 preview and the CK-010 visuals; confirm hello@calckitchen.com receives mail; decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
+- Last confirmed: CK-009 REST + CK-010 VISUALS — live 2026-11-19 (PR #7 merged, main a64fb07; first production build failed on the Google Fonts fetch, redeploy dpl_GP1DpKn6MkLFJEiioVG1N7SUFRW5 READY; Chrome: cake pan visuals and turkey checkboxes correct on calckitchen.com).
+- In flight (NOT merged): CK-011 BODY VISUALS on claude/ck-011-body-visuals — built, checks pass; Chrome check and the owner's look pending.
+- Next action: Chrome-check CK-011 on its preview → owner looks → merge → production READY + live check. GSC: request indexing for the 14 CK-009 pages and bakers-percentage, cake-servings, recipe-cost (~9 a day; 2026-11-19 quota already used).
+- Waiting on owner: look at the CK-011 preview; confirm hello@calckitchen.com receives mail; decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-19)
-    Stage 1 numbers and sources: 25 of 25 pages on registry rows + check scripts (11 live, 14 on preview); npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
+    Stage 1 numbers and sources: 25 of 25 pages live on registry rows + check scripts; npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
     Stage 2 anti-slop: 25 pages rewritten plain, 0 scored (prose-score not run) · bad at start 6/10
     Stage 3 impeccable and user tests: 25 pages in the picked look, Chrome-checked at 390 and 1280 (no sideways scroll, readouts and modes tested); result visuals on 17 calculators (CK-010), Chrome-checked at 390 and desktop; no Playwright suite yet · bad at start ?/10
     Stage 4 Raptive: ~45% (author identity sitewide, About rewritten, privacy and terms match the stack; mailbox, consent, top-30 read pending) · bad at start 7/10
-    Whole site: ~44% live, ~70% counting the preview (stage weights 30, 20, 30, 20)
+    Whole site: ~72% live (stage weights 30, 20, 30, 20)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
 
 ## §1 Site card
@@ -76,15 +76,17 @@ Scoreboard (2026-11-19)
 - Michroma draws % and ° oddly: chart values go through G (HTML, Bars.tsx) or TG (SVG, Scales.tsx), which set those signs in Public Sans.
 - Size strings like "12 in.": parse with /\d+(?:\.\d+)?/g; /[\d.]+/g also matches the dot of "in." and gives NaN (CK-010 cake stack drew nothing until fixed).
 - Result visuals (CK-010): one figure, two SVG frames, .p-viz-wide (1000 units) above 860 px and .p-viz-tall (420 units) below; HTML charts (Bars, StackBars, Split, Ratio, Balls) reflow on their own. Temperatures go on a scale (TempCompare), never on bars from zero. Values come from the calculator's own data; a drawing adds no figure of its own.
+- A production build can fail on the Google Fonts fetch ("Module not found: Can't resolve '@vercel/turbopack-next/internal/font/google/font'") while previews of the same commit pass (2026-11-19, a64fb07). The live site keeps the last READY build. Redeploy: Vercel create_deployment with deploymentId of the failed build, target production; then check READY and the live page.
+- Check scripts that strip <...> from page source (check-slowcooker-data.mjs and others): a "<" in page code (m < 60) swallows text up to the next ">" and breaks the sentence checks. In those pages write comparisons with >= or move the helper to a component.
 
 ## §5 Backlog (priority order)
-- [P1] Merge PR #7 (CK-009 + CK-010) after the owner's look; production check; GSC indexing requests in daily batches (bakers-percentage, cake-servings, recipe-cost, then the 14 CK-009 pages); check Pages/Performance weekly.
+- [P1] Merge CK-011 after the owner's look; GSC indexing requests in daily batches (bakers-percentage, cake-servings, recipe-cost, then the 14 CK-009 pages); check Pages/Performance weekly.
 - [P1] Stage 4: confirm hello@calckitchen.com works; EU consent for GA4 (banner now, or Raptive's CMP after acceptance); governing law in the terms (Slovenia assumed); owner's top-30 read logged here; then the Raptive application.
 - [P2] Stage 2: run portfolio-qa prose-score on all 25 pages (needs a build the shell can't do: run in a cloud session with fonts, or against production after the merge).
 - [P2] Stage 3: Playwright suite for every tool at 390 and 1280 (include each result visual: no sideways scroll, no NaN in SVG attributes); sitemap lastModified = real per-page dates.
 - [P2] Full external-link check of every Sources list (ask.usda.gov on /air-fryer-converter loaded badly 2026-11-17).
 - [P2] Next.js 16.1.6 → 16.4.6: npm audit (prod) 2026-11-17 = 1 critical (next: request smuggling in rewrites, next/image disk cache growth), 4 high (sharp, postcss, nanoid, source-map-js), 1 moderate.
-- [P3] Visuals not done: recipe scaler (nothing worth drawing), body sections beyond the cake pan lineup (candidates: butter chart, coffee table) — only if the owner wants more.
+- [P3] Visuals not done (CK-011 covers 15 page bodies): sourdough feeding, baker's percentage body, recipe cost body, recipe scaler result; home/About/policy pages need none.
 - [P3] Re-measure eslint (576 errors before the rebuild, mostly unescaped apostrophes in the old page copy).
 
 ## §6 Log (append-only, newest at bottom)
@@ -166,6 +168,11 @@ Scoreboard (2026-11-19)
 - Phone recheck of f0c2e9a (meat thermometer, upright oven scale) passed in Chrome. Unverified: hover tooltips; reduced-motion rendering.
 - Commit: 87904ab, ce5af56, dcc8833, f0c2e9a (pushed: yes, PR #7)
 - Notes: no new figures: every drawn value comes from the calculator's data and registry rows.
+
+### 2026-11-19 · CK-010 VISUALS · chat · live
+- What: PR #7 (CK-009 + CK-010) merged by Claude after the owner's "looks good, lets merge"; main a64fb07.
+- Verified: first production build ERROR (Google Fonts fetch, see §4); redeploy dpl_GP1DpKn6MkLFJEiioVG1N7SUFRW5 READY, aliased to calckitchen.com; Chrome on calckitchen.com: /cake-pan-converter shows both figures, no sideways scroll; /turkey-cooking-calculator checkboxes flex column, 44 px.
+- Commit: a64fb07 (merge)
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)

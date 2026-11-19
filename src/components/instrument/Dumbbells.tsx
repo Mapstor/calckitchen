@@ -36,13 +36,13 @@ export default function Dumbbells({
   return (
     <div className="p-db">
       {title && <p className="p-vbars-t">{title}</p>}
-      <div className="p-db-l" role="img" aria-label={`${label}: ${rows.map((r) => `${r.name}, ${r.text}`).join("; ")}`}>
+      <div className="p-db-l" role="img" aria-label={`${label}: ${rows.map((r) => `${r.name}, ${r.text.replace(/\n/g, ", ")}`).join("; ")}`}>
         {rows.map((r, ri) => {
           const ends = r.marks.flatMap((m) => [m.lo, m.hi ?? m.lo]);
           const l = pct(Math.min(...ends), a, b);
           const w = pct(Math.max(...ends), a, b) - l;
           return (
-            <div className="p-db-r" key={`${ri}-${r.name}`} title={`${r.name}: ${r.text}`}>
+            <div className="p-db-r" key={`${ri}-${r.name}`} title={`${r.name}: ${r.text.replace(/\n/g, ", ")}`}>
               <span className="p-db-n">{r.name}</span>
               <span className="p-db-t">
                 {ticks.map((t) => (
@@ -60,7 +60,11 @@ export default function Dumbbells({
                 })}
               </span>
               <span className="p-db-v">
-                <G t={r.text} />
+                {r.text.split("\n").map((t, ti) => (
+                  <span key={ti} className="p-db-vl">
+                    <G t={t} />
+                  </span>
+                ))}
               </span>
             </div>
           );

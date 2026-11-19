@@ -171,7 +171,7 @@ export default function OvenTemperatureConverterPage() {
           <Dumbbells
             title="Each gas mark: conventional and fan oven °C from the chart"
             label="Conventional and fan oven temperatures"
-            step={20}
+            step={40}
             unit="°C"
             keys={[
               { name: "Conventional oven", tone: TONE.blue },

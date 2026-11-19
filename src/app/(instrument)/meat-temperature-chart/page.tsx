@@ -169,7 +169,7 @@ export default function MeatTemperatureChartPage() {
                 { lo: a.pullLo, hi: a.pullHi, tone: TONE.blue },
                 { lo: a.serveLo, hi: a.serveHi, tone: TONE.orange },
               ],
-              text: `${range(a.pullLo, a.pullHi)} → ${range(a.serveLo, a.serveHi)}°F`,
+              text: `${a.pullLo}–${a.pullHi}°F\n→ ${a.serveLo === a.serveHi ? a.serveLo : `${a.serveLo}–${a.serveHi}`}°F`,
             }))}
           />
         </Sec>

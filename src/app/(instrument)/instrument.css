@@ -504,3 +504,4 @@
 .p-rr-c{flex-basis:0;border-radius:3px}
 .p-rr-v{font-family:var(--font-readout),system-ui,sans-serif;font-size:14px}
 @media (max-width:640px){ .p-rr-r{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n v" "t t";row-gap:4px} .p-rr-n{grid-area:n} .p-rr-v{grid-area:v} .p-rr-t{grid-area:t} }
+.p-db-vl{display:block;white-space:nowrap}

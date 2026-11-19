@@ -129,7 +129,7 @@ export default function SlowCookerPage() {
             title="Crock-Pot's chart, drawn in hours"
             label="Oven or stovetop to slow cooker times"
             min={0}
-            step={2}
+            step={4}
             unit="hours"
             keys={[
               { name: "Oven or stovetop", tone: TONE.blue },
@@ -143,7 +143,7 @@ export default function SlowCookerPage() {
                 { lo: b.highLo, hi: b.highHi, tone: TONE.orange },
                 { lo: b.lowLo, hi: b.lowHi, tone: TONE.purple },
               ],
-              text: `High ${hrs(b.highLo)}–${hrs(b.highHi)} h, Low ${hrs(b.lowLo)}–${hrs(b.lowHi)} h`,
+              text: `High ${hrs(b.highLo)}–${hrs(b.highHi)} h\nLow ${hrs(b.lowLo)}–${hrs(b.lowHi)} h`,
             }))}
           />
         </Sec>
