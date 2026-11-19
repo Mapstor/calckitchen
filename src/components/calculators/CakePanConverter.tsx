@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Bars, { TONE } from "@/components/instrument/Bars";
+import { PanPair } from "@/components/instrument/Pans";
 import Read from "@/components/instrument/Read";
 import { setLive } from "@/components/instrument/live";
 import { area, frac, wiltonFor, type PanShape } from "@/data/wilton";
@@ -75,6 +77,18 @@ export default function CakePanConverter() {
         <Read v={w ? String(frac(w.cups)) : "—"} u={w ? "cups" : undefined} c={w ? "Wilton: batter for one 2 in. layer" : "Not a size on Wilton's chart"} />
         <Read v={w ? `${w.timeLo}–${w.timeHi}` : "—"} u={w ? "min" : undefined} c={w ? `Wilton: at ${w.tempF}°F, 2 in. layer` : "Not a size on Wilton's chart"} />
       </ul>
+      {df && dt && mult !== null && (
+        <>
+          <PanPair recipe={{ shape: from.shape, a: df.a, b: df.b }} yours={{ shape: to.shape, a: dt.a, b: dt.b }} />
+          <Bars
+            label="Batter compared with the recipe"
+            rows={[
+              { name: "Recipe's batter", v: 1, text: "1×", tone: TONE.blue },
+              { name: "Batter for your pan", v: mult, text: `${(m2 as number).toFixed(2)}×`, tone: TONE.orange },
+            ]}
+          />
+        </>
+      )}
       <p className="p-res-basis p-mt">Assumes both pans are the same depth.</p>
     </div>
   );

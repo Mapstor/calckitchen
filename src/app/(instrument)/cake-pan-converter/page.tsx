@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import CakePanConverter from "@/components/calculators/CakePanConverter";
 import LiveDial from "@/components/instrument/LiveDial";
+import { PanLineup } from "@/components/instrument/Pans";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { SRC_WILTON, WILTON, area } from "@/data/wilton";
@@ -109,6 +110,17 @@ export default function CakePanConverterPage() {
             An 8-inch round is 50.3 square inches and a 9-inch round 63.6, so the 9-inch pan needs 63.62 ÷ 50.27 = 1.27 times the recipe. Going
             from a 9 x 13 (117 square inches) to an 8-inch square (64) is 64 ÷ 117 = 0.55, a little over half.
           </p>
+          <PanLineup
+            hi={1}
+            pans={[
+              { shape: "Round", a: 6, b: 6, name: "6 in. round" },
+              { shape: "Round", a: 8, b: 8, name: "8 in. round" },
+              { shape: "Round", a: 9, b: 9, name: "9 in. round" },
+              { shape: "Square", a: 8, b: 8, name: "8 in. square" },
+              { shape: "Square", a: 9, b: 9, name: "9 in. square" },
+              { shape: "Rectangle", a: 13, b: 9, name: "9 × 13 in." },
+            ]}
+          />
         </Sec>
 
         <Sec title="Round pans compared with an 8-inch round">
