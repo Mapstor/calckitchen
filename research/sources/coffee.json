@@ -1,0 +1,32 @@
+{
+  "retrieved": "2026-11-19",
+  "sca": {
+    "id": "SCA-310",
+    "url": "https://sca.coffee/s/SCA_Standard_310-2021.pdf",
+    "title": "SCA Standard 310-2021 Home Coffee Brewers: Specifications and Test Methods",
+    "publisher": "Specialty Coffee Association (© 2022)",
+    "read": "WebFetch of the PDF, 2026-11-19",
+    "quotes": [
+      "In this standard, brew ratio is expressed in grams of coffee per 1.000 kg of fresh water at 17±3°C (g/kg).",
+      "The brew ratio used for testing in this standard: 55 g of coffee per 1.000 kg of water.",
+      "shall reach a temperature in the 90 to 96°C range by the moment when 33% of the water mass has been sprayed",
+      "The temperature shall be maintained within the 90 to 96°C range for the remainder of the brew cycle.",
+      "Target extraction parameters shall be a brew strength of 1.15-1.55% at the standard brew ratio."
+    ],
+    "values": { "gPerKg": 55, "tempLoC": 90, "tempHiC": 96 }
+  },
+  "nca": {
+    "id": "NCA-BREW",
+    "publisher": "National Coffee Association USA (About Coffee, © 2026)",
+    "read": "Chrome, 2026-11-19; https://www.ncausa.org/About-Coffee/How-to-Brew-Coffee now redirects to https://www.aboutcoffee.org/brewing/",
+    "pages": {
+      "https://www.aboutcoffee.org/brewing/drip-coffee/": ["Coffee-to-water ratio: 1 to 2 tablespoons of ground coffee for every 6 ounces of water (the “Golden Ratio”)"],
+      "https://www.aboutcoffee.org/brewing/pour-over-coffee/": ["Coffee-to-water ratio: 1 gram of coffee to 13-16 grams of water (1:13 to 1:16)", "Brewing temperature: 93 ± 3°C"],
+      "https://www.aboutcoffee.org/brewing/french-press-coffee/": ["Coffee-to-water ratio: 1 gram of coffee to 10–16 grams of water (1:10 to 1:16)", "Brewing temperature: 93 ± 3°C"],
+      "https://www.aboutcoffee.org/brewing/cold-brew-coffee/": ["Coffee-to-water ratio: 1 gram of coffee to 4-5 grams of water (1:4 to 1:5)", "Let the coffee sit and steep in the refrigerator or at room temperature for 12 hours, or overnight."],
+      "https://www.aboutcoffee.org/brewing/espresso/": ["Coffee-to-water ratio: 1 gram of dry coffee to 2 grams of brewed espresso (1:2), where 1 is the weight of dry coffee grounds and 2 is the weight of liquid espresso extracted"]
+    },
+    "values": { "tbspLo": 1, "tbspHi": 2, "perFlOz": 6, "pourover": [13, 16], "frenchpress": [10, 16], "coldbrew": [4, 5], "espresso": [2, 2], "tempC": 93, "tempPlusMinus": 3, "coldBrewHours": 12 }
+  },
+  "water": { "id": "USDA-FDC-SR", "fdcId": 173647, "description": "Beverages, water, tap, drinking", "measures": { "1 fl oz": 29.6, "1 serving 8 fl oz": 237, "1 liter": 1000 } }
+}
