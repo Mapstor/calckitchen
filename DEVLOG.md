@@ -2,19 +2,19 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-19 · CK-009_
-- Step: all pages (page-looks step 7, "the rest"): all 25 pages in the picked look on the preview (claude/ck-009-rest), waiting for the owner's look before merging. 11 of 25 live · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
+_last update: 2026-11-19 · CK-010_
+- Step: all pages (page-looks step 7, "the rest"): all 25 pages in the picked look on the preview (claude/ck-009-rest), plus result visuals on 17 calculators (CK-010, owner asked 2026-11-19), waiting for the owner's look before merging. 11 of 25 live · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
 - Last confirmed: CK-008 TENPAGES — live 2026-11-19 (PR #6 merged, main 1e03706, production dpl_4nnmNd7Pk1ghV6R5qsR22QYpo43M READY).
-- In flight (NOT merged): CK-009 REST — done on the preview (14 pages: 9 calculators rebuilt on sources, home, about, contact, privacy, terms), PR open; owner's look pending.
-- Next action: owner looks at the preview → merge the CK-009 PR → confirm production READY → Chrome-check the 14 pages on calckitchen.com → GSC indexing requests (bakers-percentage, cake-servings, recipe-cost first, then the CK-009 pages, ~9 a day).
-- Waiting on owner: look at the CK-009 preview; confirm hello@calckitchen.com receives mail; decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
+- In flight (NOT merged): CK-009 REST + CK-010 VISUALS on one branch, PR #7 — done on the preview (14 pages rebuilt; drawn results on 17 calculators); owner's look pending.
+- Next action: owner looks at the preview (pages + visuals) → merge PR #7 → confirm production READY → Chrome-check the 14 pages on calckitchen.com → GSC indexing requests (bakers-percentage, cake-servings, recipe-cost first, then the CK-009 pages, ~9 a day).
+- Waiting on owner: look at the CK-009 preview and the CK-010 visuals; confirm hello@calckitchen.com receives mail; decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-19)
     Stage 1 numbers and sources: 25 of 25 pages on registry rows + check scripts (11 live, 14 on preview); npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
     Stage 2 anti-slop: 25 pages rewritten plain, 0 scored (prose-score not run) · bad at start 6/10
-    Stage 3 impeccable and user tests: 25 pages in the picked look, Chrome-checked at 390 and 1280 (no sideways scroll, readouts and modes tested); no Playwright suite yet · bad at start ?/10
+    Stage 3 impeccable and user tests: 25 pages in the picked look, Chrome-checked at 390 and 1280 (no sideways scroll, readouts and modes tested); result visuals on 17 calculators (CK-010), Chrome-checked at 390 and desktop; no Playwright suite yet · bad at start ?/10
     Stage 4 Raptive: ~45% (author identity sitewide, About rewritten, privacy and terms match the stack; mailbox, consent, top-30 read pending) · bad at start 7/10
     Whole site: ~44% live, ~70% counting the preview (stage weights 30, 20, 30, 20)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
@@ -71,14 +71,20 @@ Scoreboard (2026-11-19)
 - USDA FoodData Central: from an fdc.nal.usda.gov tab in Chrome, fetch('/portal-data/external/<fdcId>') returns the food JSON (nutrients per 100 g, foodMeasures) and POST /portal-data/external/search finds IDs, no key. api.nal.usda.gov with DEMO_KEY rate-limits after ~10 calls.
 - ncausa.org How-to-Brew-Coffee redirects to aboutcoffee.org/brewing/; the ratios live on the method pages (drip, pour-over, French press, cold brew, espresso).
 - Kit Hero: visual={null} gives a one-column hero; byline="date" shows "Last updated" only (policy pages); crumb is optional (home).
+- instrument.css is one flat stylesheet: a new rule with an existing class name silently restyles other pages (CK-009 p-checks/p-check hit the turkey and meat-time checkboxes; first CK-010 draft hit p-fig/p-bar/p-key of the turkey page and RoastChart). grep the class before adding it. Visual classes: p-viz, p-pan-, p-vbar, p-vkey, p-vsw, p-split, p-ratio, p-tier, p-stick, p-ball, p-sc-, p-th-, p-tr-.
+- On main since CK-008: .p-tk-maj/.p-tk-min/.p-sc-t are defined twice (oven knob ~l.42-45, dial ~l.78-80); the later rules win on both instruments. That is what the owner approved; change only with a look.
+- Michroma draws % and ° oddly: chart values go through G (HTML, Bars.tsx) or TG (SVG, Scales.tsx), which set those signs in Public Sans.
+- Size strings like "12 in.": parse with /\d+(?:\.\d+)?/g; /[\d.]+/g also matches the dot of "in." and gives NaN (CK-010 cake stack drew nothing until fixed).
+- Result visuals (CK-010): one figure, two SVG frames, .p-viz-wide (1000 units) above 860 px and .p-viz-tall (420 units) below; HTML charts (Bars, StackBars, Split, Ratio, Balls) reflow on their own. Temperatures go on a scale (TempCompare), never on bars from zero. Values come from the calculator's own data; a drawing adds no figure of its own.
 
 ## §5 Backlog (priority order)
-- [P1] Merge CK-009 after the owner's look; production check; GSC indexing requests in daily batches (bakers-percentage, cake-servings, recipe-cost, then the 14 CK-009 pages); check Pages/Performance weekly.
+- [P1] Merge PR #7 (CK-009 + CK-010) after the owner's look; production check; GSC indexing requests in daily batches (bakers-percentage, cake-servings, recipe-cost, then the 14 CK-009 pages); check Pages/Performance weekly.
 - [P1] Stage 4: confirm hello@calckitchen.com works; EU consent for GA4 (banner now, or Raptive's CMP after acceptance); governing law in the terms (Slovenia assumed); owner's top-30 read logged here; then the Raptive application.
 - [P2] Stage 2: run portfolio-qa prose-score on all 25 pages (needs a build the shell can't do: run in a cloud session with fonts, or against production after the merge).
-- [P2] Stage 3: Playwright suite for every tool at 390 and 1280; cake pan SVG legend swatches at 390 px; sitemap lastModified = real per-page dates.
+- [P2] Stage 3: Playwright suite for every tool at 390 and 1280 (include each result visual: no sideways scroll, no NaN in SVG attributes); sitemap lastModified = real per-page dates.
 - [P2] Full external-link check of every Sources list (ask.usda.gov on /air-fryer-converter loaded badly 2026-11-17).
 - [P2] Next.js 16.1.6 → 16.4.6: npm audit (prod) 2026-11-17 = 1 critical (next: request smuggling in rewrites, next/image disk cache growth), 4 high (sharp, postcss, nanoid, source-map-js), 1 moderate.
+- [P3] Visuals not done: recipe scaler (nothing worth drawing), body sections beyond the cake pan lineup (candidates: butter chart, coffee table) — only if the owner wants more.
 - [P3] Re-measure eslint (576 errors before the rebuild, mostly unescaped apostrophes in the old page copy).
 
 ## §6 Log (append-only, newest at bottom)
@@ -152,6 +158,14 @@ Scoreboard (2026-11-19)
 - Verified: npx tsc --noEmit 0 errors; eslint on src/app/(instrument), src/components, src/data 0 errors (1 old warning); npm run check:numbers 18 scripts, 0 failed, 0 skipped (each new check caught planted errors); Vercel previews READY through fdadba3; Chrome on the branch preview: 14 pages at 390 and 1280, no sideways scroll except /contact at 390 (long email in the answer; fixed in the next commit, recheck), default readouts correct, every mode exercised (sourdough feed/build/dough, butter 250 g and 1½ cups, scaler ½, macros custom row, party 50 guests, measures brown sugar and quarts, coffee cold brew and espresso).
 - Commit: see PR (pushed: yes)
 - Notes: prose-score not run (Stage 2 unmeasured). Owner decisions pending: consent banner, governing law, mailbox.
+
+### 2026-11-19 · CK-010 VISUALS · chat · done (preview; waiting for owner review, not merged)
+- What: owner: "we need more visualization in results ... shape of pan vividly visualised". Cake pan: both pans drawn to one scale (steel rim, flat tint, recipe's pan dashed on yours, % more/less area) + to-scale lineup; cake servings: tiered cake from the side; butter: sticks with 8 tbsp marks and the cut; sourdough, baker's %, pizza (split + dough balls), macros, cost, party, measures, coffee (ratio strip); air fryer and convection (temperatures on one scale, time bars); microwave, slow cooker (hour ranges); oven ruler (°F, gas mark, °C; upright on phones); USDA meat thermometer; roast time across the chart's weights.
+- Files: src/components/instrument/{Pans,Bars,Scales,CakeStack,Sticks}.tsx (new kit), 16 calculators in src/components/calculators/, cake-pan-converter/page.tsx, page.tsx (home list class), instrument.css (renamed clashing classes; p-pcheck, p-home-list).
+- Verified: npx tsc --noEmit 0 errors; eslint 0 errors (1 old warning); npm run check:numbers 18 scripts, 0 failed, 0 skipped; Vercel previews READY (87904ab, ce5af56, dcc8833); Chrome on the branch preview: every visual seen on desktop (1512 px window), phone (390 px iframe) for cake pan, cake servings, butter, meat temperature, oven ruler, air fryer, meat time; no sideways scroll on any checked page. Bugs found and fixed in Chrome: CSS class clashes, cake stack NaN, °/% glyphs, needle over gas mark, phone thermometer clipping, phone oven ruler collisions.
+- Phone recheck of f0c2e9a (meat thermometer, upright oven scale) passed in Chrome. Unverified: hover tooltips; reduced-motion rendering.
+- Commit: 87904ab, ce5af56, dcc8833, f0c2e9a (pushed: yes, PR #7)
+- Notes: no new figures: every drawn value comes from the calculator's data and registry rows.
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)

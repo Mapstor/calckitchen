@@ -225,7 +225,7 @@ function Tube({ vw, cls, stops, hiF, label }: { vw: number; cls: string; stops: 
   const wide = vw > 600;
   const tx = wide ? 120 : 70;
   const lx = tx + (wide ? 96 : 40);
-  const ix = lx + (wide ? 104 : 78);
+  const ix = lx + (wide ? 104 : 88);
   const max = wide ? 70 : 21;
   const lh = wide ? 21 : 22;
   const ticks = Array.from({ length: (hi - lo) / 5 + 1 }, (_, i) => lo + 5 * i);

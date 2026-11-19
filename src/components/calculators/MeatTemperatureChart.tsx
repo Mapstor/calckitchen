@@ -74,7 +74,7 @@ export default function MeatTemperatureChart() {
         <Read v={row.c !== null ? String(row.c) : "—"} u={row.c !== null ? "°C" : undefined} c="Celsius, as the USDA chart prints it" />
         <Read v={String(row.restMin)} u="min" c={row.restMin ? "Rest time before carving or eating" : "No rest time on the USDA chart"} />
       </ul>
-      <MeatThermometer stops={STOPS} hiF={row.f} choice={row.food} />
+      <MeatThermometer stops={STOPS} hiF={row.f} choice={row.cut && row.cut.length <= 40 ? label(row.food, row.cut) : row.food} />
       <p className="p-res-basis p-mt">
         <strong>{label(row.food, row.cut)}.</strong> {row.note}
       </p>
