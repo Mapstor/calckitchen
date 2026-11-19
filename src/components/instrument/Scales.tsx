@@ -108,6 +108,74 @@ function Ruler({ vw, cls, valueF, marks, label }: { vw: number; cls: string; val
   );
 }
 
+/** phones: the same scale standing up, °F on the left, gas marks in the middle, °C on the right */
+function RulerV({ valueF, marks, label }: { valueF: number | null; marks: GasMark[]; label: string }) {
+  const lo = 200;
+  const hi = 500;
+  const top = 30;
+  const bottom = 450;
+  const y = (f: number) => bottom - ((f - lo) / (hi - lo)) * (bottom - top);
+  const xF = 118;
+  const xG = 210;
+  const xC = 302;
+  const fTicks = Array.from({ length: (hi - lo) / 25 + 1 }, (_, i) => lo + 25 * i);
+  const cTicks = Array.from({ length: 17 }, (_, i) => 100 + 10 * i).filter((c) => c * 1.8 + 32 <= hi);
+  const on = valueF !== null && valueF >= lo && valueF <= hi;
+  const near = valueF === null ? null : marks.reduce((a, m) => (Math.abs(m.f - valueF) < Math.abs(a.f - valueF) ? m : a), marks[0]);
+  const hit = near && valueF !== null && Math.abs(near.f - valueF) <= 12.5 ? near.gm : null;
+  return (
+    <Frame vw={420} vh={470} cls="p-viz-tall" label={label}>
+      <text className="p-sc-unit" x={xF - 22} y={18} textAnchor="end">
+        °F
+      </text>
+      <text className="p-sc-unit" x={xG} y={18} textAnchor="middle">
+        Gas
+      </text>
+      <text className="p-sc-unit" x={xC + 22} y={18}>
+        °C
+      </text>
+      <line x1={xF} y1={top} x2={xF} y2={bottom} stroke={INK} strokeWidth={2} />
+      {fTicks.map((f) => (
+        <g key={f}>
+          <line x1={xF} y1={y(f)} x2={xF - (f % 50 === 0 ? 14 : 7)} y2={y(f)} stroke={INK} strokeWidth={f % 50 === 0 ? 2 : 1.5} />
+          {f % 50 === 0 && (
+            <text className="p-sc-n" x={xF - 22} y={y(f) + 6} textAnchor="end">
+              {f}
+            </text>
+          )}
+        </g>
+      ))}
+      <line x1={xC} y1={top} x2={xC} y2={bottom} stroke={INK} strokeWidth={2} />
+      {cTicks.map((c) => {
+        const yc = y(c * 1.8 + 32);
+        return (
+          <g key={c}>
+            <line x1={xC} y1={yc} x2={xC + (c % 20 === 0 ? 14 : 7)} y2={yc} stroke={INK} strokeWidth={c % 20 === 0 ? 2 : 1.5} />
+            {c % 20 === 0 && (
+              <text className="p-sc-n" x={xC + 22} y={yc + 6}>
+                {c}
+              </text>
+            )}
+          </g>
+        );
+      })}
+      {on && valueF !== null && (
+        <g className="p-sc-needle" key={Math.round(valueF)}>
+          <line x1={xF - 2} y1={y(valueF)} x2={xC + 2} y2={y(valueF)} stroke={ORANGE} strokeWidth={4} strokeLinecap="round" />
+        </g>
+      )}
+      {marks.map((m) => (
+        <g key={m.gm}>
+          <circle cx={xG} cy={y(m.f)} r={14} fill={hit === m.gm ? ORANGE : "#FFFFFF"} stroke={hit === m.gm ? ORANGE : INK} strokeWidth={2} />
+          <text className={hit === m.gm ? "p-sc-g p-sc-g-on" : "p-sc-g"} x={xG} y={y(m.f) + 5} textAnchor="middle">
+            {m.gm}
+          </text>
+        </g>
+      ))}
+    </Frame>
+  );
+}
+
 /** °F on top, gas marks from the chart, °C below, all on one line; the orange needle is your temperature */
 export function OvenRuler({ valueF, marks }: { valueF: number | null; marks: GasMark[] }) {
   const on = valueF !== null && valueF >= 200 && valueF <= 500;
@@ -117,7 +185,7 @@ export function OvenRuler({ valueF, marks }: { valueF: number | null; marks: Gas
   return (
     <figure className="p-viz">
       <Ruler vw={1000} cls="p-viz-wide" valueF={valueF} marks={marks} label={label} />
-      <Ruler vw={420} cls="p-viz-tall" valueF={valueF} marks={marks} label={label} />
+      <RulerV valueF={valueF} marks={marks} label={label} />
       <figcaption className="p-viz-cap">
         <span className="p-vkey">
           <span className="p-vsw p-vsw-line" /> Your temperature
@@ -155,10 +223,10 @@ function Tube({ vw, cls, stops, hiF, label }: { vw: number; cls: string; stops: 
   const bottom = 316;
   const y = (f: number) => bottom - ((f - lo) / (hi - lo)) * (bottom - top);
   const wide = vw > 600;
-  const tx = wide ? 120 : 62;
-  const lx = tx + (wide ? 96 : 60);
-  const ix = lx + (wide ? 104 : 86);
-  const max = wide ? 70 : 23;
+  const tx = wide ? 120 : 70;
+  const lx = tx + (wide ? 96 : 40);
+  const ix = lx + (wide ? 104 : 78);
+  const max = wide ? 70 : 21;
   const lh = wide ? 21 : 22;
   const ticks = Array.from({ length: (hi - lo) / 5 + 1 }, (_, i) => lo + 5 * i);
   const fillTo = hiF !== null ? Math.min(hi, Math.max(lo, hiF)) : null;
@@ -187,7 +255,7 @@ function Tube({ vw, cls, stops, hiF, label }: { vw: number; cls: string; stops: 
       {ticks.map((f) => (
         <g key={f}>
           <line x1={tx - 12} y1={y(f)} x2={tx - 24} y2={y(f)} stroke={INK} strokeWidth={1.5} />
-          <text className="p-sc-n" x={tx - 30} y={y(f) + 5} textAnchor="end">
+          <text className="p-sc-n" x={tx - 28} y={y(f) + 5} textAnchor="end">
             {f}
           </text>
         </g>
