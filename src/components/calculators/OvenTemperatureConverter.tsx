@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { setDial } from "@/components/instrument/LiveKnob";
+import Read from "@/components/instrument/Read";
 import { GAS_ROWS, cToF, fToC, fmt1, type GasRow } from "@/data/oven-temps";
 
 type Unit = "F" | "C" | "GM";
@@ -23,18 +24,6 @@ const parseMark = (t: string) => {
   if (s === "½" || s === "1/2" || s === "0.5" || s === ".5") return "½";
   return s;
 };
-
-function Read({ v, u, c }: { v: string; u?: string; c: string }) {
-  return (
-    <li className="p-read">
-      <span className="p-read-v">
-        {v}
-        {u && <span className="p-read-u">{u}</span>}
-      </span>
-      <span className="p-read-c">{c}</span>
-    </li>
-  );
-}
 
 export default function OvenTemperatureConverter() {
   const [unit, setUnit] = useState<Unit>("F");

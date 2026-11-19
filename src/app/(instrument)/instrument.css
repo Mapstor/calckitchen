@@ -290,3 +290,22 @@
 .p-formula{font-family:var(--font-readout),system-ui,sans-serif;font-size:20px;line-height:1.5;margin:20px 0 0;padding:16px 18px;border:2px solid #0E1621;border-radius:4px;background:#FFFFFF;overflow-x:auto;white-space:nowrap}
 @media (max-width:1100px){ .p-panel-2{grid-template-columns:minmax(0,1fr)} .p-panel-2 .p-cell + .p-cell{border-left:0;border-top:1px solid #D5DAE1} }
 @media (max-width:640px){ .p-quick .p-opt{min-width:0;flex:1 1 20%} .p-formula{font-size:16px;padding:12px 14px} }
+/* round dial with a needle (CK-008) */
+.p-dial-rim{fill:#0E1621}
+.p-dial-face{fill:#FFFFFF}
+.p-dial .p-dial-n{font-size:15px}
+.p-dial-u{font-family:var(--font-ui),system-ui,sans-serif;font-weight:800;font-size:16px;fill:#4A5563;text-anchor:middle;dominant-baseline:central}
+.p-dial-win{fill:#0E1621}
+.p-dial-v{font-family:var(--font-readout),system-ui,sans-serif;font-size:22px;fill:#FFFFFF;text-anchor:middle;dominant-baseline:central}
+.p-needle{fill:#E35A0F}
+.p-hub{fill:#0E1621}
+.p-hub-dot{fill:#E35A0F}
+.p-ndl{transform-box:view-box;transform-origin:200px 200px;animation:p-sweep 1.4s cubic-bezier(.2,.75,.25,1) .3s both}
+.p-ndl-k{transform-box:view-box;transform-origin:200px 200px;transform:rotate(var(--k,0deg));transition:transform .6s cubic-bezier(.2,.75,.25,1)}
+@keyframes p-sweep{ from{transform:rotate(var(--k0,0deg))} to{transform:rotate(0deg)} }
+.p-reads-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.p-panel-1{grid-template-columns:minmax(0,1fr)}
+.p-panel-1 .p-opts{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+@media (max-width:640px){ .p-reads-3{grid-template-columns:repeat(2,minmax(0,1fr))} .p-reads-3 .p-read:nth-child(3){border-left:0;padding-left:0;border-top:1px solid #D5DAE1} }
+@media (prefers-reduced-motion: reduce){ .p-ndl{animation:none} .p-ndl-k{transition:none} }
+.p-mt{margin-top:16px}

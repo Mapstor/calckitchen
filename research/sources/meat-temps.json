@@ -1,0 +1,52 @@
+{
+  "retrieved": "2026-11-19",
+  "usda": {
+    "url": "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+    "read_from": "https://www.foodsafety.gov/print/pdf/node/10",
+    "title": "Cook to a Safe Minimum Internal Temperature: Safe Minimum Internal Temperature Chart for Cooking",
+    "last_reviewed": "2024-11-21",
+    "rest_note": "Rest time is important for certain meats because it allows the innermost parts and juices of the meats to become fully and safely cooked.",
+    "rows": [
+      ["beef-whole", 145, 63, 3],
+      ["beef-ground", 160, 71, 0],
+      ["pork-whole", 145, 63, 3],
+      ["pork-ground", 160, 71, 0],
+      ["poultry", 165, 74, 0],
+      ["game", 160, 71, 0],
+      ["ham-raw", 145, 63, 3],
+      ["ham-precooked", 165, 74, 0],
+      ["fish", 145, 63, 0],
+      ["shellfish", null, null, 0],
+      ["mollusks", null, null, 0],
+      ["eggs", null, null, 0],
+      ["egg-dishes", 160, 71, 0],
+      ["casseroles", 165, 74, 0],
+      ["leftovers", 165, 74, 0]
+    ],
+    "ham_usda_plant": [140, 60]
+  },
+  "checkoff": {
+    "url": "https://www.beefitswhatsfordinner.com/cooking/determining-doneness",
+    "title": "Determining Doneness",
+    "text": "For medium-rare the temperature should read 145°F and allow to rest for at least three minutes. For medium steaks the temperature should read 160°F, and well done is 170°F. Ground Beef should be cooked to a safe and savory 160ºF. Color is not a reliable indicator of Ground Beef doneness.",
+    "values": { "mediumRare": 145, "medium": 160, "wellDone": 170, "ground": 160, "restMin": 3 }
+  },
+  "atk": {
+    "url": "https://www.cookscountry.com/how_tos/6064-doneness-temperatures-for-beef-and-lamb",
+    "title": "Doneness Temperatures for Beef and Lamb",
+    "rows": [
+      ["Rare", 110, 115, 120, 120],
+      ["Medium-rare", 115, 120, 125, 130],
+      ["Medium", 125, 130, 135, 140],
+      ["Medium-well", 135, 140, 145, 150],
+      ["Well-done", 145, 150, 155, 160]
+    ],
+    "rise": [5, 15]
+  },
+  "placement": {
+    "url": "https://www.usda.gov/node/54790",
+    "title": "Do You Know the Correct Place to Insert Your Food Thermometer?",
+    "date": "2023-09-19",
+    "points": ["thickest part, away from bone and gristle", "thin foods such as sausage patties: from the side until it reaches the center", "remove the food from the heat before taking its temperature"]
+  }
+}

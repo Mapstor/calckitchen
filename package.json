@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:numbers": "node scripts/check-turkey-data.mjs && node scripts/check-oven-data.mjs"
+    "check:numbers": "node scripts/check-turkey-data.mjs && node scripts/check-oven-data.mjs && node scripts/check-meat-data.mjs"
   },
   "dependencies": {
     "next": "16.1.6",
