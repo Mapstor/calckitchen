@@ -340,3 +340,9 @@
 .p-x{min-height:48px}
 @media (max-width:640px){ .p-tier{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} .p-tier-n{grid-column:1 / -1} .p-x{grid-column:1 / -1} }
 .p-unit-wide button{width:auto;padding:0 12px;height:44px}
+.p-costs{display:flex;flex-direction:column;gap:8px;overflow-x:auto}
+.p-cost{display:grid;grid-template-columns:minmax(120px,1.4fr) minmax(190px,1.5fr) 100px minmax(190px,1.5fr) 110px;gap:8px;align-items:center;min-width:760px}
+.p-cost-h{font-weight:800;font-size:14px}
+.p-pair{display:flex;gap:6px}
+.p-sel-u{width:96px;flex:none;height:48px}
+.p-cost-v{font-family:var(--font-readout),system-ui,sans-serif;font-size:16px}

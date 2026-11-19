@@ -14,11 +14,16 @@ type Props = {
   unit?: string;
   /** readout shows the value followed by this, e.g. "°F" */
   suffix: string;
+  /** shown before the value, e.g. "$" */
+  prefix?: string;
+  /** decimals in the readout */
+  decimals?: number;
   /** aria-label; the value and suffix are appended */
   label: string;
 };
 
-export default function LiveDial({ liveKey, value, suffix, label, ...rest }: Props) {
+export default function LiveDial({ liveKey, value, suffix, prefix = "", decimals, label, ...rest }: Props) {
   const v = useLive(liveKey, value);
-  return <Dial {...rest} value={v} readout={String(v)} readoutUnit={suffix} label={`${label} ${v}${suffix}`} />;
+  const shown = `${prefix}${decimals === undefined ? v : v.toFixed(decimals)}`;
+  return <Dial {...rest} value={v} readout={shown} readoutUnit={suffix} label={`${label} ${shown}${suffix}`} />;
 }
