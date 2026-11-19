@@ -357,3 +357,9 @@
 @media (min-width:641px) and (max-width:860px){ .p-reads-3 .p-read:nth-child(3n+2),.p-reads-3 .p-read:nth-child(3n){padding-left:12px} }
 .p-ta{display:block;font-family:var(--font-ui),system-ui,sans-serif;font-size:16px;line-height:1.5;width:100%;min-height:220px;padding:10px 12px;border:2px solid #0E1621;border-radius:4px;background:#FFFFFF;color:#0E1621;resize:vertical}
 .p-td-note{display:block;font-size:14px;color:#4A5563;margin-top:2px}
+.p-mrows{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.p-mrow{display:grid;grid-template-columns:minmax(0,1fr) 100px 170px;gap:8px;align-items:center}
+.p-sel-food{max-width:none;height:48px}
+.p-mrow .p-sel-u{width:100%}
+.p-mother{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,110px)) minmax(0,1fr);gap:8px;align-items:end;padding:4px 0 8px}
+@media (max-width:640px){ .p-mrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} .p-sel-food{grid-column:1 / -1} .p-mother{grid-template-columns:repeat(2,minmax(0,1fr))} .p-mother .p-hint{grid-column:1 / -1} }

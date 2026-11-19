@@ -1,0 +1,299 @@
+{
+ "retrieved": "2026-11-19",
+ "id": "USDA-FDC-SR",
+ "source": "USDA FoodData Central, SR Legacy",
+ "read": "Chrome, 2026-11-19: JSON the FoodData Central site serves for each food (https://fdc.nal.usda.gov/portal-data/external/<fdcId>), values per 100 g; Energy in kcal; measures from foodMeasures",
+ "foods": [
+  {
+   "fdcId": 168894,
+   "description": "Wheat flour, white, all-purpose, enriched, bleached",
+   "kcal": 364,
+   "protein": 10.3,
+   "fat": 0.98,
+   "carbs": 76.3,
+   "fiber": 2.7,
+   "measures": {
+    "1 cup": 125
+   }
+  },
+  {
+   "fdcId": 169655,
+   "description": "Sugars, granulated",
+   "kcal": 387,
+   "protein": 0,
+   "fat": 0,
+   "carbs": 100,
+   "fiber": 0,
+   "measures": {
+    "1 tsp": 4.2,
+    "1 cup": 200
+   }
+  },
+  {
+   "fdcId": 173410,
+   "description": "Butter, salted",
+   "kcal": 717,
+   "protein": 0.85,
+   "fat": 81.1,
+   "carbs": 0.06,
+   "fiber": 0,
+   "measures": {
+    "1 tbsp": 14.2,
+    "1 cup": 227,
+    "1 stick": 113
+   }
+  },
+  {
+   "fdcId": 171413,
+   "description": "Oil, olive, salad or cooking",
+   "kcal": 884,
+   "protein": 0,
+   "fat": 100,
+   "carbs": 0,
+   "fiber": 0,
+   "measures": {
+    "1 tablespoon": 13.5,
+    "1 cup": 216,
+    "1 tsp": 4.5
+   }
+  },
+  {
+   "fdcId": 171287,
+   "description": "Egg, whole, raw, fresh",
+   "kcal": 143,
+   "protein": 12.6,
+   "fat": 9.51,
+   "carbs": 0.72,
+   "fiber": 0,
+   "measures": {
+    "1 large": 50,
+    "1 extra large": 56,
+    "1 medium": 44
+   }
+  },
+  {
+   "fdcId": 171265,
+   "description": "Milk, whole, 3.25% milkfat, with added vitamin D",
+   "kcal": 61,
+   "protein": 3.15,
+   "fat": 3.25,
+   "carbs": 4.8,
+   "fiber": 0,
+   "measures": {
+    "1 cup": 244,
+    "1 tbsp": 15
+   }
+  },
+  {
+   "fdcId": 170859,
+   "description": "Cream, fluid, heavy whipping",
+   "kcal": 340,
+   "protein": 2.84,
+   "fat": 36.1,
+   "carbs": 2.84,
+   "fiber": 0,
+   "measures": {
+    "1 cup, fluid (yields 2 cups whipped)": 238,
+    "1 tbsp": 15
+   }
+  },
+  {
+   "fdcId": 170899,
+   "description": "Cheese, cheddar, sharp, sliced",
+   "kcal": 410,
+   "protein": 24.2,
+   "fat": 33.8,
+   "carbs": 2.13,
+   "fiber": 0,
+   "measures": {
+    "1 slice (1 oz)": 28
+   }
+  },
+  {
+   "fdcId": 171077,
+   "description": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw",
+   "kcal": 120,
+   "protein": 22.5,
+   "fat": 2.62,
+   "carbs": 0,
+   "fiber": 0,
+   "measures": {
+    "4 oz": 113
+   }
+  },
+  {
+   "fdcId": 171796,
+   "description": "Beef, ground, 85% lean meat / 15% fat, raw (Includes foods for USDA's Food Distribution Program)",
+   "kcal": 215,
+   "protein": 18.6,
+   "fat": 15,
+   "carbs": 0,
+   "fiber": 0,
+   "measures": {
+    "4 oz": 113
+   }
+  },
+  {
+   "fdcId": 175167,
+   "description": "Fish, salmon, Atlantic, farmed, raw",
+   "kcal": 208,
+   "protein": 20.4,
+   "fat": 13.4,
+   "carbs": 0,
+   "fiber": 0,
+   "measures": {
+    "3 oz": 85
+   }
+  },
+  {
+   "fdcId": 168877,
+   "description": "Rice, white, long-grain, regular, raw, enriched",
+   "kcal": 365,
+   "protein": 7.13,
+   "fat": 0.66,
+   "carbs": 80,
+   "fiber": 1.3,
+   "measures": {
+    "1 cup": 185
+   }
+  },
+  {
+   "fdcId": 169736,
+   "description": "Pasta, dry, enriched",
+   "kcal": 371,
+   "protein": 13,
+   "fat": 1.51,
+   "carbs": 74.7,
+   "fiber": 3.2,
+   "measures": {
+    "2 oz": 57
+   }
+  },
+  {
+   "fdcId": 173904,
+   "description": "Cereals, oats, regular and quick, not fortified, dry",
+   "kcal": 379,
+   "protein": 13.2,
+   "fat": 6.52,
+   "carbs": 67.7,
+   "fiber": 10.1,
+   "measures": {
+    "1 cup": 81
+   }
+  },
+  {
+   "fdcId": 170000,
+   "description": "Onions, raw",
+   "kcal": 40,
+   "protein": 1.1,
+   "fat": 0.1,
+   "carbs": 9.34,
+   "fiber": 1.7,
+   "measures": {
+    "1 medium (2-1/2\" dia)": 110,
+    "1 cup, chopped": 160
+   }
+  },
+  {
+   "fdcId": 169230,
+   "description": "Garlic, raw",
+   "kcal": 149,
+   "protein": 6.36,
+   "fat": 0.5,
+   "carbs": 33.1,
+   "fiber": 2.1,
+   "measures": {
+    "1 clove": 3
+   }
+  },
+  {
+   "fdcId": 170457,
+   "description": "Tomatoes, red, ripe, raw, year round average",
+   "kcal": 18,
+   "protein": 0.88,
+   "fat": 0.2,
+   "carbs": 3.89,
+   "fiber": 1.2,
+   "measures": {
+    "1 medium whole (2-3/5\" dia)": 123,
+    "1 cup, chopped or sliced": 180
+   }
+  },
+  {
+   "fdcId": 170393,
+   "description": "Carrots, raw",
+   "kcal": 41,
+   "protein": 0.93,
+   "fat": 0.24,
+   "carbs": 9.58,
+   "fiber": 2.8,
+   "measures": {
+    "1 medium": 61,
+    "1 cup chopped": 128
+   }
+  },
+  {
+   "fdcId": 170026,
+   "description": "Potatoes, flesh and skin, raw",
+   "kcal": 77,
+   "protein": 2.05,
+   "fat": 0.09,
+   "carbs": 17.5,
+   "fiber": 2.1,
+   "measures": {
+    "1 Potato medium (2-1/4\" to 3-1/4\" dia)": 213
+   }
+  },
+  {
+   "fdcId": 170379,
+   "description": "Broccoli, raw",
+   "kcal": 34,
+   "protein": 2.82,
+   "fat": 0.37,
+   "carbs": 6.64,
+   "fiber": 2.6,
+   "measures": {
+    "1 cup chopped": 91
+   }
+  },
+  {
+   "fdcId": 173944,
+   "description": "Bananas, raw",
+   "kcal": 89,
+   "protein": 1.09,
+   "fat": 0.33,
+   "carbs": 22.8,
+   "fiber": 2.6,
+   "measures": {
+    "1 medium (7\" to 7-7/8\" long)": 118,
+    "1 cup, mashed": 225
+   }
+  },
+  {
+   "fdcId": 169640,
+   "description": "Honey",
+   "kcal": 304,
+   "protein": 0.3,
+   "fat": 0,
+   "carbs": 82.4,
+   "fiber": 0.2,
+   "measures": {
+    "1 tbsp": 21,
+    "1 cup": 339
+   }
+  },
+  {
+   "fdcId": 170567,
+   "description": "Nuts, almonds",
+   "kcal": 579,
+   "protein": 21.2,
+   "fat": 49.9,
+   "carbs": 21.6,
+   "fiber": 12.5,
+   "measures": {
+    "1 oz (23 whole kernels)": 28.35,
+    "1 cup, whole": 143
+   }
+  }
+ ]
+}
