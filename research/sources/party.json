@@ -1,0 +1,45 @@
+{
+  "retrieved": "2026-11-19",
+  "fda": {
+    "id": "FDA-RACC",
+    "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-A/section-101.12",
+    "title": "21 CFR 101.12(b) Table 2: Reference Amounts Customarily Consumed Per Eating Occasion: General Food Supply",
+    "read": "Chrome, 2026-11-19 (eCFR current)",
+    "footnote1": "These values represent the amount (edible portion) of food customarily consumed per eating occasion and were primarily derived from the 1977-1978 and the 1987-1988 Nationwide Food Consumption Surveys conducted by the U.S. Department of Agriculture and updated with data from the National Health and Nutrition Examination Survey, 2003-2004, 2005-2006 and 2007-2008 conducted by the Centers for Diseases Control and Prevention",
+    "rows": {
+      "Breads (excluding sweet quick type), rolls": "50 g",
+      "Cakes, heavyweight (cheese cake; ...)": "125 g",
+      "Cakes, mediumweight (chemically leavened cake with or without icing or filling ...; cupcake; ...)": "80 g",
+      "Cookies": "30 g",
+      "Pies, cobblers, fruit crisps, turnovers, other pastries": "125 g",
+      "All varieties, chips, pretzels, popcorn, extruded snacks, ...": "30 g",
+      "... all dips (e.g., bean dips, dairy-based dips, salsa)": "2 tbsp",
+      "Cheese, all others except those listed as separate categories": "30 g",
+      "Ice cream, frozen yogurt, sherbet, ...": "2/3 cup",
+      "All other fruits (except those listed as separate categories), fresh, canned or frozen": "140 g",
+      "All other vegetables without sauce: Fresh, canned, or frozen": "85 g for fresh or frozen",
+      "Grains, e.g., rice, barley, plain": "140 g prepared; 45 g dry",
+      "Pastas, plain": "140 g prepared; 55 g dry",
+      "Potatoes: Plain, fresh, canned, or frozen": "110 g for fresh or frozen",
+      "Salads: Pasta or potato salad": "140 g",
+      "Salads: All other salads, e.g., egg, fish, shellfish, bean, fruit, or vegetable salads": "100 g",
+      "Mixed dishes: Measurable with cup, e.g., casseroles, hash, macaroni and cheese, pot pies, spaghetti with sauce, stews": "1 cup",
+      "Mixed dishes: Not measurable with cup, e.g., burritos, enchiladas, pizza, ..., all types of sandwiches": "140 g",
+      "Carbonated and noncarbonated beverages, wine coolers, water": "360 mL; label statement 12 fl oz (360 mL)"
+    },
+    "values": { "bread": 50, "cheesecake": 125, "cake": 80, "cookies": 30, "pie": 125, "chips": 30, "dipTbsp": 2, "cheese": 30, "iceCreamCup": 0.6666666666666666, "fruit": 140, "veg": 85, "riceDry": 45, "pastaDry": 55, "cookedGrain": 140, "potatoes": 110, "pastaSalad": 140, "salad": 100, "casseroleCup": 1, "pizza": 140, "drinkMl": 360 }
+  },
+  "fsis": {
+    "id": "FSIS-RACC",
+    "meat": "https://www.ecfr.gov/current/title-9/chapter-III/subchapter-A/part-317/subpart-B/section-317.312",
+    "poultry": "https://www.ecfr.gov/current/title-9/chapter-III/subchapter-A/part-381/subpart-Y/section-381.412",
+    "read": "Chrome, 2026-11-19 (eCFR current); columns: reference amount ready-to-serve | ready-to-cook",
+    "rows": {
+      "317.312 Entrees without sauce, cuts of meat including marinated, tenderized, injected cuts of meat, beef patty, ... meatballs": "85 g | 114 g",
+      "317.312 Entrees with sauce, barbecued meats in sauce": "140 g | n/a",
+      "317.312 Linked meat sausage products, ... frankfurters, pork sausage, ... bratwurst, kielbasa, Polish sausage": "55 g | n/a. 75 g = uncooked sausage",
+      "381.412 Entrees without sauce, poultry cuts, ready to cook poultry cuts, ...": "85 g | 114g"
+    },
+    "values": { "cutsReadyToServe": 85, "cutsReadyToCook": 114, "bbq": 140, "sausage": 55 }
+  }
+}

@@ -363,3 +363,6 @@
 .p-mrow .p-sel-u{width:100%}
 .p-mother{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,110px)) minmax(0,1fr);gap:8px;align-items:end;padding:4px 0 8px}
 @media (max-width:640px){ .p-mrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} .p-sel-food{grid-column:1 / -1} .p-mother{grid-template-columns:repeat(2,minmax(0,1fr))} .p-mother .p-hint{grid-column:1 / -1} }
+.p-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 16px;margin-top:6px}
+.p-check{display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.35;cursor:pointer;min-height:28px}
+.p-check input{width:20px;height:20px;margin:0;flex:none;accent-color:#E35A0F}
