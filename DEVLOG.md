@@ -3,11 +3,11 @@
 
 ## §0 Resume here
 _last update: 2026-11-19 · CK-011_
-- Step: all pages: all 25 pages live in the picked look with result visuals (CK-009 + CK-010 merged 2026-11-19). Now CK-011: drawings in the page sections of 15 pages (owner: "lets do this for most pages"). canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
+- Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. CK-012 adds the last 3 section drawings and self-hosted fonts. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
-- Last confirmed: CK-009 REST + CK-010 VISUALS — live 2026-11-19 (PR #7 merged, main a64fb07; first production build failed on the Google Fonts fetch, redeploy dpl_GP1DpKn6MkLFJEiioVG1N7SUFRW5 READY; Chrome: cake pan visuals and turkey checkboxes correct on calckitchen.com).
-- In flight (NOT merged): CK-011 BODY VISUALS — PR #8 open, Chrome-checked on its preview; merge waits for the owner's OK (Claude's merge attempt was refused by the session's permission check, 2026-11-19).
-- Next action: owner says merge (or merges PR #8) → production READY + live check → GSC indexing requests in daily batches (the 14 CK-009 pages, bakers-percentage, cake-servings, recipe-cost; ~9 a day; 2026-11-19 quota already used) → Stage 2 prose-score.
+- Last confirmed: CK-011 BODY VISUALS + info@ address — live 2026-11-19 (PR #8 merged on the owner's "merge", main fb36f46; the push build failed on Google Fonts again, redeploy dpl_2jei53SVXgqFqRLZcXApyDCtn9bG READY; Chrome on calckitchen.com: /contact mails info@, /air-fryer-converter section chart shows).
+- In flight (NOT merged): CK-012 LAST VISUALS + self-hosted fonts on claude/ck-012-last-visuals (PR #9); merge waits for the owner's OK.
+- Next action: owner says merge → PR #9 → production READY on the first push build (proves the font fix) + live check → GSC indexing requests from 2026-11-20 (~9 a day: the 14 CK-009 pages, bakers-percentage, cake-servings, recipe-cost) → Stage 2 prose-score (a shell build now compiles).
 - Waiting on owner: decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
@@ -181,6 +181,16 @@ Scoreboard (2026-11-19)
 - Verified: tsc 0 errors; eslint 0 errors (1 old warning); check:numbers 18 scripts, 0 failed, 0 skipped (slow cooker check caught a "<" in page code; fixed); preview 7a71fdc READY; Chrome on the preview: all 15 section visuals on desktop, phone 390 px for slow cooker, meat temperature, butter, coffee; no sideways scroll. Fixed in Chrome: doubled °F in doneness values, crowded hour and °C axes.
 - Unverified: phone view of air fryer, convection, oven fan, microwave, meat time, cake servings, pizza, scaler, macros, party, measures sections (same components as the phone-checked ones).
 - Commit: 4f698f9, 7a71fdc + this DEVLOG commit (pushed: yes)
+
+### 2026-11-19 · CK-011 BODY VISUALS · chat · live
+- What: PR #8 merged after the owner's "lert merge" (with the info@ change, owner: "lets do info email"); main fb36f46.
+- Verified: push build ERROR again (Google Fonts, same error as a64fb07); redeploy dpl_2jei53SVXgqFqRLZcXApyDCtn9bG READY on calckitchen.com; Chrome: /contact mailto info@, no hello@; /air-fryer-converter section chart, no sideways scroll.
+- Commit: fb36f46 (merge)
+
+### 2026-11-19 · CK-012 LAST VISUALS · chat · done (preview; PR #9 waiting for the owner's OK, not merged)
+- What: section drawings on the last three calculator pages (sourdough feeding jars, baker's 1000 g split, recipe cost menu price split); fonts moved to next/font/local (Fontsource 5.3.0, OFL licenses in the fonts folder) because next/font/google failed both production push builds today; CLAUDE.md font line updated.
+- Verified: tsc 0 errors; eslint 0 errors on changed files; check:numbers 18 scripts, 0 failed, 0 skipped; npm run build in the shell compiles all pages (prerender stops at /apple-icon: cdn.jsdelivr.net unreachable here, known).
+- Commit: 3837c05 + DEVLOG (pushed: yes)
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)
