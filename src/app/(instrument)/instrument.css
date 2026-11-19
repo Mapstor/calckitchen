@@ -374,3 +374,4 @@
 .p-author{display:flex;gap:20px;align-items:flex-start}
 .p-author img{border-radius:50%;flex:none}
 @media (max-width:640px){ .p-author{flex-direction:column} }
+.p-answer{overflow-wrap:anywhere}
