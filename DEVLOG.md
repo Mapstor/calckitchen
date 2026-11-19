@@ -2,12 +2,12 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-18 · CK-007_
-- Step: look picked · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5 (boards "Pick, B with A's knob", "Pick, phone")
+_last update: 2026-11-18 · CK-003_
+- Step: one page (turkey, on the preview of claude/ck-003-design1, waiting for the owner's OK) · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5 (boards "Pick, B with A's knob", "Pick, phone")
 - Phase: live site, not on Raptive, not yet in Google's index (GSC 2026-11-18: "URL is unknown to Google"; sitemap submitted). Four-stage pass on all 25 pages started with the turkey page.
 - Last confirmed: CK-006 AUTHOR — live 2026-11-18 (production dpl_GaKXqxERLfMWZrmqtf6kk5xMGMMi, main 15dd9ae, checked on calckitchen.com in Chrome); before it CK-002/004/005 live (f2e9be6).
-- In flight (handed, NOT confirmed): none
-- Next action: CK-003 DESIGN1 — build the picked look on /turkey-cooking-calculator, Vercel preview, show the owner (page-looks step 7: one page, then ten, then all).
+- In flight (handed, NOT confirmed): CK-003 DESIGN1 — turkey page in the picked look, preview only, PR not merged until the owner says yes.
+- Next action: owner reviews the turkey preview → merge CK-003, then ten pages in the look (page-looks step 7), each through the four stages; retry GSC indexing requests (quota).
 - Waiting on owner: top-30 read for Raptive later (Stage 4).
 - Open questions: Bing Webmaster account? Raptive application timing?
 
@@ -30,7 +30,7 @@ Scoreboard (2026-11-18)
 - Deploy (host, project, trigger): Vercel project calckitchen (prj_HYJh4OEFSWYOqVM0NXm1wBr761RL, team marko-visics-projects), connected to GitHub 2026-11-18: merges to main deploy production, branches get previews (alias calckitchen-git-<branch>-marko-visics-projects.vercel.app, behind Vercel login; the owner's Chrome passes). vercel.json present.
 - Analytics / Search Console / Bing: GA4 G-K74JKGWGDQ hardcoded in src/app/layout.tsx · GSC property https://calckitchen.com/ in moving.data.systems@gmail.com (added and auto-verified by the HTML file 2026-11-18; sitemap.xml submitted, 25 URLs) · Bing msvalidate 57C407E8336C4915E2D28EEA649C8078, account ?
 - Data sources: research/data-sources.csv (turkey rows so far) · snapshot research/sources/usda-fsis-turkey.json
-- Key paths: src/app/<slug>/page.tsx (page copy, FAQ + JSON-LD), src/components/calculators/*.tsx (tools), src/data/*.ts (tool data), src/components/charts, src/components/seo/JsonLd.tsx, scripts/check-turkey-data.mjs
+- Key paths: src/app/(instrument)/ = pages in the picked look (layout with Public Sans + Michroma, instrument.css, turkey page); src/app/(classic)/ = pages not moved yet (old Header/Footer); src/components/instrument/* (header, footer, SVG strings, RoastChart); src/components/calculators/*.tsx (tools); src/data/*.ts (tool data, author, site-nav); src/components/seo/JsonLd.tsx; scripts/check-turkey-data.mjs
 - Skills in repo: none (account skills)
 - Design system (DESIGN.md / PRODUCT.md): yes, written 2026-11-17 from the pick
 - Other plans / ledgers: docs/mac-notes/ — the Feb 2026 build notes from the Mac parent folder (HOW-TO-BUILD.md, parent-CLAUDE.md, homepage-spec.md, content/*.md page drafts); history only, see its README.
@@ -56,6 +56,8 @@ Scoreboard (2026-11-18)
 - ask.usda.gov did not load in Chrome on 2026-11-17 (used on /air-fryer-converter); recheck before removing.
 - Never deploy with the Vercel CLI from a local folder: it ships uncommitted files (2026-02-22: 13 calculators GitHub didn't have, fixed by CK-005). Deploy from main.
 - docs/mac-notes/content/*.md are the Feb 2026 drafts the pages were generated from, with the same unsourced figures. Never use them as a source.
+- Moving a page to the look = git mv src/app/(classic)/<slug> src/app/(instrument)/<slug>, then rebuild its markup with the p-* classes (URLs don't change). Classic pages render in system UI fonts in production (globals.css font vars resolve to nothing): keep that until they move.
+- Ad slots: the design reserves the rail and gaps; no empty .p-ad boxes before Raptive runs. The sticky-footer padding (124px, 80px phone) comes back with Raptive.
 - Google had never seen the site: on 2026-11-18 URL Inspection said "URL is unknown to Google" for / and /turkey-cooking-calculator (live test: indexable). Indexing requests hit the daily quota that day; retry. Expect days to weeks before pages appear.
 
 ## §5 Backlog (priority order)
@@ -110,6 +112,12 @@ Scoreboard (2026-11-18)
 - Files: docs/mac-notes/** (owner), docs/mac-notes/README.md, DEVLOG.md
 - Verified: git diff main..branch = docs/ and DEVLOG.md only; no source file changed.
 - Commit: f373422 (owner) + this commit (pushed: yes)
+
+### 2026-11-18 · CK-003 DESIGN1 · chat · done (preview; waiting for owner review, not merged)
+- What: the picked look ("B with A's knob", DESIGN.md) built on /turkey-cooking-calculator: route groups (instrument) and (classic); Public Sans + Michroma via next/font; instrument.css ported from the canvas board; new header (four menus, no script), footer, knob at 325°F and thermometer to 165°F (CSS motion, reduced-motion safe), calculator rebuilt as an instrument panel with four modes and live readouts (same USDA data and logic), USDA roasting chart from the data, thaw day strip, check-spot drawing, tables, examples, FAQ, sources, "More calculators" rail. Contact, Terms and Privacy titles no longer doubled.
+- Files: src/app/(instrument)/**, src/app/(classic)/** (moved, unchanged except 3 titles), src/app/layout.tsx, src/components/instrument/*, src/components/calculators/TurkeyCookingCalculator.tsx, src/data/site-nav.ts
+- Verified: tsc 0; eslint 0 on new files; check:numbers 27/0/0; Vercel previews READY (fc7e4e2, 84b9f71). Chrome on the preview: 1280 and 390 px, no sideways scroll, Public Sans + Michroma loaded; all four modes return the USDA values (16 lb → 3¾–4¼ h; thaw 3–4 days / 8 h; 10 guests → 15 lb; timeline 10:25 AM, 2:10, 2:40, 3:00 PM on Thursday Nov 26); 16-lb deep-fry shows the 12-lb limit; classic pages keep their header, footer and production fonts.
+- Commit: fc7e4e2, 84b9f71, de27247 + this DEVLOG commit (pushed: yes; PR not merged)
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)

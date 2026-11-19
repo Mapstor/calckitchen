@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use | CalcKitchen',
+  title: 'Terms of Use',
   description: 'CalcKitchen terms of use. Understand our calculator disclaimers, food safety guidelines, and site usage policies.',
   openGraph: {
     title: 'Terms of Use | CalcKitchen',
