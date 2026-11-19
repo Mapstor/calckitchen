@@ -54,9 +54,9 @@ export default function PartyFoodCalculator() {
           <span className="p-lab" id="pf-menu">
             On the menu
           </span>
-          <div className="p-checks">
+          <div className="p-pchecks">
             {ITEMS.map((i) => (
-              <label key={i.key} className="p-check">
+              <label key={i.key} className="p-pcheck">
                 <input type="checkbox" checked={on.includes(i.key)} onChange={() => toggle(i.key)} />
                 <span>{i.name}</span>
               </label>

@@ -70,7 +70,7 @@ export default function HomePage() {
       <Main more={MORE}>
         {NAV.map((g) => (
           <Sec key={g.name} title={g.name}>
-            <ul className="p-hub">
+            <ul className="p-home-list">
               {g.links.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href}>{l.name}</Link>
