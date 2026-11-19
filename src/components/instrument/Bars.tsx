@@ -214,3 +214,67 @@ export function Balls({ n, text }: { n: number; text: string }) {
     </div>
   );
 }
+
+/** several ratios on one grid of equal blocks: 1 part A, then B parts (lighter up to bHi), so a longer row is a weaker brew */
+export function RatioRows({
+  rows,
+  aTone,
+  bTone,
+  aName,
+  bName,
+  title,
+  label,
+}: {
+  rows: { name: string; b: number; bHi?: number; text: string }[];
+  aTone: string;
+  bTone: string;
+  aName: string;
+  bName: string;
+  title?: string;
+  label: string;
+}) {
+  const light = `color-mix(in srgb, ${bTone} 36%, #FFFFFF)`;
+  const most = Math.max(...rows.map((r) => 1 + Math.max(r.b, r.bHi ?? r.b)));
+  return (
+    <div className="p-rr">
+      {title && <p className="p-vbars-t">{title}</p>}
+      <div className="p-rr-l" role="img" aria-label={`${label}: ${rows.map((r) => `${r.name} ${r.text}`).join(", ")}`}>
+        {rows.map((r, ri) => {
+          const hi = r.bHi !== undefined && r.bHi > r.b ? r.bHi : r.b;
+          const cells: { k: string; g: number; tone: string }[] = [{ k: "a", g: 1, tone: aTone }];
+          for (let i = 0; i < Math.ceil(hi - 1e-9); i++) {
+            const end = Math.min(i + 1, hi);
+            const solid = Math.max(0, Math.min(end, r.b) - i);
+            const pale = end - i - solid;
+            if (solid > 0.02) cells.push({ k: `b${i}`, g: solid, tone: bTone });
+            if (pale > 0.02) cells.push({ k: `p${i}`, g: pale, tone: light });
+          }
+          return (
+            <div className="p-rr-r" key={`${ri}-${r.name}`} title={`${r.name}: ${r.text}`}>
+              <span className="p-rr-n">{r.name}</span>
+              <span className="p-rr-t">
+                <span className="p-rr-s" style={{ width: `${((1 + hi) / most) * 100}%` }}>
+                  {cells.map((c) => (
+                    <span key={c.k} className="p-rr-c" style={{ flexGrow: c.g, background: c.tone }} />
+                  ))}
+                </span>
+              </span>
+              <span className="p-rr-v">{r.text}</span>
+            </div>
+          );
+        })}
+      </div>
+      <div className="p-viz-cap">
+        <span className="p-vkey">
+          <span className="p-vsw" style={{ background: aTone }} /> {aName}, 1 part
+        </span>
+        <span className="p-vkey">
+          <span className="p-vsw" style={{ background: bTone }} /> {bName}, parts by weight
+        </span>
+        <span className="p-vkey">
+          <span className="p-vsw" style={{ background: light }} /> The range
+        </span>
+      </div>
+    </div>
+  );
+}

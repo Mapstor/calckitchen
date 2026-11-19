@@ -5,6 +5,8 @@ import LiveKnob from "@/components/instrument/LiveKnob";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { DONE, ROASTS, SRC_ROAST, STUFFED_ADD, hm, type RoastRow } from "@/data/roasting-times";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/meat-cooking-time-calculator";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on the FoodSafety.gov roasting charts
@@ -139,6 +141,19 @@ export default function MeatCookingTimePage() {
             to 9 lb bone-in leg of lamb at 10 to 15 minutes per pound; it is left out here because it gives a shorter total time than a 7-lb leg
             in the row above.
           </p>
+          <Dumbbells
+            title="Minutes per pound, cut by cut"
+            label="Roasting minutes per pound"
+            min={0}
+            step={10}
+            unit="min/lb"
+            keys={[{ name: "Minutes per pound, from the chart", tone: TONE.orange }]}
+            rows={ROASTS.filter((r) => r.section === "red" && r.perLbLo !== undefined && r.perLbHi !== undefined).map((r) => ({
+              name: `${r.kind.charAt(0).toUpperCase()}${r.kind.slice(1)}: ${r.name.charAt(0).toLowerCase()}${r.name.slice(1)}, ${r.weightText}`,
+              marks: [{ lo: r.perLbLo as number, hi: r.perLbHi as number, tone: TONE.orange }],
+              text: r.perLbLo === r.perLbHi ? `${r.perLbLo} min/lb` : `${r.perLbLo}–${r.perLbHi} min/lb`,
+            }))}
+          />
         </Sec>
 
         <Sec title="Ham cooking times">

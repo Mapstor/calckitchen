@@ -4,6 +4,7 @@ import RecipeMacroCalculator from "@/components/calculators/RecipeMacroCalculato
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { FDC_FOOD, FOODS, SAMPLE, SAMPLE_SERVINGS, SRC_FDC, grams, macrosFor, r0, r1, sumMacros } from "@/data/macros";
+import Bars, { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/recipe-macro-calculator";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt on USDA FoodData Central SR Legacy values for 23 ingredients
@@ -142,6 +143,11 @@ export default function RecipeMacroCalculatorPage() {
             ])}
           />
           <p className="p-note">Every entry is raw or dry, so weigh ingredients as they go into the pot.</p>
+          <Bars
+            title="Calories in 100 g of each ingredient"
+            label="Calories per 100 grams, USDA FoodData Central"
+            rows={[...FOODS].sort((a, b) => b.kcal - a.kcal).map((f) => ({ name: f.name, v: f.kcal, text: `${f.kcal} kcal`, tone: TONE.blue }))}
+          />
         </Sec>
 
         <Faq faqs={faqs} />

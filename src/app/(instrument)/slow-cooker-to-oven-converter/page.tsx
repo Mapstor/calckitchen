@@ -5,6 +5,8 @@ import LiveDial from "@/components/instrument/LiveDial";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { BANDS, CROCKPOT, SRC_SLOW, hrs, minsText } from "@/data/slow-cooker";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/slow-cooker-to-oven-converter";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt on Crock-Pot's recipe-adapting chart and USDA slow cooker safety
@@ -19,6 +21,7 @@ export const metadata: Metadata = {
   alternates: { canonical: URL },
 };
 
+const short = (m: number) => (m >= 60 ? `${m / 60} h` : `${m} min`);
 const faqs: QA[] = [
   {
     question: "How do I convert an oven recipe to a slow cooker?",
@@ -122,6 +125,27 @@ export default function SlowCookerPage() {
             Crock-Pot&apos;s rows leave gaps (31 to 34 and 46 to 49 minutes); the calculator uses the nearest row and says so. Going the other
             way, a slow cooker time can sit in two rows: {hrs(b2.lowLo + 2)} hours on Low is in both the second and third rows.
           </p>
+          <Dumbbells
+            title="Crock-Pot's chart, drawn in hours"
+            label="Oven or stovetop to slow cooker times"
+            min={0}
+            step={2}
+            unit="hours"
+            keys={[
+              { name: "Oven or stovetop", tone: TONE.blue },
+              { name: "Slow cooker on High", tone: TONE.orange },
+              { name: "Slow cooker on Low", tone: TONE.purple },
+            ]}
+            rows={BANDS.map((b) => ({
+              name: `${short(b.ovenLo)}–${short(b.ovenHi)}`,
+              marks: [
+                { lo: b.ovenLo / 60, hi: b.ovenHi / 60, tone: TONE.blue },
+                { lo: b.highLo, hi: b.highHi, tone: TONE.orange },
+                { lo: b.lowLo, hi: b.lowHi, tone: TONE.purple },
+              ],
+              text: `High ${hrs(b.highLo)}–${hrs(b.highHi)} h, Low ${hrs(b.lowLo)}–${hrs(b.lowHi)} h`,
+            }))}
+          />
         </Sec>
 
         <Sec title="Adapting a recipe">

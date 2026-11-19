@@ -4,6 +4,8 @@ import LiveDial from "@/components/instrument/LiveDial";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { ATK, ATK_RISE, CHECKOFF, HAM_USDA_PLANT, SAFE, SRC_MEAT } from "@/data/meat-temps";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/meat-temperature-chart";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on the FoodSafety.gov chart, Beef Checkoff and America's Test Kitchen
@@ -152,6 +154,24 @@ export default function MeatTemperatureChartPage() {
             a steak than in a roast. Ground beef is different: the USDA minimum is {CHECKOFF.ground}°F, and the Beef Checkoff says color is
             not a reliable sign that it is done.
           </p>
+          <Dumbbells
+            title="Take it off the heat, then it climbs while it rests"
+            label="Pull and serving temperatures for beef and lamb"
+            step={10}
+            unit="°F"
+            keys={[
+              { name: "Take it off the heat", tone: TONE.blue },
+              { name: "After resting", tone: TONE.orange },
+            ]}
+            rows={ATK.map((a) => ({
+              name: a.level,
+              marks: [
+                { lo: a.pullLo, hi: a.pullHi, tone: TONE.blue },
+                { lo: a.serveLo, hi: a.serveHi, tone: TONE.orange },
+              ],
+              text: `${range(a.pullLo, a.pullHi)} → ${range(a.serveLo, a.serveHi)}°F`,
+            }))}
+          />
         </Sec>
 
         <Sec title="Why some meats need a rest">

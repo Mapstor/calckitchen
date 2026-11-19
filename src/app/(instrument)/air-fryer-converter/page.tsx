@@ -6,6 +6,8 @@ import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { AF_RULE, AF_TIPS, SRC_AF, toAirFryerF, toAirFryerMin } from "@/data/air-fryer";
 import { SRC_OVEN, fToC } from "@/data/oven-temps";
+import Dumbbells from "@/components/instrument/Dumbbells";
+import { TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/air-fryer-converter";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on the University of Illinois Extension air fryer guide
@@ -123,6 +125,20 @@ export default function AirFryerConverterPage() {
             })}
           />
           <p className="p-note">Celsius values are the Fahrenheit settings converted and rounded to whole degrees.</p>
+          <Dumbbells
+            title="Each oven setting and the air fryer setting for it"
+            label="Oven to air fryer temperatures"
+            step={50}
+            unit="°F"
+            keys={[
+              { name: "Oven setting", tone: TONE.blue },
+              { name: "Air fryer setting", tone: TONE.orange },
+            ]}
+            rows={TEMPS.map((f) => {
+              const a = toAirFryerF(f);
+              return { name: `${f}°F oven`, marks: [{ lo: f, tone: TONE.blue }, { lo: a.lo, hi: a.hi, tone: TONE.orange }], text: `${a.lo}–${a.hi}°F` };
+            })}
+          />
         </Sec>
 
         <Sec title="Oven to air fryer time chart">
