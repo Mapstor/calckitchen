@@ -5,6 +5,7 @@ import LiveDial from "@/components/instrument/LiveDial";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { SRC_BAKERS, bakersPct, d1 } from "@/data/bakers";
+import { Split, TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/bakers-percentage-calculator";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt on King Arthur Baking's baker's percentage method
@@ -126,6 +127,14 @@ export default function BakersPercentagePage() {
             for the yeast (5.8 g). The calculator does this when you enter a dough weight. For pizza, the{" "}
             <Link href="/pizza-dough-calculator">pizza dough calculator</Link> works from the number and size of dough balls.
           </p>
+          <Split
+            title="1000 g of the dough above, by weight"
+            label="1000 g of dough split by ingredient"
+            parts={EX.map((r, i) => {
+              const g = (r.g * 1000) / EX.reduce((a, x) => a + x.g, 0);
+              return { name: r.name, v: g, text: `${g < 100 ? d1(g) : Math.round(g)} g`, tone: [TONE.blue, TONE.orange, TONE.purple, TONE.green][i] ?? TONE.steel };
+            })}
+          />
         </Sec>
 
         <Faq faqs={faqs} />
