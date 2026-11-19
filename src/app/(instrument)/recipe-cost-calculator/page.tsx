@@ -5,6 +5,7 @@ import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { SRC_OVEN } from "@/data/oven-temps";
 import { UNITS } from "@/data/units";
+import { Split, TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/recipe-cost-calculator";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt; exact NIST unit factors, no guessed cup-to-gram densities
@@ -131,6 +132,14 @@ export default function RecipeCostPage() {
             Food cost percentage is the ingredient cost of a dish as a share of its menu price. Pick the percentage you want and the formula
             gives the price: a $0.33 serving at 30% sells for 0.33 ÷ 0.30 = $1.10.
           </p>
+          <Split
+            title="The $1.10 menu price at 30% food cost"
+            label="Menu price split into food cost and the rest"
+            parts={[
+              { name: "Ingredients, 30%", v: 0.33, text: "$0.33", tone: TONE.orange },
+              { name: "The rest of the price, 70%", v: 0.77, text: "$0.77", tone: TONE.steel },
+            ]}
+          />
         </Sec>
 
         <Sec title="Unit conversions the calculator uses">

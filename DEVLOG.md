@@ -53,7 +53,7 @@ Scoreboard (2026-11-19)
 - 2026-11-17 · Spatchcock option in the turkey calculator — no primary source for times; re-add only with one.
 
 ## §4 Gotchas & hard rules
-- Cloud-shell builds fail on next/font/google (Inter, Lora) and on icon/OG routes fetching cdn.jsdelivr.net. Verify on the Vercel preview, or with a temporary next/font/local swap plus moved icon routes; never commit the swap.
+- Fonts are self-hosted with next/font/local from src/app/(instrument)/fonts (CK-012, Fontsource 5.3.0, OFL): next/font/google broke two production builds on 2026-11-19 (Turbopack cache, "Can't resolve .../font/google/font"). Cloud-shell builds now compile; only /apple-icon, /icon and the OG images still fail here (they fetch cdn.jsdelivr.net). Verify those on the Vercel preview.
 - fsis.usda.gov refuses WebFetch; read it in Chrome.
 - USDA timetable rows share edge weights (8, 12, 14, 18, 20, 24 lb). Code uses the lighter row; examples avoid edge weights or name both rows.
 - ask.usda.gov did not load in Chrome on 2026-11-17 (used on /air-fryer-converter); recheck before removing.

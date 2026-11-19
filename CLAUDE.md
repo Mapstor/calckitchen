@@ -3,7 +3,7 @@
 - Push only claude/ branches. Never push main.
 - Numbers: every figure traces to a row in research/data-sources.csv. Run `npm run check:numbers` (0 failed, 0 skipped) before a PR.
 - Design: follow DESIGN.md and PRODUCT.md (look picked 2026-11-17).
-- Builds in a cloud shell fail on next/font/google and on the icon/OG routes that fetch cdn.jsdelivr.net. Verify on the Vercel preview, or locally with a temporary next/font/local swap that is never committed.
+- Fonts are self-hosted with next/font/local (src/app/(instrument)/fonts) since CK-012: next/font/google broke production builds. Cloud-shell builds compile; the icon/OG routes still fetch cdn.jsdelivr.net and fail here, so verify those on the Vercel preview.
 
 ## DEVLOG — mandatory
 - Before any work: read DEVLOG.md §0–§5 + the last 10 §6 entries.

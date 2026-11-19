@@ -4,6 +4,7 @@ import SourdoughCalculator from "@/components/calculators/SourdoughCalculator";
 import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { KA_FEED, KA_FLOUR, KA_LOAF, SRC_SD, feed, gr, p1, pctOf } from "@/data/sourdough";
+import { StackBars, TONE } from "@/components/instrument/Bars";
 
 const URL = "https://calckitchen.com/sourdough-calculator";
 const UPDATED = "2026-11-19"; // CK-009: rebuilt on King Arthur Baking's sourdough recipe and starter guide
@@ -173,6 +174,19 @@ export default function SourdoughCalculatorPage() {
             })}
           />
           <p className="p-note">King Arthur&apos;s ratio is 1:1:1. The other rows are the same arithmetic with more flour and water.</p>
+          <StackBars
+            title="The jar after each feeding ratio, starting from 113 g"
+            label="Starter after feeding"
+            keys={[
+              { name: "Starter kept", tone: TONE.orange },
+              { name: "Flour", tone: TONE.blue },
+              { name: "Water", tone: TONE.purple },
+            ]}
+            rows={RATIOS.map((n) => {
+              const f = feed(KA_FEED.keepG, n, n);
+              return { name: `1:${n}:${n}`, parts: [KA_FEED.keepG, f.flour, f.water], text: `${gr(f.total)} g` };
+            })}
+          />
         </Sec>
 
         <Sec title="Building starter for a recipe">
