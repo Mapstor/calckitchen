@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { DEFAULT_ON, ITEMS, lbOf, totalText } from "@/data/party";
 
@@ -71,6 +72,16 @@ export default function PartyFoodCalculator() {
         <Read v={ok && on.includes("drinks") ? r1(servings) : "—"} c="12 fl oz drinks" />
       </ul>
 
+      {ok && servings > 0 && chosen.filter((i) => i.unit === "g").length > 1 && (
+        <Bars
+          title="Food to buy by weight"
+          label="Pounds of each food"
+          rows={chosen
+            .filter((i) => i.unit === "g")
+            .map((i) => ({ name: i.name, v: lbOf(i.amount * servings), text: `${r1(lbOf(i.amount * servings))} lb`, tone: TONE.blue }))
+            .sort((a, b) => b.v - a.v)}
+        />
+      )}
       {ok && chosen.length > 0 && (
         <div className="p-tbox p-mt" role="region" aria-label="Food to buy" tabIndex={0}>
           <table className="p-table">

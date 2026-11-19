@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import { Balls, Split, TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { NAPOLETANA, NAPOLETANA_PCT, d1, weightsFromTotal } from "@/data/bakers";
 
@@ -12,6 +13,8 @@ const parse = (t: string) => {
   return t.trim() !== "" && Number.isFinite(n) ? n : null;
 };
 const g0 = (n: number) => String(Math.round(n));
+/** color follows the ingredient, not its place in the list */
+const PART_TONE: Record<string, string> = { Water: TONE.orange, Salt: TONE.purple, Yeast: TONE.green, Oil: TONE.ink, Sugar: TONE.steel };
 
 const FIELDS = [
   { key: "water", label: "Water", def: "62" },
@@ -125,6 +128,26 @@ export default function PizzaDoughCalculator() {
         <Read v={res ? d1(grams("Salt")) : "—"} u={res ? "g" : undefined} c="Salt" />
         <Read v={res ? d1(grams("Yeast")) : "—"} u={res ? "g" : undefined} c={napo ? "Fresh brewer's yeast" : "Yeast"} />
       </ul>
+      {res && (
+        <>
+          <Split
+            title={`The dough by weight, ${Math.round(total).toLocaleString("en-US")} g in all`}
+            label="Pizza dough by weight"
+            parts={[
+              { name: "Flour", v: res.flour, text: `${g0(res.flour)} g`, tone: TONE.blue },
+              ...res.parts
+                .filter((p) => p.g > 0)
+                .map((p) => ({
+                  name: p.name === "Yeast" && napo ? "Fresh yeast" : p.name,
+                  v: p.g,
+                  text: `${p.g < 10 ? d1(p.g) : g0(p.g)} g`,
+                  tone: PART_TONE[p.name] ?? TONE.steel,
+                })),
+            ]}
+          />
+          <Balls n={balls as number} text={`${g0(ball as number)} g`} />
+        </>
+      )}
       {res && (grams("Oil") > 0 || grams("Sugar") > 0) && (
         <p className="p-res-basis p-mt">
           Also {grams("Oil") > 0 ? `${d1(grams("Oil"))} g oil` : ""}

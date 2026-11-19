@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import { RoastRate } from "@/components/instrument/Scales";
 import { setLive } from "@/components/instrument/live";
 import { DONE, KINDS, ROASTS, STUFFED_ADD, hm, roastTime, type Kind } from "@/data/roasting-times";
 
@@ -148,6 +149,18 @@ export default function MeatCookingTimeCalculator() {
         />
         <Read v={rate ?? "—"} u={rate ? "min/lb" : undefined} c={rate ? `Rate for ${row.weightText}` : "The chart gives a total time"} />
       </ul>
+      {row.lbLo !== null && row.lbHi !== null && row.lbHi > row.lbLo && row.perLbLo !== undefined && row.perLbHi !== undefined && (
+        <RoastRate
+          lbLo={row.lbLo}
+          lbHi={row.lbHi}
+          perLo={row.perLbLo}
+          perHi={row.perLbHi}
+          addLo={stuffed && row.stuffable ? STUFFED_ADD.lo : 0}
+          addHi={stuffed && row.stuffable ? STUFFED_ADD.hi : 0}
+          lb={time ? lb : null}
+          text={time ? `${fmtLb(lb)} lb, ${hm(time.lo)} to ${hm(time.hi)}` : "outside the chart's weights"}
+        />
+      )}
       <p className="p-res-basis p-mt">
         <strong>USDA chart:</strong> {row.name.charAt(0).toLowerCase() + row.name.slice(1)}, {row.weightText}, {oven},{" "}
         {rate ? `${rate.replace("–", " to ")} minutes per pound` : row.totalLo === row.totalHi ? hm(row.totalLo ?? 0) : `${hm(row.totalLo ?? 0)} to ${hm(row.totalHi ?? 0)} in all`}

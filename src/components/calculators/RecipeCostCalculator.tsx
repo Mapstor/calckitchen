@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { UNITS, convert, type Unit } from "@/data/units";
 
@@ -118,6 +119,18 @@ export default function RecipeCostCalculator() {
         <Read v={menu !== null ? money(menu) : "—"} c={pOk ? `Menu price at ${pct}% food cost` : "Menu price"} />
         <Read v={sOk ? String(servings) : "—"} c="Servings" />
       </ul>
+      {costs.filter((c) => c.v !== null && c.v > 0).length > 1 && total > 0 && (
+        <Bars
+          title="Where the money goes"
+          label="Cost by ingredient"
+          rows={rows
+            .map((r, i) => ({ name: r.name.trim() || `Ingredient ${i + 1}`, v: costs[i].v ?? 0 }))
+            .filter((r) => r.v > 0)
+            .sort((a, b) => b.v - a.v)
+            .slice(0, 12)
+            .map((r) => ({ name: r.name, v: r.v, text: `${money(r.v)} · ${Math.round((r.v / total) * 100)}%`, tone: TONE.blue }))}
+        />
+      )}
     </div>
   );
 }

@@ -111,13 +111,12 @@ export default function CakePanConverterPage() {
             from a 9 x 13 (117 square inches) to an 8-inch square (64) is 64 ÷ 117 = 0.55, a little over half.
           </p>
           <PanLineup
-            hi={1}
             pans={[
-              { shape: "Round", a: 6, b: 6, name: "6 in. round" },
-              { shape: "Round", a: 8, b: 8, name: "8 in. round" },
-              { shape: "Round", a: 9, b: 9, name: "9 in. round" },
-              { shape: "Square", a: 8, b: 8, name: "8 in. square" },
-              { shape: "Square", a: 9, b: 9, name: "9 in. square" },
+              { shape: "Round", a: 6, b: 6, name: "6 in." },
+              { shape: "Round", a: 8, b: 8, name: "8 in." },
+              { shape: "Round", a: 9, b: 9, name: "9 in." },
+              { shape: "Square", a: 8, b: 8, name: "8 in." },
+              { shape: "Square", a: 9, b: 9, name: "9 in." },
               { shape: "Rectangle", a: 13, b: 9, name: "9 × 13 in." },
             ]}
           />

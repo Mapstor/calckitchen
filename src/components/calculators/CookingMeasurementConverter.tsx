@@ -2,9 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { INGREDIENTS, MASS, VOL, dec, gramsPerCup, gtxt } from "@/data/measures";
 import { kitchen, parseNum } from "@/data/scaler";
+
+/** reference ingredients the chosen one is weighed against (USDA FoodData Central weights) */
+const CUP_REFS = ["water", "ap-flour", "sugar", "butter", "honey"];
+const TSP_REFS = ["salt", "sugar", "baking-powder", "cornstarch", "cocoa"];
 
 type Mode = "ingredient" | "volume" | "weight";
 const MODES: { key: Mode; label: string }[] = [
@@ -151,6 +156,19 @@ export default function CookingMeasurementConverter() {
           <Read v={cups !== null ? kitchen(cups) : "—"} u={cups !== null ? (cups > 1 ? "cups" : "cup") : undefined} c="US cups" />
           <Read v={cups !== null ? kitchen(cups * 16) : "—"} u={cups !== null ? "tbsp" : undefined} c={cups !== null ? `${kitchen(cups * 48)} tsp` : "Tablespoons"} />
         </ul>
+      )}
+      {mode === "ingredient" && (
+        <Bars
+          title={`What one ${item.per === "tsp" ? "teaspoon" : "cup"} weighs: ${item.name.toLowerCase()} and common ingredients`}
+          label={`Grams in one ${item.per === "tsp" ? "teaspoon" : "cup"}`}
+          rows={[item, ...(item.per === "tsp" ? TSP_REFS : CUP_REFS).filter((k) => k !== item.key).map((k) => INGREDIENTS.find((i) => i.key === k)!)]
+            .slice(0, 6)
+            .map((i) => {
+              const g = item.per === "tsp" ? gramsPerCup(i) / 48 : gramsPerCup(i);
+              return { name: i.name, v: g, text: `${item.per === "tsp" ? dec(g, 1) : gtxt(g)} g`, tone: i.key === item.key ? TONE.orange : TONE.blue };
+            })
+            .sort((a, b) => b.v - a.v)}
+        />
       )}
       {mode === "volume" && (
         <ul className="p-reads p-reads-live" aria-live="polite">

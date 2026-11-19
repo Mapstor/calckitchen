@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
 import { setLive } from "@/components/instrument/live";
+import Sticks from "@/components/instrument/Sticks";
 import { BUTTER_UNITS, STICK_G, amt, cutText, fromSticks, grams, toSticks, unitWord, type ButterUnit } from "@/data/butter";
 
 const QUICK: { label: string; text: string; unit: ButterUnit }[] = [
@@ -138,6 +139,7 @@ export default function ButterConverter() {
         <Read v={cu} u={cuU} c="US measuring cups" />
         <Read v={tb} u={ok ? "tbsp" : undefined} c={tbC} />
       </ul>
+      {ok && sticks !== null && <Sticks sticks={sticks} />}
       <p className="p-res-basis p-mt">
         One stick is ½ cup and weighs 4 ounces (113.4 g), the stick in Land O&apos;Lakes&apos; conversion table. The other figures follow from exact US
         units.

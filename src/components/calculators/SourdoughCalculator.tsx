@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import { Split, StackBars, TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { KA_FEED, build, dough, feed, gr, p1 } from "@/data/sourdough";
 
@@ -143,6 +144,21 @@ export default function SourdoughCalculator() {
             <Read v={d ? gr(d.total / (loaves as number)) : "—"} u={d ? "g" : undefined} c={d ? `Per loaf, for ${loaves} ${loaves === 1 ? "loaf" : "loaves"}` : "Per loaf"} />
             <Read v={d ? p1(d.overall) : "—"} u={d ? "%" : undefined} c="Hydration counting the starter's flour and water" />
           </ul>
+          {d && (
+            <StackBars
+              title="All the flour and water in the dough, the starter's included"
+              label="Dough by weight"
+              keys={[
+                { name: "Added to the bowl", tone: TONE.blue },
+                { name: "Inside the starter", tone: TONE.orange },
+              ]}
+              rows={[
+                { name: "Flour", parts: [flour as number, d.sFlour], text: `${gr((flour as number) + d.sFlour)} g` },
+                { name: "Water", parts: [d.water, d.sWater], text: `${gr(d.water + d.sWater)} g` },
+                { name: "Salt", parts: [d.salt, 0], text: `${gr(d.salt)} g` },
+              ]}
+            />
+          )}
           <p className="p-res-basis p-mt">
             {d
               ? `The starter adds ${gr(d.sFlour)} g flour and ${gr(d.sWater)} g water: (${gr(d.water)} + ${gr(d.sWater)}) ÷ (${gr(flour as number)} + ${gr(d.sFlour)}) = ${p1(d.overall)}%.`
@@ -188,6 +204,17 @@ export default function SourdoughCalculator() {
             <Read v={fd ? gr(fd.total) : "—"} u={fd ? "g" : undefined} c="Starter after feeding" />
             <Read v={fd ? p1(fd.hydration) : "—"} u={fd ? "%" : undefined} c="Starter hydration" />
           </ul>
+          {fd && (
+            <Split
+              title="The jar after feeding"
+              label="Starter after feeding"
+              parts={[
+                { name: "Starter kept", v: fd.total - fd.flour - fd.water, text: `${gr(fd.total - fd.flour - fd.water)} g`, tone: TONE.orange },
+                { name: "Flour", v: fd.flour, text: `${gr(fd.flour)} g`, tone: TONE.blue },
+                { name: "Water", v: fd.water, text: `${gr(fd.water)} g`, tone: TONE.purple },
+              ]}
+            />
+          )}
           <p className="p-res-basis p-mt">
             King Arthur keeps {KA_FEED.keepG} g and feeds it {KA_FEED.keepG} g each of flour and water: every {KA_FEED.roomHours} hours at room
             temperature, at least once a week in the fridge.
@@ -235,6 +262,16 @@ export default function SourdoughCalculator() {
             <Read v={b ? gr(b.each) : "—"} u={b ? "g" : undefined} c="Water" />
             <Read v={b ? gr(b.makes) : "—"} u={b ? "g" : undefined} c={b ? `${gr(need as number)} g for the recipe + ${gr(bKeep as number)} g to keep` : "Makes"} />
           </ul>
+          {b && (
+            <Split
+              title="What the build makes"
+              label="Starter the build makes"
+              parts={[
+                { name: "For the recipe", v: need as number, text: `${gr(need as number)} g`, tone: TONE.blue },
+                { name: "To keep", v: bKeep as number, text: `${gr(bKeep as number)} g`, tone: TONE.orange },
+              ]}
+            />
+          )}
           <p className="p-res-basis p-mt">
             One feeding of equal weights, rested {KA_FEED.restLoH} to {KA_FEED.restHiH} hours at room temperature until bubbly, as in King
             Arthur&apos;s guide.

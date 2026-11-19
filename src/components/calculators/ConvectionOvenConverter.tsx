@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { TONE } from "@/components/instrument/Bars";
+import { TempCompare } from "@/components/instrument/Scales";
 import { setLive } from "@/components/instrument/live";
 import { CONV, bakeF, roastMin } from "@/data/convection";
 import { cToF, fToC } from "@/data/oven-temps";
@@ -95,6 +97,26 @@ export default function ConvectionOvenConverter() {
         <Read v={outMin === null ? "—" : String(r0(outMin))} u={outMin === null ? undefined : "min"} c={bake ? "The recipe's shortest time" : `${CONV.roastTimeCutPct}% less; check it then`} />
         <Read v={bake ? "Yes" : "No"} c={bake ? "Preheat for cookies, biscuits, breads" : "No preheat needed to roast"} />
       </ul>
+      {outF !== null && inF !== null && (
+        <TempCompare
+          title="Temperature"
+          unit={unit}
+          rows={[
+            { name: "Regular oven, the recipe", lo: inF, hi: inF, tone: TONE.blue },
+            { name: "Convection oven", lo: outF, hi: outF, tone: TONE.orange },
+          ]}
+        />
+      )}
+      {outMin !== null && m !== null && (
+        <Bars
+          title="Time"
+          label="Cooking time"
+          rows={[
+            { name: "Regular oven, the recipe", v: m, text: `${r0(m)} min`, tone: TONE.blue },
+            { name: bake ? "Convection, check from" : "Convection oven", v: outMin, text: `${r0(outMin)} min`, tone: TONE.orange },
+          ]}
+        />
+      )}
     </div>
   );
 }

@@ -194,7 +194,7 @@ export function PanLineup({ pans, hi, split }: { pans: LinePan[]; hi?: number; s
   };
   return (
     <figure className="p-viz">
-      {draw(1000, [all], 220, "p-viz-wide")}
+      {draw(760, [all], 170, "p-viz-wide")}
       {draw(420, [all.slice(0, cut), all.slice(cut)], 150, "p-viz-tall")}
       <figcaption className="p-viz-cap">
         <span>Square inches inside each pan, all drawn to one scale.</span>

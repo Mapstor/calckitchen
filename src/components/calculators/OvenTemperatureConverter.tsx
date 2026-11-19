@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { setDial } from "@/components/instrument/LiveKnob";
 import Read from "@/components/instrument/Read";
+import { OvenRuler } from "@/components/instrument/Scales";
 import { GAS_ROWS, cToF, fToC, fmt1, type GasRow } from "@/data/oven-temps";
 
 type Unit = "F" | "C" | "GM";
@@ -136,6 +137,7 @@ export default function OvenTemperatureConverter() {
         />
         <Read v={ok && row ? pre + row.fan : "—"} u={ok && row ? "°C" : undefined} c={ok && row ? "Fan oven, from the chart" : "Fan oven °C"} />
       </ul>
+      <OvenRuler valueF={ok ? fv : null} marks={GAS_ROWS} />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import { Ratio, TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { COLD_BREW_HOURS, METHODS, NCA_TEMP, SCA, WATER_UNITS, coffeeRange, d1, ncaTbsp, ratioText, waterGrams, type WaterUnit } from "@/data/coffee";
 import { kitchen, parseNum } from "@/data/scaler";
@@ -103,6 +104,16 @@ export default function CoffeeRatioCalculator() {
           <Read v={fourth.v} u={fourth.u} c={fourth.c} />
         </ul>
       )}
+      <Ratio
+        title={`${m.name}, ${ratioText(m)} by weight`}
+        label={`${m.name}: 1 part ${espresso ? "dry coffee to " : "coffee to "}${m.lo === m.hi ? d1(m.lo) : `${d1(m.lo)} to ${d1(m.hi)}`} parts ${espresso ? "liquid espresso" : "water"}`}
+        b={m.lo}
+        bHi={m.hi}
+        aName={espresso ? "Dry coffee" : "Coffee"}
+        bName={espresso ? "Liquid espresso" : "Water"}
+        aTone={TONE.orange}
+        bTone={TONE.blue}
+      />
       <p className="p-res-basis p-mt">Water weighed at 1,000 g per liter (USDA). Coffee ranges run from the weaker to the stronger end of the ratio.</p>
     </div>
   );

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { CROCKPOT, bandForOven, hrs, minsText, ovenForSlow } from "@/data/slow-cooker";
 
@@ -11,6 +12,8 @@ const parse = (t: string) => {
   const n = Number(t.trim().replace(",", "."));
   return t.trim() !== "" && Number.isFinite(n) && n > 0 ? n : null;
 };
+
+const hrsText = (h: number) => (Math.round(h * 100) / 100).toString();
 
 export default function SlowCookerConverter() {
   const [dir, setDir] = useState<Dir>("toSlow");
@@ -88,6 +91,17 @@ export default function SlowCookerConverter() {
           <Read v={String(CROCKPOT.dairyLastHours)} u="h" c="Add milk, sour cream or cream in the last hour" />
         </ul>
       )}
+      {fwd && m !== null && (
+        <Bars
+          title="Hours of cooking"
+          label="Cooking time"
+          rows={[
+            { name: "Oven or stove, the recipe", v: m / 60, text: `${hrsText(m / 60)} h`, tone: TONE.blue },
+            { name: "Slow cooker on High", v: fwd.band.highHi, lo: fwd.band.highLo, text: `${hrs(fwd.band.highLo)}–${hrs(fwd.band.highHi)} h`, tone: TONE.orange },
+            { name: "Slow cooker on Low", v: fwd.band.lowHi, lo: fwd.band.lowLo, text: `${hrs(fwd.band.lowLo)}–${hrs(fwd.band.lowHi)} h`, tone: TONE.purple },
+          ]}
+        />
+      )}
       {dir === "toSlow" && (
         <p className="p-res-basis p-mt">
           {fwd
@@ -100,6 +114,16 @@ export default function SlowCookerConverter() {
           <Read v={back ? `${back.lo}–${back.hi}` : "—"} u={back ? "min" : undefined} c={back ? `${minsText(back.lo)} to ${minsText(back.hi)} in the oven or on the stove` : "Not a time on the chart for this setting"} />
           <Read v={setting === "low" ? "Low" : "High"} c="Setting you entered" />
         </ul>
+      )}
+      {back && h !== null && (
+        <Bars
+          title="Hours of cooking"
+          label="Cooking time"
+          rows={[
+            { name: `Slow cooker on ${setting === "low" ? "Low" : "High"}, the recipe`, v: h, text: `${hrsText(h)} h`, tone: setting === "low" ? TONE.purple : TONE.orange },
+            { name: "Oven or stove", v: back.hi / 60, lo: back.lo / 60, text: `${back.lo}–${back.hi} min`, tone: TONE.blue },
+          ]}
+        />
       )}
     </div>
   );

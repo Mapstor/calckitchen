@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { TONE, type BarRow } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { GE_MW, forWattage, mmss, toConventional, toMicrowave } from "@/data/microwave";
 
@@ -37,6 +38,9 @@ export default function MicrowaveToOvenConverter() {
   let second = "—";
   let secondC = "";
   let dial: number | null = null;
+  let viz: BarRow[] | null = null;
+  const was = (name: string, v: number): BarRow => ({ name, v, text: `${r1(v)} min`, tone: TONE.blue });
+  const now = (name: string, lo: number, hi: number): BarRow => ({ name, v: hi, lo, text: lo === hi ? `${r1(hi)} min` : `${r1(lo)}–${r1(hi)} min`, tone: TONE.orange });
 
   if (tOk && t !== null) {
     if (mode === "toMW") {
@@ -47,6 +51,7 @@ export default function MicrowaveToOvenConverter() {
       second = String(GE_MW.powerLevel);
       secondC = "Power level, unless a similar microwave recipe says otherwise";
       dial = r.lo;
+      viz = [was("Oven or stove, the recipe", t), now("Microwave", r.lo, r.hi)];
     } else if (mode === "toOven") {
       const r = toConventional(t);
       main = `${r1(r.lo)}–${r1(r.hi)}`;
@@ -55,6 +60,7 @@ export default function MicrowaveToOvenConverter() {
       second = "—";
       secondC = "Oven temperature: use the original recipe's";
       dial = t;
+      viz = [was("Microwave, the recipe", t), now("Oven", r.lo, r.hi)];
     } else if (mode === "watts" && w1 !== null && w2 !== null) {
       const m = forWattage(t, w1, w2);
       main = r1(m);
@@ -63,17 +69,20 @@ export default function MicrowaveToOvenConverter() {
       second = `${Math.round((w1 / w2) * 100)}`;
       secondC = "% of the recipe's time (equal-energy estimate)";
       dial = m;
+      viz = [was(`Recipe's microwave, ${w1} W`, t), now(`Yours, ${w2} W`, m, m)];
     } else if (mode === "batch") {
       if (batch === "half") {
         main = r1(t * (1 - GE_MW.halfTimeCut));
         mainU = "min";
         mainC = `Half recipe: ⅓ less time, same power`;
         dial = t * (1 - GE_MW.halfTimeCut);
+        viz = [was("Full recipe", t), now("Half recipe", t * (1 - GE_MW.halfTimeCut), t * (1 - GE_MW.halfTimeCut))];
       } else {
         main = `${r1(t * (1 + GE_MW.doubleAddLo))}–${r1(t * (1 + GE_MW.doubleAddHi))}`;
         mainU = "min";
         mainC = "Double recipe: ½ to ⅔ more time, not twice the time";
         dial = t * (1 + GE_MW.doubleAddLo);
+        viz = [was("Single recipe", t), now("Double recipe", t * (1 + GE_MW.doubleAddLo), t * (1 + GE_MW.doubleAddHi))];
       }
       second = batch === "half" ? "Same" : "¼–½ less";
       secondC = batch === "half" ? "Power level" : "Liquid";
@@ -146,6 +155,7 @@ export default function MicrowaveToOvenConverter() {
         <Read v={main} u={main === "—" ? undefined : mainU} c={mainC || "Time"} />
         <Read v={second} c={secondC || "—"} />
       </ul>
+      {viz && <Bars title="Time" label="Cooking time" rows={viz} />}
       <p className="p-res-basis p-mt">
         {mode === "watts"
           ? "Wattage times are an equal-energy estimate (watts × time kept the same), not a manufacturer rule; check the food before the time is up."

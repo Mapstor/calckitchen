@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { Split, TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { FOODS, SAMPLE, SAMPLE_SERVINGS, grams, macrosFor, r0, r1, sumMacros, type Macros } from "@/data/macros";
 
@@ -111,6 +112,27 @@ export default function RecipeMacroCalculator() {
         <Read v={per ? r1(per.c) : "—"} u={per ? "g" : undefined} c="Carbohydrate per serving" />
         <Read v={per ? r1(per.f) : "—"} u={per ? "g" : undefined} c="Fat per serving" />
       </ul>
+      {per && per.p + per.c + per.f > 0 && (
+        <Split
+          title="Protein, carbohydrate and fat in one serving, by weight"
+          label="Macronutrients per serving"
+          parts={[
+            { name: "Protein", v: per.p, text: `${r1(per.p)} g`, tone: TONE.blue },
+            { name: "Carbohydrate", v: per.c, text: `${r1(per.c)} g`, tone: TONE.orange },
+            { name: "Fat", v: per.f, text: `${r1(per.f)} g`, tone: TONE.purple },
+          ]}
+        />
+      )}
+      {used.length > 1 && total.kcal > 0 && (
+        <Bars
+          title="Where the calories come from, whole recipe"
+          label="Calories by ingredient"
+          rows={[...used]
+            .sort((a, b) => b.m.kcal - a.m.kcal)
+            .slice(0, 12)
+            .map((l) => ({ name: l.name, v: l.m.kcal, text: `${r0(l.m.kcal)} kcal`, tone: TONE.blue }))}
+        />
+      )}
 
       {used.length > 0 && per && (
         <div className="p-tbox p-mt" role="region" aria-label="Macros by ingredient" tabIndex={0}>

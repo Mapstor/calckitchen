@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Read from "@/components/instrument/Read";
+import Bars, { TONE } from "@/components/instrument/Bars";
 import { setLive } from "@/components/instrument/live";
 import { bakersPct, d1 } from "@/data/bakers";
 
@@ -81,6 +82,17 @@ export default function BakersPercentageCalculator() {
         <Read v={flourOk && yeast ? d1(pct(yeast.g)) : "—"} u={flourOk && yeast ? "%" : undefined} c="Yeast" />
         <Read v={flourOk ? d1(totalPct) : "—"} u={flourOk ? "%" : undefined} c="Total, flour included" />
       </ul>
+      {flourOk && items.length > 0 && (
+        <Bars
+          title="Each ingredient as a percentage of the flour"
+          label="Baker's percentages"
+          max={Math.max(100, ...items.map((r) => pct(r.g)))}
+          rows={[
+            { name: "Flour", v: 100, text: "100%", tone: TONE.ink },
+            ...items.map((r) => ({ name: r.name, v: pct(r.g), text: `${d1(pct(r.g))}%`, tone: TONE.blue })),
+          ]}
+        />
+      )}
 
       {flourOk && (
         <div className="p-tbox" role="region" aria-label="Baker's percentages and scaled weights" tabIndex={0}>
