@@ -97,6 +97,7 @@ export default function MeatTemperatureChartPage() {
         visual={<LiveDial liveKey="meat" min={100} max={200} major={20} minor={5} value={145} marks={[145, 160, 165]} unit="°F" suffix="°F" label="Food thermometer reading" />}
         crumb="Cooking time / Meat temperature chart"
         h1="Meat temperature chart"
+        long
         answer={
           <>
             Whole cuts <span className="p-nb">145°F,</span> ground meat <span className="p-nb">160°F,</span> poultry <span className="p-nb">165°F.</span>

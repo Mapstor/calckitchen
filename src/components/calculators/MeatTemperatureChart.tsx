@@ -5,7 +5,7 @@ import Read from "@/components/instrument/Read";
 import { setLive } from "@/components/instrument/live";
 import { GROUPS, SAFE, type Group } from "@/data/meat-temps";
 
-const label = (food: string, cut: string) => (cut ? `${food}: ${cut}` : food);
+const label = (food: string, cut: string) => (cut ? `${food}: ${cut.charAt(0).toLowerCase()}${cut.slice(1)}` : food);
 
 export default function MeatTemperatureChart() {
   const [group, setGroup] = useState<Group>("beef");

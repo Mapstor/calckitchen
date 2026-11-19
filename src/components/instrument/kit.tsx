@@ -30,6 +30,7 @@ export function Hero({
   answer,
   sub,
   updated,
+  long,
   children,
 }: {
   visual: ReactNode;
@@ -38,6 +39,8 @@ export function Hero({
   answer: ReactNode;
   sub?: ReactNode;
   updated: string;
+  /** answer runs to three lines: smaller type, looser lines */
+  long?: boolean;
   children?: ReactNode;
 }) {
   return (
@@ -50,7 +53,7 @@ export function Hero({
               <Link href="/">Home</Link> / {crumb}
             </nav>
             <h1 className="p-h1">{h1}</h1>
-            <p className="p-answer">{answer}</p>
+            <p className={long ? "p-answer p-answer-long" : "p-answer"}>{answer}</p>
             {sub && <p className="p-sub">{sub}</p>}
             <Byline updated={updated} />
           </div>

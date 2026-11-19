@@ -27,7 +27,7 @@ export const SAFE: SafeRow[] = [
   { id: "beef-ground", short: "Beef, lamb, veal, goat, bison", group: "ground", food: "Beef, bison, veal, goat and lamb", cut: "Ground meat and sausage", f: 160, c: 71, restMin: 0, note: "" },
   { id: "pork-whole", short: "Steaks, roasts, chops", group: "pork", food: "Pork", cut: "Steaks, roasts, chops", f: 145, c: 63, restMin: 3, note: "" },
   { id: "pork-ground", short: "Pork", group: "ground", food: "Pork", cut: "Ground meat and sausage", f: 160, c: 71, restMin: 0, note: "" },
-  { id: "poultry", short: "All poultry", group: "poultry", food: "Chicken, turkey and other poultry", cut: "All: whole bird, breasts, legs, thighs, wings, ground poultry, giblets, sausage, stuffing inside poultry", f: 165, c: 74, restMin: 0, note: "" },
+  { id: "poultry", short: "All poultry", group: "poultry", food: "Chicken, turkey and other poultry", cut: "Whole bird, breasts, legs, thighs, wings, ground poultry, giblets, sausage, stuffing inside poultry", f: 165, c: 74, restMin: 0, note: "" },
   { id: "game", short: "Rabbit and venison", group: "ground", food: "Rabbit and venison", cut: "Wild or farm-raised", f: 160, c: 71, restMin: 0, note: "" },
   { id: "ham-raw", short: "Raw ham", group: "ham", food: "Ham", cut: "Raw ham", f: 145, c: 63, restMin: 3, note: "" },
   { id: "ham-precooked", short: "Precooked ham, to reheat", group: "ham", food: "Ham", cut: "Precooked ham, to reheat", f: 165, c: 74, restMin: 0, note: "Ham packaged in a USDA-inspected plant: 140°F (60°C)." },
