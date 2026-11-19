@@ -1,0 +1,222 @@
+{
+ "retrieved": "2026-11-19",
+ "id": "USDA-FDC-SR",
+ "read": "Chrome, 2026-11-19: foodMeasures in the JSON the FoodData Central site serves per food (https://fdc.nal.usda.gov/portal-data/external/<fdcId>)",
+ "foods": [
+  {
+   "fdcId": 168894,
+   "description": "Wheat flour, white, all-purpose, enriched, bleached",
+   "measures": {
+    "1 cup": 125
+   }
+  },
+  {
+   "fdcId": 168896,
+   "description": "Wheat flour, white, bread, enriched",
+   "measures": {
+    "1 cup": 137
+   }
+  },
+  {
+   "fdcId": 168893,
+   "description": "Wheat flour, whole-grain (Includes foods for USDA's Food Distribution Program)",
+   "measures": {
+    "1 cup": 120
+   }
+  },
+  {
+   "fdcId": 169655,
+   "description": "Sugars, granulated",
+   "measures": {
+    "1 cup": 200,
+    "1 tsp": 4.2
+   }
+  },
+  {
+   "fdcId": 168833,
+   "description": "Sugars, brown",
+   "measures": {
+    "1 cup packed": 220,
+    "1 cup unpacked": 145,
+    "1 tsp packed": 4.6,
+    "1 tsp unpacked": 3
+   }
+  },
+  {
+   "fdcId": 169656,
+   "description": "Sugars, powdered",
+   "measures": {
+    "1 cup unsifted": 120,
+    "1 cup sifted": 100,
+    "1 tbsp unsifted": 8,
+    "1 tsp": 2.5
+   }
+  },
+  {
+   "fdcId": 173410,
+   "description": "Butter, salted",
+   "measures": {
+    "1 cup": 227,
+    "1 tbsp": 14.2,
+    "1 stick": 113
+   }
+  },
+  {
+   "fdcId": 169593,
+   "description": "Cocoa, dry powder, unsweetened",
+   "measures": {
+    "1 cup": 86,
+    "1 tbsp": 5.4
+   }
+  },
+  {
+   "fdcId": 169698,
+   "description": "Cornstarch",
+   "measures": {
+    "1 cup": 128
+   }
+  },
+  {
+   "fdcId": 173468,
+   "description": "Salt, table",
+   "measures": {
+    "1 tsp": 6,
+    "1 tbsp": 18,
+    "1 cup": 292
+   }
+  },
+  {
+   "fdcId": 175040,
+   "description": "Leavening agents, baking soda",
+   "measures": {
+    "1 tsp": 4.6,
+    "0.5 tsp": 2.3
+   }
+  },
+  {
+   "fdcId": 172803,
+   "description": "Leavening agents, baking powder, double-acting, sodium aluminum sulfate",
+   "measures": {
+    "1 tsp": 4.6,
+    "0.5 tsp": 2.3
+   }
+  },
+  {
+   "fdcId": 173904,
+   "description": "Cereals, oats, regular and quick, not fortified, dry",
+   "measures": {
+    "1 cup": 81
+   }
+  },
+  {
+   "fdcId": 168877,
+   "description": "Rice, white, long-grain, regular, raw, enriched",
+   "measures": {
+    "1 cup": 185
+   }
+  },
+  {
+   "fdcId": 169640,
+   "description": "Honey",
+   "measures": {
+    "1 cup": 339,
+    "1 tbsp": 21
+   }
+  },
+  {
+   "fdcId": 169661,
+   "description": "Syrups, maple",
+   "measures": {
+    "1 tbsp": 20,
+    "1 cup": 315
+   }
+  },
+  {
+   "fdcId": 171413,
+   "description": "Oil, olive, salad or cooking",
+   "measures": {
+    "1 tablespoon": 13.5,
+    "1 cup": 216,
+    "1 tsp": 4.5
+   }
+  },
+  {
+   "fdcId": 172336,
+   "description": "Oil, canola",
+   "measures": {
+    "1 tbsp": 14,
+    "1 cup": 218,
+    "1 tsp": 4.5
+   }
+  },
+  {
+   "fdcId": 171265,
+   "description": "Milk, whole, 3.25% milkfat, with added vitamin D",
+   "measures": {
+    "1 cup": 244,
+    "1 tbsp": 15
+   }
+  },
+  {
+   "fdcId": 170859,
+   "description": "Cream, fluid, heavy whipping",
+   "measures": {
+    "1 cup, fluid (yields 2 cups whipped)": 238,
+    "1 tbsp": 15
+   }
+  },
+  {
+   "fdcId": 171284,
+   "description": "Yogurt, plain, whole milk",
+   "measures": {
+    "1 cup (8 fl oz)": 245
+   }
+  },
+  {
+   "fdcId": 173647,
+   "description": "Beverages, water, tap, drinking",
+   "measures": {
+    "1 fl oz": 29.6,
+    "1 serving 8 fl oz": 237,
+    "1 liter": 1000
+   }
+  },
+  {
+   "fdcId": 172470,
+   "description": "Peanut butter, smooth style, without salt",
+   "measures": {
+    "2 tbsp": 32,
+    "1 cup": 258
+   }
+  },
+  {
+   "fdcId": 167976,
+   "description": "Candies, semisweet chocolate",
+   "measures": {
+    "1 cup chips (6 oz package)": 168,
+    "1 cup large chips": 182,
+    "1 cup mini chips": 173
+   }
+  },
+  {
+   "fdcId": 170567,
+   "description": "Nuts, almonds",
+   "measures": {
+    "1 cup, whole": 143
+   }
+  }
+ ],
+ "nist": {
+  "id": "NIST-SI-B9",
+  "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+  "factors": {
+   "cup_mL": 236.5882,
+   "floz_mL": 29.57353,
+   "tbsp_mL": 14.78676,
+   "tsp_mL": 4.928922,
+   "gal_L": 3.785412,
+   "oz_g": 28.34952,
+   "lb_kg": 0.4535924
+  }
+ }
+}
