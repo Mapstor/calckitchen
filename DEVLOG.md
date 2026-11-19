@@ -2,13 +2,13 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-19 · CK-008_
-- Step: ten pages (CK-008 on claude/ck-008-ten-pages, all 10 built and pushed, on the branch preview; waiting for the owner's OK before merging) · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
-- Phase: live site, not on Raptive. GSC 2026-11-19: 7 pages indexed (/, recipe-cost, cake-servings, oven-temperature, cake-pan, bakers-percentage, pizza-dough); Performance 2026-11-17 only: 0 clicks, 2 impressions. Indexing requested 2026-11-19 for / and /turkey-cooking-calculator.
-- Last confirmed: CK-003 DESIGN1 — live 2026-11-19 (main a98ea78, dpl_GeNxfVKGBmpcYA39DTvUMka6wpcv).
-- In flight (NOT merged): CK-008 TENPAGES — oven-temperature-converter, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, pizza-dough-calculator, bakers-percentage-calculator, cake-servings-calculator, cake-pan-converter, recipe-cost-calculator. Preview: https://calckitchen-git-claude-ck-008-ten-pages-marko-visics-projects.vercel.app
-- Next action: owner reviews the preview → merge (PR from claude/ck-008-ten-pages), set each page's UPDATED to the merge day if it isn't 2026-11-19, confirm production READY, check live, request indexing for the 10 URLs in GSC (daily quota). Then the remaining 14 pages in the look (page-looks step 7: the rest), and run portfolio-qa prose-score on the 11 rebuilt pages (Stage 2 not yet measured).
-- Waiting on owner: OK on the ten pages; top-30 read for Raptive later (Stage 4).
+_last update: 2026-11-19 · CK-009_
+- Step: all pages (page-looks step 7, "the rest"): CK-009 on claude/ck-009-rest, building. 11 of 25 pages live in the picked look · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
+- Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
+- Last confirmed: CK-008 TENPAGES — live 2026-11-19 (PR #6 merged, main 1e03706, production dpl_4nnmNd7Pk1ghV6R5qsR22QYpo43M READY, all 10 pages checked on calckitchen.com in Chrome at 390 px).
+- In flight (NOT merged): CK-009 REST — the other 14 pages: microwave-to-oven, slow-cooker-to-oven, sourdough, recipe-scaler, recipe-macro, party-food, cooking-measurement, butter, coffee-ratio, home, about, contact, privacy-policy, terms-of-use.
+- Next action: build the 14 pages with the kit (same pattern as CK-008), push, Chrome-check the branch preview, show the owner. GSC 2026-11-20: request indexing for bakers-percentage-calculator, cake-servings-calculator, recipe-cost-calculator (quota hit 2026-11-19).
+- Waiting on owner: top-30 read for Raptive later (Stage 4).
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-19)
@@ -139,6 +139,11 @@ Scoreboard (2026-11-19)
 - Verified: tsc 0; eslint 0 on new files; check:numbers 0 failed, 0 skipped across 10 scripts (turkey 27, oven 71, meat 50, roast 82, air fryer 15, convection 8, bakers 35, cake 63, cost 22), each check tested with planted errors; Vercel previews READY through 87b08eb; Chrome on the branch preview: all 10 + turkey load with correct default readouts at 390 and 1280; 390 sideways scroll found on air fryer and meat cooking time, fixed in 29313ee (re-check on the final preview); interactions checked on oven (425°F, unit switches), meat chart (tabs, dial). Unverified: prose-score (Stage 2), Playwright suite, phone tap-through of every calculator.
 - Commit: 4f7eec1 … a981381 (pushed: yes; PR not opened/merged)
 - Notes: UPDATED dates are 2026-11-19; change them to the merge day if later.
+
+### 2026-11-19 · CK-008 TENPAGES · chat · live
+- What: owner approved the preview ("looks good, continue"); PR #6 merged.
+- Verified: production dpl_4nnmNd7Pk1ghV6R5qsR22QYpo43M READY for 1e03706; calckitchen.com: all 10 pages in the new look, default readouts correct, no sideways scroll at 390 px, Updated November 19, 2026. GSC: indexing requested for 7 of the 10 (quota exceeded for bakers-percentage, cake-servings, recipe-cost); sitemap read OK with 25 pages.
+- Commit: 1e03706 (merge)
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)
