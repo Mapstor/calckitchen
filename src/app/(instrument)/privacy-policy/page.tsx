@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Hero, Main, Sec, ext } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { RAIL_DEFAULT } from "@/data/site-nav";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const UPDATED = "2026-11-19"; // CK-009: matches what runs on the site: Google Analytics 4 and Vercel hosting; no ads or affiliate links
 const TITLE = "Privacy Policy";
@@ -11,7 +12,8 @@ const DESC = "What CalcKitchen collects: Google Analytics 4 usage statistics and
 export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
-  openGraph: { title: `${TITLE} | CalcKitchen`, description: DESC, url: "https://calckitchen.com/privacy-policy", siteName: "CalcKitchen", type: "website" },
+  openGraph: { title: `${TITLE} | CalcKitchen`, description: DESC, url: "https://calckitchen.com/privacy-policy", siteName: "CalcKitchen", type: "website", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: "https://calckitchen.com/privacy-policy" },
 };
 
@@ -63,6 +65,11 @@ export default function PrivacyPolicyPage() {
             </a>
             .
           </p>
+          <p className="p-p">
+            If you are in the European Union, the European Economic Area, the UK or Switzerland, Google Analytics sets no cookies until you allow it in
+            the bar at the bottom of the page, and you can change your answer at any time with &quot;Cookie settings&quot; at the foot of every page.
+            Your answer is kept in your browser&apos;s local storage under ck-consent.
+          </p>
         </Sec>
 
         <Sec title="Hosting">
@@ -87,8 +94,8 @@ export default function PrivacyPolicyPage() {
         <Sec title="Your rights">
           <p className="p-p">
             If you are in the European Economic Area or the UK, the GDPR gives you the right to access, correct, delete, restrict or object to the
-            processing of your personal data, and to complain to a data protection authority; in Slovenia that is the Information Commissioner. We
-            use Google Analytics on the basis of our legitimate interest in knowing how the site is used. California residents have the right to know
+            processing of your personal data, and to complain to a data protection authority; in Slovenia that is the Information Commissioner. There we
+            use Google Analytics only with your consent; elsewhere on the basis of our legitimate interest in knowing how the site is used. California residents have the right to know
             what is collected and to ask for deletion; we don&apos;t sell personal information. For any request, email{" "}
             <a href="mailto:info@calckitchen.com">info@calckitchen.com</a>.
           </p>

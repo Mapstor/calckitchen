@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Hero, Main, Sec } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { RAIL_DEFAULT } from "@/data/site-nav";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const UPDATED = "2026-11-19"; // CK-009: removed advertising and affiliate terms (neither runs on the site); operator and governing law match the privacy policy
 const TITLE = "Terms of Use";
@@ -11,7 +12,8 @@ const DESC = "CalcKitchen's terms: the calculators give estimates for home cooki
 export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
-  openGraph: { title: `${TITLE} | CalcKitchen`, description: DESC, url: "https://calckitchen.com/terms-of-use", siteName: "CalcKitchen", type: "website" },
+  openGraph: { title: `${TITLE} | CalcKitchen`, description: DESC, url: "https://calckitchen.com/terms-of-use", siteName: "CalcKitchen", type: "website", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: "https://calckitchen.com/terms-of-use" },
 };
 

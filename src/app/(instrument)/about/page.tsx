@@ -5,6 +5,7 @@ import { Hero, Main, Sec } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd, OrganizationJsonLd, PersonJsonLd } from "@/components/seo/JsonLd";
 import { AUTHOR } from "@/data/author";
 import { NAV, RAIL_DEFAULT } from "@/data/site-nav";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const UPDATED = "2026-11-19"; // CK-009: About rewritten for the picked look; sourcing section matches the rebuilt pages
 const TITLE = "About CalcKitchen";
@@ -14,7 +15,8 @@ const DESC =
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESC,
-  openGraph: { title: TITLE, description: DESC, url: "https://calckitchen.com/about", siteName: "CalcKitchen", type: "website" },
+  openGraph: { title: TITLE, description: DESC, url: "https://calckitchen.com/about", siteName: "CalcKitchen", type: "website", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: "https://calckitchen.com/about" },
 };
 

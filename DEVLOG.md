@@ -5,15 +5,15 @@
 _last update: 2026-11-19 · CK-011_
 - Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. CK-012 adds the last 3 section drawings and self-hosted fonts. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
-- Last confirmed: CK-011 BODY VISUALS + info@ address — live 2026-11-19 (PR #8 merged on the owner's "merge", main fb36f46; the push build failed on Google Fonts again, redeploy dpl_2jei53SVXgqFqRLZcXApyDCtn9bG READY; Chrome on calckitchen.com: /contact mails info@, /air-fryer-converter section chart shows).
-- In flight (NOT merged): CK-012 LAST VISUALS + self-hosted fonts on claude/ck-012-last-visuals (PR #9); merge waits for the owner's OK.
-- Next action: owner says merge → PR #9 → production READY on the first push build (proves the font fix) + live check → GSC indexing requests from 2026-11-20 (~9 a day: the 14 CK-009 pages, bakers-percentage, cake-servings, recipe-cost) → Stage 2 prose-score (a shell build now compiles).
-- Waiting on owner: decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
+- Last confirmed: CK-012 LAST VISUALS + self-hosted fonts — live 2026-11-19 (PR #9 merged on the owner's "merge", main 7c3eacc; the push build dpl_Bu1bUZgHNNdZ76zUfGnS6hDf5oAj went READY on the first try, so the font fix holds).
+- In flight (NOT merged): CK-013 on claude/ck-013-eu-consent — EU/EEA/UK/CH analytics consent (Consent Mode v2 + bar + "Cookie settings"), thermometer icons and social card (no emoji, no remote fetch), og:image and page Twitter cards on all 25 pages, custom 404; merge waits for the owner's OK.
+- Next action: owner says merge → PR CK-013 → production READY + live check (banner in a European time zone, 404, og:image) → GSC indexing requests from 2026-11-20 (~9 a day: the 14 CK-009 pages, bakers-percentage, cake-servings, recipe-cost) → P2 titles/descriptions with keyword data.
+- Waiting on owner: confirm governing law Slovenia in the terms; top-30 read for Raptive later.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-19)
     Stage 1 numbers and sources: 25 of 25 pages live on registry rows + check scripts; npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
-    Stage 2 anti-slop: 25 pages rewritten plain, 0 scored (prose-score not run) · bad at start 6/10
+    Stage 2 anti-slop: 23 of 23 scored pages at target (portfolio-qa prose-score 2026-11-19 on a local build: 13,319 words, 2 hits, both the Wilton article title in Sources; legal pages excluded) · bad at start 6/10
     Stage 3 impeccable and user tests: 25 pages in the picked look, Chrome-checked at 390 and 1280 (no sideways scroll, readouts and modes tested); result visuals on 17 calculators (CK-010) and section visuals on 15 pages (CK-011), Chrome-checked at 390 and desktop; no Playwright suite yet · bad at start ?/10
     Stage 4 Raptive: ~45% (author identity sitewide, About rewritten, privacy and terms match the stack; mailbox, consent, top-30 read pending) · bad at start 7/10
     Whole site: ~72% live (stage weights 30, 20, 30, 20)
@@ -47,6 +47,7 @@ Scoreboard (2026-11-19)
 - D-08 · 2026-11-19 · A figure with no primary source is removed, not softened: NY/Detroit/Sicilian pizza presets, convection "25% less time" for baking, cup-to-gram densities in recipe cost, lamb leg 7-9 lb row — why: one wrong number can sink Raptive review and Google trust; the page says what was left out where it matters.
 - D-09 · 2026-11-19 · Every rebuilt page has a research/sources/*.json snapshot and a scripts/check-*.mjs that checks the data and every figure written in the page text; npm run check:numbers runs them all — why: catches typos and drift; each check was tested with planted errors.
 - D-10 · 2026-11-19 · Contact address is info@calckitchen.com on Contact, About, Privacy and Terms (owner: "lets do info email"; hello@ was never confirmed as a working mailbox).
+- D-11 · 2026-11-19 · EU/EEA/UK/CH visitors: Google Analytics waits for consent (owner: "yes for eu"). Consent Mode v2 region defaults in src/app/layout.tsx (analytics denied there, Google decides the region from the IP), our bar in src/components/instrument/ConsentBanner.tsx shown to European time zones, choice in localStorage ck-consent, "Cookie settings" in the footer. Replace all of it with Raptive's CMP if the site joins Raptive.
 
 ## §3 Rejected — don't re-propose
 - 2026-11-17 · Look A (red enamel oven panel) and look C (Roasting Facts label) as whole looks — owner picked B and took only A's knob.
@@ -81,13 +82,14 @@ Scoreboard (2026-11-19)
 - Check scripts that strip <...> from page source (check-slowcooker-data.mjs and others): a "<" in page code (m < 60) swallows text up to the next ">" and breaks the sentence checks. In those pages write comparisons with >= or move the helper to a component.
 
 ## §5 Backlog (priority order)
-- [P1] Merge CK-011 after the owner's look; GSC indexing requests in daily batches (bakers-percentage, cake-servings, recipe-cost, then the 14 CK-009 pages); check Pages/Performance weekly.
+- [P1] GSC indexing requests in daily batches (bakers-percentage, cake-servings, recipe-cost, then the 14 CK-009 pages); check Pages/Performance weekly.
 - [P1] Stage 4: EU consent for GA4 (banner now, or Raptive's CMP after acceptance); governing law in the terms (Slovenia assumed); owner's top-30 read logged here; then the Raptive application.
 - [P2] Stage 2: run portfolio-qa prose-score on all 25 pages (needs a build the shell can't do: run in a cloud session with fonts, or against production after the merge).
 - [P2] Stage 3: Playwright suite for every tool at 390 and 1280 (include each result visual: no sideways scroll, no NaN in SVG attributes); sitemap lastModified = real per-page dates.
 - [P2] Full external-link check of every Sources list (ask.usda.gov on /air-fryer-converter loaded badly 2026-11-17).
 - [P2] Next.js 16.1.6 → 16.4.6: npm audit (prod) 2026-11-17 = 1 critical (next: request smuggling in rewrites, next/image disk cache growth), 4 high (sharp, postcss, nanoid, source-map-js), 1 moderate.
 - [P3] Visuals not done (CK-011 covers 15 page bodies): sourdough feeding, baker's percentage body, recipe cost body, recipe scaler result; home/About/policy pages need none.
+- [P2] QA sweep 2026-11-19 (local build): P0 0, P1 0 after the 404 page; P2: 21 titles over length, 19 meta descriptions over length, /contact thin (fine for a contact page). Shorten titles/descriptions only with keyword data.
 - [P3] Re-measure eslint (576 errors before the rebuild, mostly unescaped apostrophes in the old page copy).
 
 ## §6 Log (append-only, newest at bottom)
@@ -191,6 +193,16 @@ Scoreboard (2026-11-19)
 - What: section drawings on the last three calculator pages (sourdough feeding jars, baker's 1000 g split, recipe cost menu price split); fonts moved to next/font/local (Fontsource 5.3.0, OFL licenses in the fonts folder) because next/font/google failed both production push builds today; CLAUDE.md font line updated.
 - Verified: tsc 0 errors; eslint 0 errors on changed files; check:numbers 18 scripts, 0 failed, 0 skipped; npm run build in the shell compiles all pages (prerender stops at /apple-icon: cdn.jsdelivr.net unreachable here, known).
 - Commit: 3837c05 + DEVLOG (pushed: yes)
+
+### 2026-11-19 · CK-012 LAST VISUALS · chat · live
+- What: PR #9 merged on the owner's "merge"; main 7c3eacc. Push build READY first time (no redeploy): self-hosted fonts fixed the production failures.
+- Commit: 7c3eacc (merge)
+
+### 2026-11-19 · CK-013 EU CONSENT + BRAND IMAGES · chat · done (preview; waiting for the owner's OK, not merged)
+- What: analytics consent for EU/EEA/UK/CH (D-11) and privacy text for it; icon, apple icon, OG and Twitter images redrawn with the thermometer mark and Public Sans from the repo (old ones: emoji + gradients, and the emoji made shell builds fail); og:image + page-level Twitter cards on all 25 pages (page openGraph had dropped the image); custom 404 listing every calculator; shared src/app/fonts.ts.
+- Verified: tsc 0 errors; eslint 0 errors on changed files; check:numbers 18 scripts, 0 failed, 0 skipped; full npm run build in the shell passes; next start: /no-such-page 404 with the new page; meta tags on /, /air-fryer-converter, /turkey-cooking-calculator, /privacy-policy carry og:image and their own twitter:title; portfolio-qa prose-score 0.15 tells/1k; sweep P0 0, P1 0 (was 1: default 404), P2 41.
+- Chrome on the preview (Europe/Ljubljana): bar shows, Allow sets consent granted and _ga cookies, Cookie settings reopens it, No thanks sets denied and removes the 2 _ga cookies; phone 390 px bar fits, no sideways scroll; /no-such-page shows the new 404 with 20 calculator links. Unverified: a non-European visit (bar should stay hidden, analytics granted).
+- Commit: see branch (pushed: yes)
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)

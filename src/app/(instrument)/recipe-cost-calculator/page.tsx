@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { SRC_OVEN } from "@/data/oven-temps";
 import { UNITS } from "@/data/units";
 import { Split, TONE } from "@/components/instrument/Bars";
+import { OG_IMAGES, TW_IMAGES } from "@/data/social";
 
 const URL = "https://calckitchen.com/recipe-cost-calculator";
 const UPDATED = "2026-11-19"; // CK-008: rebuilt; exact NIST unit factors, no guessed cup-to-gram densities
@@ -16,7 +17,8 @@ const DESC =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
-  openGraph: { title: TITLE, description: DESC, url: URL, type: "website" },
+  openGraph: { title: TITLE, description: DESC, url: URL, type: "website", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: TW_IMAGES },
   alternates: { canonical: URL },
 };
 
