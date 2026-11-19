@@ -31,31 +31,44 @@ export function Hero({
   sub,
   updated,
   long,
+  byline = "full",
   children,
 }: {
+  /** null: text only, one column */
   visual: ReactNode;
-  crumb: ReactNode;
+  /** omitted on the home page */
+  crumb?: ReactNode;
   h1: string;
   answer: ReactNode;
   sub?: ReactNode;
   updated: string;
   /** answer runs to three lines: smaller type, looser lines */
   long?: boolean;
+  /** full: author and date; date: "Last updated" only (policy pages) */
+  byline?: "full" | "date";
   children?: ReactNode;
 }) {
   return (
     <div className="p-hero">
       <div className="p-wrap">
-        <div className="p-hgrid">
+        <div className={visual ? "p-hgrid" : "p-hgrid p-hgrid-1"}>
           {visual}
           <div className="p-htext">
-            <nav className="p-crumb" aria-label="Breadcrumb">
-              <Link href="/">Home</Link> / {crumb}
-            </nav>
+            {crumb && (
+              <nav className="p-crumb" aria-label="Breadcrumb">
+                <Link href="/">Home</Link> / {crumb}
+              </nav>
+            )}
             <h1 className="p-h1">{h1}</h1>
             <p className={long ? "p-answer p-answer-long" : "p-answer"}>{answer}</p>
             {sub && <p className="p-sub">{sub}</p>}
-            <Byline updated={updated} />
+            {byline === "full" ? (
+              <Byline updated={updated} />
+            ) : (
+              <p className="p-by">
+                Last updated <time dateTime={updated}>{fmtDate(updated)}</time>
+              </p>
+            )}
           </div>
         </div>
         {children}
