@@ -112,7 +112,7 @@ export default function AboutPage() {
 
         <Sec title="Contact">
           <p className="p-p">
-            Found a wrong number or a broken calculator? Email <a href="mailto:hello@calckitchen.com">hello@calckitchen.com</a>. CalcKitchen is run by
+            Found a wrong number or a broken calculator? Email <a href="mailto:info@calckitchen.com">info@calckitchen.com</a>. CalcKitchen is run by
             Moving Data Systems d.o.o., Slovenia; see the <Link href="/privacy-policy">privacy policy</Link> and{" "}
             <Link href="/terms-of-use">terms of use</Link>.
           </p>

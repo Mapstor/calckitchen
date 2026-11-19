@@ -8,7 +8,7 @@ _last update: 2026-11-19 · CK-011_
 - Last confirmed: CK-009 REST + CK-010 VISUALS — live 2026-11-19 (PR #7 merged, main a64fb07; first production build failed on the Google Fonts fetch, redeploy dpl_GP1DpKn6MkLFJEiioVG1N7SUFRW5 READY; Chrome: cake pan visuals and turkey checkboxes correct on calckitchen.com).
 - In flight (NOT merged): CK-011 BODY VISUALS — PR #8 open, Chrome-checked on its preview; merge waits for the owner's OK (Claude's merge attempt was refused by the session's permission check, 2026-11-19).
 - Next action: owner says merge (or merges PR #8) → production READY + live check → GSC indexing requests in daily batches (the 14 CK-009 pages, bakers-percentage, cake-servings, recipe-cost; ~9 a day; 2026-11-19 quota already used) → Stage 2 prose-score.
-- Waiting on owner: confirm hello@calckitchen.com receives mail; decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
+- Waiting on owner: decide on an EU consent banner for GA4 (privacy names legitimate interest; no banner runs); confirm governing law Slovenia in the terms; top-30 read for Raptive later.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-19)
@@ -46,6 +46,7 @@ Scoreboard (2026-11-19)
 - D-06 · 2026-11-18 · GitHub main is the source of truth; production deploys only from main (Vercel API until Git is connected) — the 2026-02-22 CLI deploy from a local folder carried 13 calculator files GitHub never had.
 - D-08 · 2026-11-19 · A figure with no primary source is removed, not softened: NY/Detroit/Sicilian pizza presets, convection "25% less time" for baking, cup-to-gram densities in recipe cost, lamb leg 7-9 lb row — why: one wrong number can sink Raptive review and Google trust; the page says what was left out where it matters.
 - D-09 · 2026-11-19 · Every rebuilt page has a research/sources/*.json snapshot and a scripts/check-*.mjs that checks the data and every figure written in the page text; npm run check:numbers runs them all — why: catches typos and drift; each check was tested with planted errors.
+- D-10 · 2026-11-19 · Contact address is info@calckitchen.com on Contact, About, Privacy and Terms (owner: "lets do info email"; hello@ was never confirmed as a working mailbox).
 
 ## §3 Rejected — don't re-propose
 - 2026-11-17 · Look A (red enamel oven panel) and look C (Roasting Facts label) as whole looks — owner picked B and took only A's knob.
@@ -81,7 +82,7 @@ Scoreboard (2026-11-19)
 
 ## §5 Backlog (priority order)
 - [P1] Merge CK-011 after the owner's look; GSC indexing requests in daily batches (bakers-percentage, cake-servings, recipe-cost, then the 14 CK-009 pages); check Pages/Performance weekly.
-- [P1] Stage 4: confirm hello@calckitchen.com works; EU consent for GA4 (banner now, or Raptive's CMP after acceptance); governing law in the terms (Slovenia assumed); owner's top-30 read logged here; then the Raptive application.
+- [P1] Stage 4: EU consent for GA4 (banner now, or Raptive's CMP after acceptance); governing law in the terms (Slovenia assumed); owner's top-30 read logged here; then the Raptive application.
 - [P2] Stage 2: run portfolio-qa prose-score on all 25 pages (needs a build the shell can't do: run in a cloud session with fonts, or against production after the merge).
 - [P2] Stage 3: Playwright suite for every tool at 390 and 1280 (include each result visual: no sideways scroll, no NaN in SVG attributes); sitemap lastModified = real per-page dates.
 - [P2] Full external-link check of every Sources list (ask.usda.gov on /air-fryer-converter loaded badly 2026-11-17).

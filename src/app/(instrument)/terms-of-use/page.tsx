@@ -91,7 +91,7 @@ export default function TermsOfUsePage() {
         <Sec title="8. Changes and governing law">
           <p className="p-p">
             We may change these terms or the site at any time; the date at the top shows the latest version. These terms are governed by the laws of
-            the Republic of Slovenia. Questions: <a href="mailto:hello@calckitchen.com">hello@calckitchen.com</a>. See also the{" "}
+            the Republic of Slovenia. Questions: <a href="mailto:info@calckitchen.com">info@calckitchen.com</a>. See also the{" "}
             <Link href="/privacy-policy">privacy policy</Link>.
           </p>
         </Sec>
