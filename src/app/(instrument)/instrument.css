@@ -347,3 +347,4 @@
 .p-sel-u{width:96px;flex:none;height:48px}
 .p-cost-v{font-family:var(--font-readout),system-ui,sans-serif;font-size:16px}
 @media (max-width:640px){ .p-reads-live .p-read{min-width:0} .p-reads-live .p-read-v{font-size:22px;white-space:normal;overflow-wrap:anywhere} .p-reads-live .p-read-u{font-size:14px} }
+@media (min-width:861px){ .p-menu:last-child .p-menu-l{left:auto;right:-14px} }
