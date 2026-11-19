@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:numbers": "node scripts/check-turkey-data.mjs && node scripts/check-oven-data.mjs && node scripts/check-meat-data.mjs && node scripts/check-roast-data.mjs && node scripts/check-airfryer-data.mjs && node scripts/check-convection-data.mjs && node scripts/check-bakers-data.mjs && node scripts/check-cake-data.mjs && node scripts/check-cost-data.mjs && node scripts/check-microwave-data.mjs && node scripts/check-slowcooker-data.mjs && node scripts/check-butter-data.mjs"
+    "check:numbers": "node scripts/check-turkey-data.mjs && node scripts/check-oven-data.mjs && node scripts/check-meat-data.mjs && node scripts/check-roast-data.mjs && node scripts/check-airfryer-data.mjs && node scripts/check-convection-data.mjs && node scripts/check-bakers-data.mjs && node scripts/check-cake-data.mjs && node scripts/check-cost-data.mjs && node scripts/check-microwave-data.mjs && node scripts/check-slowcooker-data.mjs && node scripts/check-butter-data.mjs && node scripts/check-sourdough-data.mjs"
   },
   "dependencies": {
     "next": "16.1.6",

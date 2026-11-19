@@ -350,3 +350,8 @@
 @media (min-width:861px){ .p-menu:last-child .p-menu-l{left:auto;right:-14px} }
 .p-reads-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .p-sel-bt{flex:1 1 auto;min-width:0;width:auto;max-width:260px}
+.p-pcts-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:640px){ .p-pcts-4{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.p-quick .p-opt-wide{font-family:var(--font-ui),system-ui,sans-serif;font-weight:700;font-size:15px;padding:0 14px}
+@media (min-width:641px){ .p-reads-3 .p-read:nth-child(3n+1){border-left:0;padding-left:0} .p-reads-3 .p-read:nth-child(3n+2),.p-reads-3 .p-read:nth-child(3n){border-left:1px solid #D5DAE1} .p-reads-3 .p-read:nth-child(-n+3){border-top:0} .p-reads-3 .p-read:nth-child(n+4){border-top:1px solid #D5DAE1} }
+@media (min-width:641px) and (max-width:860px){ .p-reads-3 .p-read:nth-child(3n+2),.p-reads-3 .p-read:nth-child(3n){padding-left:12px} }
