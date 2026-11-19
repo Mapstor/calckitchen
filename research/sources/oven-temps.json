@@ -1,0 +1,33 @@
+{
+  "retrieved": "2026-11-19",
+  "nist": {
+    "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+    "title": "NIST Guide to the SI, Appendix B.9: Factors for units listed by kind of quantity or field of science",
+    "f_to_c": "t/°C = (t/°F - 32)/1.8"
+  },
+  "which": {
+    "url": "https://www.which.co.uk/reviews/built-in-ovens/article/oven-temperature-conversion-degrees-celsius-to-fahrenheit-gas-mark-and-fan-aA5Ol9b157On",
+    "title": "Oven Temperature Conversion Table | Degrees Celsius to Fahrenheit, Gas Mark And Fan",
+    "author": "Jamie Mayne",
+    "date": "2026-10-01",
+    "fan_note": "Fan oven cooking temperatures are typically around 20°C less than conventional ovens.",
+    "columns": ["gas mark", "°F", "°C", "fan °C", "description"],
+    "rows": [
+      ["1", 275, 140, 120, "Cool"],
+      ["2", 300, 150, 130, "Cool"],
+      ["3", 325, 160, 140, "Moderate"],
+      ["4", 350, 180, 160, "Moderate"],
+      ["5", 375, 190, 170, "Moderately hot"],
+      ["6", 400, 200, 180, "Moderately hot"],
+      ["7", 425, 220, 200, "Hot"],
+      ["8", 450, 230, 210, "Hot"],
+      ["9", 475, 240, 220, "Very hot"]
+    ]
+  },
+  "hotpoint": {
+    "url": "https://www.manualslib.com/manual/466860/Hotpoint-Dq47.html?page=6",
+    "title": "Hotpoint DQ47 Instructions for Installation and Use, page 6, Temperature Conversion Chart",
+    "note": "Chart of GB oven settings, gas mark 1/2 to 9; its 1-9 values match Which?. Rows: conventional °F, conventional °C, fan °C.",
+    "rows": [["½", 250, 120, 100]]
+  }
+}

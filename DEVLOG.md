@@ -2,13 +2,13 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-18 · CK-003_
-- Step: one page (turkey, on the preview of claude/ck-003-design1, waiting for the owner's OK) · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5 (boards "Pick, B with A's knob", "Pick, phone")
-- Phase: live site, not on Raptive, not yet in Google's index (GSC 2026-11-18: "URL is unknown to Google"; sitemap submitted). Four-stage pass on all 25 pages started with the turkey page.
-- Last confirmed: CK-006 AUTHOR — live 2026-11-18 (production dpl_GaKXqxERLfMWZrmqtf6kk5xMGMMi, main 15dd9ae, checked on calckitchen.com in Chrome); before it CK-002/004/005 live (f2e9be6).
-- In flight (handed, NOT confirmed): CK-003 DESIGN1 — turkey page in the picked look, preview only, PR not merged until the owner says yes.
-- Next action: owner reviews the turkey preview → merge CK-003, then ten pages in the look (page-looks step 7), each through the four stages; retry GSC indexing requests (quota).
-- Waiting on owner: top-30 read for Raptive later (Stage 4).
+_last update: 2026-11-19 · CK-008_
+- Step: ten pages (CK-008 on claude/ck-008-ten-pages, building; 1 of 10 built: /oven-temperature-converter) · canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5 (boards "Pick, B with A's knob", "Pick, phone")
+- Phase: live site, not on Raptive. GSC 2026-11-19: 7 pages indexed (/, /recipe-cost-calculator, /cake-servings-calculator, /oven-temperature-converter, /cake-pan-converter, /bakers-percentage-calculator, /pizza-dough-calculator); Performance 2026-11-17 only: 0 clicks, 2 impressions. Indexing requested 2026-11-19 for / and /turkey-cooking-calculator.
+- Last confirmed: CK-003 DESIGN1 — live 2026-11-19 (PR #5 merged, main a98ea78, production dpl_GeNxfVKGBmpcYA39DTvUMka6wpcv READY, turkey page checked on calckitchen.com in Chrome).
+- In flight (handed, NOT confirmed): CK-008 TENPAGES — building, not pushed for review yet.
+- Next action: CK-008: build the other 9 pages (meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, pizza-dough-calculator, cake-pan-converter, bakers-percentage-calculator, cake-servings-calculator, recipe-cost-calculator) with src/components/instrument/kit.tsx, each through the four stages; push, Chrome-check the preview at 390/1280, show the owner (page-looks step 7) before merging. Set each page's UPDATED to the day it goes live.
+- Waiting on owner: OK on the ten pages (after preview); top-30 read for Raptive later (Stage 4).
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-18)
@@ -58,10 +58,12 @@ Scoreboard (2026-11-18)
 - docs/mac-notes/content/*.md are the Feb 2026 drafts the pages were generated from, with the same unsourced figures. Never use them as a source.
 - Moving a page to the look = git mv src/app/(classic)/<slug> src/app/(instrument)/<slug>, then rebuild its markup with the p-* classes (URLs don't change). Classic pages render in system UI fonts in production (globals.css font vars resolve to nothing): keep that until they move.
 - Ad slots: the design reserves the rail and gaps; no empty .p-ad boxes before Raptive runs. The sticky-footer padding (124px, 80px phone) comes back with Raptive.
-- Google had never seen the site: on 2026-11-18 URL Inspection said "URL is unknown to Google" for / and /turkey-cooking-calculator (live test: indexable). Indexing requests hit the daily quota that day; retry. Expect days to weeks before pages appear.
+- GSC: 7 pages were already indexed by 2026-11-19 (Google crawled the site before 2026-11-18). URL Inspection of a page not yet indexed says "URL is unknown to Google"; that is per page, not the site. Indexing requests are capped per day: if the quota is hit, retry the next day.
+- Gas mark °C values differ between UK charts (gas mark 3 is 160°C on Which?, 170°C on Currys): follow Which? only (research/sources/oven-temps.json); a new chart needs its own registry row.
+- The oven dial is a component: src/components/instrument/Knob.tsx (tempF prop); LiveKnob.tsx follows the oven converter. CSS var --k turns it; the old static KNOB_325_SVG string is gone.
 
 ## §5 Backlog (priority order)
-- [P1] Request indexing in GSC (daily quota) for the homepage, the turkey page and the top tool pages; check GSC Pages/Performance after a few days.
+- [P1] GSC: indexing requested 2026-11-19 for / and /turkey-cooking-calculator; request the CK-008 pages after they go live (daily quota); check Pages/Performance weekly.
 - [P1] CK-003 build the picked look on the turkey page, preview, owner review; then 10 pages, then all.
 - [P1] Search Console access, then order pages by impressions.
 - [P1] Stage 1 on the other 24 pages: registry rows + checks; known suspects: meat-cooking-time rest/carryover table, party-food quantities, air-fryer presets, homepage temperature tables; full external-link check.
@@ -118,6 +120,12 @@ Scoreboard (2026-11-18)
 - Files: src/app/(instrument)/**, src/app/(classic)/** (moved, unchanged except 3 titles), src/app/layout.tsx, src/components/instrument/*, src/components/calculators/TurkeyCookingCalculator.tsx, src/data/site-nav.ts
 - Verified: tsc 0; eslint 0 on new files; check:numbers 27/0/0; Vercel previews READY (fc7e4e2, 84b9f71). Chrome on the preview: 1280 and 390 px, no sideways scroll, Public Sans + Michroma loaded; all four modes return the USDA values (16 lb → 3¾–4¼ h; thaw 3–4 days / 8 h; 10 guests → 15 lb; timeline 10:25 AM, 2:10, 2:40, 3:00 PM on Thursday Nov 26); 16-lb deep-fry shows the 12-lb limit; classic pages keep their header, footer and production fonts.
 - Commit: fc7e4e2, 84b9f71, de27247 + this DEVLOG commit (pushed: yes; PR not merged)
+
+### 2026-11-19 · CK-003 DESIGN1 · chat · live
+- What: owner said yes ("1 yes", 2026-11-19); PR #5 merged.
+- Verified: Vercel production dpl_GeNxfVKGBmpcYA39DTvUMka6wpcv READY for a98ea78; calckitchen.com/turkey-cooking-calculator checked in Chrome (new look, calculator works). GSC: indexing requested for / and the turkey page.
+- Commit: a98ea78 (merge)
+- Notes: corrects the 2026-11-18 note that Google had never seen the site: 7 pages were indexed.
 
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)
