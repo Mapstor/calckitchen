@@ -1,0 +1,18 @@
+{
+  "retrieved": "2026-11-19",
+  "egg": {
+    "id": "USDA-FDC-EGG",
+    "url": "https://fdc.nal.usda.gov/food-details/171287/nutrients",
+    "title": "Egg, whole, raw, fresh (SR Legacy, FDC ID 171287)",
+    "publisher": "USDA Agricultural Research Service, FoodData Central",
+    "read": "Chrome, 2026-11-19: portion selector",
+    "portionOptions": ["100 g", "1 cup (4.86 large eggs) (243 g)", "1 medium (44 g)", "1 extra large (56 g)", "1 small (38 g)", "1 jumbo (63 g)", "1 large (50 g)"],
+    "values": { "small": 38, "medium": 44, "large": 50, "extra large": 56, "jumbo": 63 }
+  },
+  "nist": {
+    "id": "NIST-SI-B9",
+    "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+    "factors": { "cup_mL": 236.5882, "tbsp_mL": 14.78676, "tsp_mL": 4.928922 },
+    "note": "Same B.9 read as research/sources/butter.json; cup/tbsp = 16.000 and tbsp/tsp = 3.000 to the printed precision"
+  }
+}

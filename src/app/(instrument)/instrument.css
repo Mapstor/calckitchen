@@ -355,3 +355,5 @@
 .p-quick .p-opt-wide{font-family:var(--font-ui),system-ui,sans-serif;font-weight:700;font-size:15px;padding:0 14px}
 @media (min-width:641px){ .p-reads-3 .p-read:nth-child(3n+1){border-left:0;padding-left:0} .p-reads-3 .p-read:nth-child(3n+2),.p-reads-3 .p-read:nth-child(3n){border-left:1px solid #D5DAE1} .p-reads-3 .p-read:nth-child(-n+3){border-top:0} .p-reads-3 .p-read:nth-child(n+4){border-top:1px solid #D5DAE1} }
 @media (min-width:641px) and (max-width:860px){ .p-reads-3 .p-read:nth-child(3n+2),.p-reads-3 .p-read:nth-child(3n){padding-left:12px} }
+.p-ta{display:block;font-family:var(--font-ui),system-ui,sans-serif;font-size:16px;line-height:1.5;width:100%;min-height:220px;padding:10px 12px;border:2px solid #0E1621;border-radius:4px;background:#FFFFFF;color:#0E1621;resize:vertical}
+.p-td-note{display:block;font-size:14px;color:#4A5563;margin-top:2px}
