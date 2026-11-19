@@ -4,8 +4,9 @@ import { Hero, Main, Sec } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { RAIL_DEFAULT } from "@/data/site-nav";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
-const UPDATED = "2026-11-19"; // CK-009: removed advertising and affiliate terms (neither runs on the site); operator and governing law match the privacy policy
+const UPDATED = UPDATED_AT["terms-of-use"];
 const TITLE = "Terms of Use";
 const DESC = "CalcKitchen's terms: the calculators give estimates for home cooking, food safety is checked with a thermometer, and the content is ours to share by link.";
 

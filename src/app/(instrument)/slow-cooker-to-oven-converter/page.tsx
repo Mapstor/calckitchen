@@ -8,9 +8,10 @@ import { BANDS, CROCKPOT, SRC_SLOW, hrs, minsText } from "@/data/slow-cooker";
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/slow-cooker-to-oven-converter";
-const UPDATED = "2026-11-19"; // CK-009: rebuilt on Crock-Pot's recipe-adapting chart and USDA slow cooker safety
+const UPDATED = UPDATED_AT["slow-cooker-to-oven-converter"];
 const TITLE = "Slow Cooker to Oven Converter: Crock-Pot Time Chart, Low and High";
 const DESC =
   "Convert oven and stovetop times to slow cooker hours and back with Crock-Pot's chart: 35 to 45 minutes in the oven is 6 to 10 hours on Low or 3 to 4 on High.";

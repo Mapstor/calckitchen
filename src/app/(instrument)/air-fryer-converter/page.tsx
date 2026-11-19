@@ -9,9 +9,10 @@ import { SRC_OVEN, fToC } from "@/data/oven-temps";
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/air-fryer-converter";
-const UPDATED = "2026-11-19"; // CK-008: rebuilt on the University of Illinois Extension air fryer guide
+const UPDATED = UPDATED_AT["air-fryer-converter"];
 const TITLE = "Oven to Air Fryer Converter: Temperature and Time";
 const DESC =
   "Convert an oven recipe to the air fryer: 25 to 30°F lower and 20% less time, per University of Illinois Extension. 400°F for 25 minutes becomes 370 to 375°F for 20 minutes.";

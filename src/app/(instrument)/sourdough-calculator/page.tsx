@@ -6,9 +6,10 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { KA_FEED, KA_FLOUR, KA_LOAF, SRC_SD, feed, gr, p1, pctOf } from "@/data/sourdough";
 import { StackBars, TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/sourdough-calculator";
-const UPDATED = "2026-11-19"; // CK-009: rebuilt on King Arthur Baking's sourdough recipe and starter guide
+const UPDATED = UPDATED_AT["sourdough-calculator"];
 const TITLE = "Sourdough Calculator: Dough, Starter Feeding and Hydration";
 const DESC =
   "Work out sourdough dough by baker's percentages, with hydration that counts the starter's flour and water. Feed and build a starter the King Arthur way: 1:1:1 by weight.";

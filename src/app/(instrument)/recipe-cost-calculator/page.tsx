@@ -7,9 +7,10 @@ import { SRC_OVEN } from "@/data/oven-temps";
 import { UNITS } from "@/data/units";
 import { Split, TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/recipe-cost-calculator";
-const UPDATED = "2026-11-19"; // CK-008: rebuilt; exact NIST unit factors, no guessed cup-to-gram densities
+const UPDATED = UPDATED_AT["recipe-cost-calculator"];
 const TITLE = "Recipe Cost Calculator: Cost per Serving and Menu Price";
 const DESC =
   "Work out what a recipe costs from what you paid for each package, the cost per serving, and a menu price at your target food-cost percentage.";

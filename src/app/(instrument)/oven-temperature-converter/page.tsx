@@ -8,9 +8,10 @@ import { GAS_ROWS, SRC_OVEN, cToF, fToC, fmt1 } from "@/data/oven-temps";
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/oven-temperature-converter";
-const UPDATED = "2026-11-19"; // CK-008: rebuilt on NIST, Which? and Hotpoint figures
+const UPDATED = UPDATED_AT["oven-temperature-converter"];
 const TITLE = "Oven Temperature Converter: Fahrenheit, Celsius and Gas Mark Chart";
 const DESC =
   "Convert oven temperatures between °F, °C and gas marks. 350°F is 176.7°C; UK recipes write it as 180°C, gas mark 4. Full chart with fan oven settings.";

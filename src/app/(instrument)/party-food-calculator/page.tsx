@@ -6,9 +6,10 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { ITEMS, SRC_PARTY, totalText } from "@/data/party";
 import Bars, { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/party-food-calculator";
-const UPDATED = "2026-11-19"; // CK-009: rebuilt on the FDA and USDA reference amounts customarily consumed per eating occasion
+const UPDATED = UPDATED_AT["party-food-calculator"];
 const TITLE = "Party Food Calculator: How Much Food per Person for Any Crowd";
 const DESC =
   "How much meat, sides, dessert and drinks to buy per guest, from the FDA and USDA reference serving sizes: 4 oz raw meat, 2 tbsp dip, 2/3 cup ice cream, one 12 oz drink.";

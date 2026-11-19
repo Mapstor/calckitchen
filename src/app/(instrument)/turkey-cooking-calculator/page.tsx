@@ -7,6 +7,7 @@ import { THERMO_165_NARROW_SVG, THERMO_165_WIDE_SVG, TURKEY_CHECK_SVG } from "@/
 import { FAQPageJsonLd, WebApplicationJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { AUTHOR } from "@/data/author";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const SRC = {
   roast: "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/poultry/lets-talk-turkey-roasting",
@@ -16,7 +17,7 @@ const SRC = {
   uwyo: "https://wyoextension.org/publications/html/MP135",
 };
 
-const UPDATED = "2026-11-18"; // last real content change (CK-002, live 2026-11-18)
+const UPDATED = UPDATED_AT["turkey-cooking-calculator"];
 
 export const metadata: Metadata = {
   title: "Turkey Cooking Time Calculator by Weight (+ Thawing Times)",

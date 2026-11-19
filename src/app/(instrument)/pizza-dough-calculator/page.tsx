@@ -8,9 +8,10 @@ import { NAPOLETANA as N, NAPOLETANA_PCT as P, SRC_BAKERS, bakersPct, d1 } from 
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/pizza-dough-calculator";
-const UPDATED = "2026-11-19"; // CK-008: rebuilt on the EU Pizza Napoletana rules and King Arthur's baker's percentage
+const UPDATED = UPDATED_AT["pizza-dough-calculator"];
 const TITLE = "Pizza Dough Calculator: Neapolitan Rules and Baker's Percentages";
 const DESC =
   "Flour, water, salt and yeast for any number of dough balls. Neapolitan proportions from the EU's Pizza Napoletana rules, or your own baker's percentages.";

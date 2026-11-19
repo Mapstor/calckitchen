@@ -7,9 +7,10 @@ import { Faq, Hero, Main, Sec, Sources, Table, ext, type QA } from "@/components
 import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/components/seo/JsonLd";
 import { SRC_WILTON, WILTON, area } from "@/data/wilton";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/cake-pan-converter";
-const UPDATED = "2026-11-19"; // CK-008: pan-area scaling with batter and times from Wilton's chart
+const UPDATED = UPDATED_AT["cake-pan-converter"];
 const TITLE = "Cake Pan Converter: Resize a Recipe for a Different Pan";
 const DESC =
   "Scale a cake recipe to another pan by area: an 8-inch to 9-inch round needs 1.27 times the recipe. Batter amounts and baking times for standard pans from Wilton.";

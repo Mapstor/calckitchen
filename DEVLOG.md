@@ -2,19 +2,19 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-19 · CK-011_
+_last update: 2026-11-19 · CK-014_
 - Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. CK-012 adds the last 3 section drawings and self-hosted fonts. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
-- Last confirmed: CK-012 LAST VISUALS + self-hosted fonts — live 2026-11-19 (PR #9 merged on the owner's "merge", main 7c3eacc; the push build dpl_Bu1bUZgHNNdZ76zUfGnS6hDf5oAj went READY on the first try, so the font fix holds).
-- In flight (NOT merged): CK-013 on claude/ck-013-eu-consent — EU/EEA/UK/CH analytics consent (Consent Mode v2 + bar + "Cookie settings"), thermometer icons and social card (no emoji, no remote fetch), og:image and page Twitter cards on all 25 pages, custom 404; merge waits for the owner's OK.
-- Next action: owner says merge → PR CK-013 → production READY + live check (banner in a European time zone, 404, og:image) → GSC indexing requests from 2026-11-20 (~9 a day: the 14 CK-009 pages, bakers-percentage, cake-servings, recipe-cost) → P2 titles/descriptions with keyword data.
-- Waiting on owner: confirm governing law Slovenia in the terms; top-30 read for Raptive later.
+- Last confirmed: CK-013 EU consent + brand images + og:image + 404 — live 2026-11-19 (PR #10 merged on the owner's "merge", main e719320; push build READY first try; Chrome on calckitchen.com: consent bar shows in Europe/Ljubljana, og:image and the page's own twitter:title on /cake-servings-calculator, new icon, /no-such-page 404).
+- In flight (NOT merged): CK-014 on claude/ck-014-tool-tests — Playwright suite (56 tests), page dates in src/data/updated.ts as the sitemap lastmod (was the build time), D-12; merge waits for the owner's OK.
+- Next action: owner says merge → PR CK-014 → production READY + live sitemap check → 2026-11-20 from 09:00 CET: GSC indexing requests (~9 a day; property https://calckitchen.com/ at search.google.com/u/5/ in the owner's Chrome; 2026-11-19 quota already used) → P2 titles/descriptions with keyword data.
+- Waiting on owner: top-30 read for Raptive (log date and URLs here); give Raptive view access in GA4 when applying.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-19)
     Stage 1 numbers and sources: 25 of 25 pages live on registry rows + check scripts; npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
     Stage 2 anti-slop: 23 of 23 scored pages at target (portfolio-qa prose-score 2026-11-19 on a local build: 13,319 words, 2 hits, both the Wilton article title in Sources; legal pages excluded) · bad at start 6/10
-    Stage 3 impeccable and user tests: 25 pages in the picked look, Chrome-checked at 390 and 1280 (no sideways scroll, readouts and modes tested); result visuals on 17 calculators (CK-010) and section visuals on 15 pages (CK-011), Chrome-checked at 390 and desktop; no Playwright suite yet · bad at start ?/10
+    Stage 3 impeccable and user tests: 25 pages in the picked look; drawings on all 20 calculators; Playwright suite 56 tests (20 tools + 5 static + 404 at 390 and 1280, consent bar), 0 failed, 0 skipped; QA sweep P0 0, P1 0 · bad at start ?/10
     Stage 4 Raptive: ~45% (author identity sitewide, About rewritten, privacy and terms match the stack; mailbox, consent, top-30 read pending) · bad at start 7/10
     Whole site: ~72% live (stage weights 30, 20, 30, 20)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
@@ -28,7 +28,7 @@ Scoreboard (2026-11-19)
 - Stack · Node: Next.js 16.1.6 App Router (Turbopack), React 19.2.3, Tailwind 4, Recharts 3, TypeScript 5 · Node 22 in cloud
 - Commands (dev / build / test / lint): npm run dev / npm run build / npm run check:numbers / npm run lint
 - Deploy (host, project, trigger): Vercel project calckitchen (prj_HYJh4OEFSWYOqVM0NXm1wBr761RL, team marko-visics-projects), connected to GitHub 2026-11-18: merges to main deploy production, branches get previews (alias calckitchen-git-<branch>-marko-visics-projects.vercel.app, behind Vercel login; the owner's Chrome passes). vercel.json present.
-- Analytics / Search Console / Bing: GA4 G-K74JKGWGDQ hardcoded in src/app/layout.tsx · GSC property https://calckitchen.com/ in moving.data.systems@gmail.com (added and auto-verified by the HTML file 2026-11-18; sitemap.xml submitted, 25 URLs) · Bing msvalidate 57C407E8336C4915E2D28EEA649C8078, account ?
+- Analytics / Search Console / Bing: GSC = URL-prefix property https://calckitchen.com/ under moving.data.systems@gmail.com (owner's Chrome account /u/5/); sitemap.xml submitted 2026-11-18, resubmitted 2026-11-19 (25 pages); 7 pages indexed on 2026-11-19. Earlier note: GA4 G-K74JKGWGDQ hardcoded in src/app/layout.tsx · GSC property https://calckitchen.com/ in moving.data.systems@gmail.com (added and auto-verified by the HTML file 2026-11-18; sitemap.xml submitted, 25 URLs) · Bing msvalidate 57C407E8336C4915E2D28EEA649C8078, account ?
 - Data sources: research/data-sources.csv (one row per source; 32 rows) · snapshots research/sources/*.json · checks scripts/check-*.mjs (npm run check:numbers)
 - Key paths: src/app/(instrument)/ = every page (layout with Public Sans + Michroma, instrument.css); the (classic) group and old chrome were removed in CK-009; src/components/instrument/* (kit, header, footer, Knob, Dial, live); src/components/calculators/*.tsx (tools); src/data/*.ts (tool data, author, site-nav); src/components/seo/JsonLd.tsx; scripts/check-*.mjs
 - Skills in repo: none (account skills)
@@ -48,6 +48,7 @@ Scoreboard (2026-11-19)
 - D-09 · 2026-11-19 · Every rebuilt page has a research/sources/*.json snapshot and a scripts/check-*.mjs that checks the data and every figure written in the page text; npm run check:numbers runs them all — why: catches typos and drift; each check was tested with planted errors.
 - D-10 · 2026-11-19 · Contact address is info@calckitchen.com on Contact, About, Privacy and Terms (owner: "lets do info email"; hello@ was never confirmed as a working mailbox).
 - D-11 · 2026-11-19 · EU/EEA/UK/CH visitors: Google Analytics waits for consent (owner: "yes for eu"). Consent Mode v2 region defaults in src/app/layout.tsx (analytics denied there, Google decides the region from the IP), our bar in src/components/instrument/ConsentBanner.tsx shown to European time zones, choice in localStorage ck-consent, "Cookie settings" in the footer. Replace all of it with Raptive's CMP if the site joins Raptive.
+- D-12 · 2026-11-19 · Terms of use: Slovenian law governs (owner: "yes ok").
 
 ## §3 Rejected — don't re-propose
 - 2026-11-17 · Look A (red enamel oven panel) and look C (Roasting Facts label) as whole looks — owner picked B and took only A's knob.
@@ -202,6 +203,16 @@ Scoreboard (2026-11-19)
 - What: analytics consent for EU/EEA/UK/CH (D-11) and privacy text for it; icon, apple icon, OG and Twitter images redrawn with the thermometer mark and Public Sans from the repo (old ones: emoji + gradients, and the emoji made shell builds fail); og:image + page-level Twitter cards on all 25 pages (page openGraph had dropped the image); custom 404 listing every calculator; shared src/app/fonts.ts.
 - Verified: tsc 0 errors; eslint 0 errors on changed files; check:numbers 18 scripts, 0 failed, 0 skipped; full npm run build in the shell passes; next start: /no-such-page 404 with the new page; meta tags on /, /air-fryer-converter, /turkey-cooking-calculator, /privacy-policy carry og:image and their own twitter:title; portfolio-qa prose-score 0.15 tells/1k; sweep P0 0, P1 0 (was 1: default 404), P2 41.
 - Chrome on the preview (Europe/Ljubljana): bar shows, Allow sets consent granted and _ga cookies, Cookie settings reopens it, No thanks sets denied and removes the 2 _ga cookies; phone 390 px bar fits, no sideways scroll; /no-such-page shows the new 404 with 20 calculator links. Unverified: a non-European visit (bar should stay hidden, analytics granted).
+- Commit: see branch (pushed: yes)
+
+### 2026-11-19 · CK-013 EU CONSENT + BRAND IMAGES · chat · live
+- What: PR #10 merged on the owner's "merge"; main e719320; push build READY first try.
+- Verified: Chrome on calckitchen.com (see §0). GSC: indexing request for /cake-servings-calculator refused, daily quota used; sitemap resubmitted, "submitted successfully".
+- Commit: e719320 (merge)
+
+### 2026-11-19 · CK-014 TOOL TESTS + SITEMAP DATES · chat · done (preview; waiting for the owner's OK, not merged)
+- What: Playwright (@playwright/test 1.65.1, playwright.config.ts, tests/tools.spec.ts, tests/consent.spec.ts, npm run test:e2e); src/data/updated.ts holds every page's "Updated" date and feeds the sitemap lastmod (sitemap used the build time for every page); D-12; CLAUDE.md test and date lines.
+- Verified: npm run build passes in the shell; PW_CHROMIUM=/opt/pw-browsers/chromium-1243/chrome-linux64/chrome npx playwright test: 56 passed, 0 failed, 0 skipped; sitemap.xml lastmod 24 × 2026-11-19, turkey 2026-11-18; tsc 0, eslint 0 on changed files; check:numbers 18 scripts 0 failed 0 skipped.
 - Commit: see branch (pushed: yes)
 
 ## §7 History & archive
