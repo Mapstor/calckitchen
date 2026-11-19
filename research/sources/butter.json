@@ -1,0 +1,47 @@
+{
+  "retrieved": "2026-11-19",
+  "lol": {
+    "id": "LOL-BUTTER",
+    "url": "https://www.landolakes.com/kitchen-reference/measurements-abbreviations/",
+    "title": "Cooking Measurements & Abbreviations",
+    "publisher": "Land O'Lakes, Inc.",
+    "quotes": [
+      "One full stick of butter equals 1/2 cup, or 8 tablespoons.",
+      "Our half sticks equal 1/4 cup of butter, or 4 tablespoons.",
+      "Use the pre-marked wrappers to measure by tablespoons, 1/4 cup and 1/3 cup.",
+      "Each mark is one tablespoon.",
+      "If a recipe calls for butter in pounds, 1 pound of butter equals 4 full sticks."
+    ],
+    "table": [
+      { "cups": "2", "tbsp": "32", "sticks": "4", "lb": "1", "oz": "16", "g": 454, "tsp": 96 },
+      { "cups": "1", "tbsp": "16", "sticks": "2", "lb": "1/2", "oz": "8", "g": 227, "tsp": 48 },
+      { "cups": "3/4", "tbsp": "12", "sticks": "1 1/2", "lb": "3/8", "oz": "6", "g": 170, "tsp": 36 },
+      { "cups": "1/2", "tbsp": "8", "sticks": "1", "lb": "1/4", "oz": "4", "g": 113, "tsp": 24 },
+      { "cups": "1/3", "tbsp": "5 1/3", "sticks": "2/3", "lb": "1/6", "oz": "2 2/3", "g": 76, "tsp": 16 },
+      { "cups": "1/4", "tbsp": "4", "sticks": "1/2", "lb": "1/8", "oz": "2", "g": 57, "tsp": 12 },
+      { "cups": "1/16", "tbsp": "1", "sticks": "1/8", "lb": "1/32", "oz": "1/2", "g": 14, "tsp": 3 }
+    ]
+  },
+  "fdc": {
+    "id": "USDA-FDC-BUTTER",
+    "url": "https://fdc.nal.usda.gov/food-details/173410/nutrients",
+    "title": "Butter, salted (SR Legacy, FDC ID 173410, NDB 1001)",
+    "publisher": "USDA Agricultural Research Service, FoodData Central",
+    "read": "Chrome, 2026-11-19: portion selector and the Amount column for each portion",
+    "portionOptions": ["100 g", "1 pat (1\" sq, 1/3\" high) (5 g)", "1 stick (113 g)", "1 cup (227 g)", "1 tbsp (14.2 g)"],
+    "per100g": { "waterG": 16.2, "kcal": 717, "proteinG": 0.85, "fatG": 81.1, "satG": 51.4, "sodiumMg": 643, "cholesterolMg": 215 },
+    "portions": [
+      { "measure": "1 pat (1\" sq, 1/3\" high)", "g": 5, "kcal": 35.8, "fat": 4.06, "sat": 2.57 },
+      { "measure": "1 tbsp", "g": 14.2, "kcal": 102, "fat": 11.5, "sat": 7.3 },
+      { "measure": "1 stick", "g": 113, "kcal": 810, "fat": 91.6, "sat": 58.1 },
+      { "measure": "1 cup", "g": 227, "kcal": 1630, "fat": 184, "sat": 117 }
+    ]
+  },
+  "nist": {
+    "id": "NIST-SI-B9",
+    "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+    "read": "Chrome, 2026-11-19; factors printed to 7 significant figures (not boldface, so not exact as printed)",
+    "factors": { "oz_g": 28.34952, "lb_kg": 0.4535924, "cup_mL": 236.5882, "floz_mL": 29.57353, "tbsp_mL": 14.78676, "tsp_mL": 4.928922 },
+    "exactDefinitions": "units.ts uses the exact values these round: 1 lb = 0.45359237 kg; 1 US gallon = 231 in3 = 3.785411784 L; cup = gal/16; fl oz = gal/128; tbsp = gal/256; tsp = gal/768"
+  }
+}

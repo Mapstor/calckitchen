@@ -349,3 +349,4 @@
 @media (max-width:640px){ .p-reads-live .p-read{min-width:0} .p-reads-live .p-read-v{font-size:22px;white-space:normal;overflow-wrap:anywhere} .p-reads-live .p-read-u{font-size:14px} }
 @media (min-width:861px){ .p-menu:last-child .p-menu-l{left:auto;right:-14px} }
 .p-reads-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.p-sel-bt{flex:1 1 auto;min-width:0;width:auto;max-width:260px}
