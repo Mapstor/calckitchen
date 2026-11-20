@@ -2,21 +2,21 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-20 · CK-016_
-- Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. CK-012 adds the last 3 section drawings and self-hosted fonts. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
-- Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
-- Last confirmed: CK-015 SNIPPETS — live 2026-11-20 (PR #12 merged on the owner's "merge", main aebe33a; push build READY first try). Owner's read of all 25 pages: 2026-11-20, "they are ok" (Raptive human-review evidence, see §6).
-- In flight (NOT merged): CK-016 on claude/ck-016-owner-read — DEVLOG only (owner's read, GSC log).
-- Next action: GSC indexing requests as slots free up (Google frees each about 24 h after the 2026-11-19 requests): done /cake-servings-calculator 2026-11-20 09:46; refused at 09:47 and 09:52; scheduled retries 10:30 and 13:30 CET in the owner's Chrome. Order: bakers-percentage, recipe-cost, butter, cooking-measurement, coffee, sourdough, recipe-scaler, recipe-macro, party-food, pizza, slow-cooker, microwave. Then Raptive application by the owner; then freeze.
-- Waiting on owner: Raptive application with GA4 view access for Raptive. Merged branches are deleted only at the finishing line (owner, 2026-11-20): list them then, not before.
-- Open questions: Bing Webmaster account? Raptive application timing?
+_last update: 2026-11-20 · CK-017_
+- Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
+- Phase: finishing line (owner, 2026-11-20), live, not on Raptive. Bing: 25 URLs submitted 2026-11-20 09:59 CET + https://calckitchen.com/sitemap.xml added. GSC: sitemap resubmitted and read 2026-11-20 (Success, 25 pages); 7 pages indexed, all last crawled 2026-09-04 to 2026-11-02 (before the redesign); indexing requested for 10 pages (9 on 2026-11-19, /cake-servings-calculator 2026-11-20 09:46).
+- Last confirmed: CK-016 OWNER READ + GSC LOG — merged 2026-11-20 (PR #13, main ec82fa9). Last site change: CK-015 SNIPPETS, live 2026-11-20.
+- In flight (NOT merged): CK-017 on claude/ck-017-index-submit — DEVLOG only (Bing/GSC submissions); PR waits for the owner's "merge".
+- Next action: GSC Request indexing for the 15 pages left as slots free (about 10 per rolling 24 h, see §4; 2026-11-19 requests were made about 12:20 (2) and 13:20-13:40 CET (7)). Order: butter-converter, cooking-measurement-converter, coffee-ratio-calculator, sourdough-calculator, recipe-scaler, recipe-macro-calculator, party-food-calculator, slow-cooker-to-oven-converter, microwave-to-oven-converter (never indexed), bakers-percentage-calculator, recipe-cost-calculator (indexed, old crawl), about, contact, privacy-policy, terms-of-use. Scheduled retries in this session: 10:30 and 13:30 CET (moving them to 12:40 and 13:50 was refused by a permission check). Then the owner's Raptive application; then freeze for 3 months.
+- Waiting on owner: Raptive application with GA4 view access; check that mail to info@calckitchen.com arrives (MX = Namecheap email forwarding, needs an info@ alias or catch-all there); delete or keep the 15 merged branches (all merged into main, checked 2026-11-20): claude/ck-002-turkeyfix, ck-003-design1, ck-005-live-log, ck-006-author, ck-007-mac-notes, ck-007-mac-notes-log, ck-008-ten-pages, ck-009-rest, ck-011-body-visuals, ck-012-last-visuals, ck-013-eu-consent, ck-014-tool-tests, ck-015-snippets, ck-016-owner-read, claude/live-sync.
+- Open questions: Raptive application timing? Which Microsoft account owns the Bing site (signed in in the owner's Chrome)?
 
-Scoreboard (2026-11-19)
+Scoreboard (2026-11-20)
     Stage 1 numbers and sources: 25 of 25 pages live on registry rows + check scripts; npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
     Stage 2 anti-slop: 23 of 23 scored pages at target (portfolio-qa prose-score 2026-11-19 on a local build: 13,319 words, 2 hits, both the Wilton article title in Sources; legal pages excluded) · bad at start 6/10
     Stage 3 impeccable and user tests: 25 pages in the picked look; drawings on all 20 calculators; Playwright suite 56 tests (20 tools + 5 static + 404 at 390 and 1280, consent bar), 0 failed, 0 skipped; QA sweep P0 0, P1 0 · bad at start ?/10
-    Stage 4 Raptive (owner's read of all 25 pages logged 2026-11-20; consent, trust frame, 404 live; left: GA view access + application): ~45% (author identity sitewide, About rewritten, privacy and terms match the stack; mailbox, consent, top-30 read pending) · bad at start 7/10
-    Whole site: ~72% live (stage weights 30, 20, 30, 20)
+    Stage 4 Raptive: ~85% — author identity sitewide, About, privacy and terms match the stack, EU consent, custom 404, owner's read of all 25 pages logged 2026-11-20; left: info@ mail check, GA4 traffic-geography check, GA view access + application (owner) · bad at start 7/10
+    Whole site: ~97% live (stage weights 30, 20, 30, 20; stages 1-3 at 100%)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
 
 ## §1 Site card
@@ -28,7 +28,7 @@ Scoreboard (2026-11-19)
 - Stack · Node: Next.js 16.1.6 App Router (Turbopack), React 19.2.3, Tailwind 4, Recharts 3, TypeScript 5 · Node 22 in cloud
 - Commands (dev / build / test / lint): npm run dev / npm run build / npm run check:numbers / npm run lint
 - Deploy (host, project, trigger): Vercel project calckitchen (prj_HYJh4OEFSWYOqVM0NXm1wBr761RL, team marko-visics-projects), connected to GitHub 2026-11-18: merges to main deploy production, branches get previews (alias calckitchen-git-<branch>-marko-visics-projects.vercel.app, behind Vercel login; the owner's Chrome passes). vercel.json present.
-- Analytics / Search Console / Bing: GSC = URL-prefix property https://calckitchen.com/ under moving.data.systems@gmail.com (owner's Chrome account /u/5/); sitemap.xml submitted 2026-11-18, resubmitted 2026-11-19 (25 pages); 7 pages indexed on 2026-11-19. Earlier note: GA4 G-K74JKGWGDQ hardcoded in src/app/layout.tsx · GSC property https://calckitchen.com/ in moving.data.systems@gmail.com (added and auto-verified by the HTML file 2026-11-18; sitemap.xml submitted, 25 URLs) · Bing msvalidate 57C407E8336C4915E2D28EEA649C8078, account ?
+- Analytics / Search Console / Bing: GSC = URL-prefix property https://calckitchen.com/ under moving.data.systems@gmail.com (owner's Chrome account /u/5/); sitemap.xml submitted 2026-11-18, resubmitted 2026-11-19 and 2026-11-20 (25 pages); 7 pages indexed on 2026-11-20. GA4 G-K74JKGWGDQ hardcoded in src/app/layout.tsx (consent defaults first, D-11) · GSC property auto-verified by the HTML file 2026-11-18 · Bing Webmaster Tools site https://calckitchen.com/ (msvalidate 57C407E8336C4915E2D28EEA649C8078; signed in in the owner's Chrome, account ?): sitemaps https://www.calckitchen.com/sitemap.xml (2026-02-22, Success, 25 URLs) and https://calckitchen.com/sitemap.xml (2026-11-20); URL Submission quota 100 a day, 25 used 2026-11-20
 - Data sources: research/data-sources.csv (one row per source; 32 rows) · snapshots research/sources/*.json · checks scripts/check-*.mjs (npm run check:numbers)
 - Key paths: src/app/(instrument)/ = every page (layout with Public Sans + Michroma, instrument.css); the (classic) group and old chrome were removed in CK-009; src/components/instrument/* (kit, header, footer, Knob, Dial, live); src/components/calculators/*.tsx (tools); src/data/*.ts (tool data, author, site-nav); src/components/seo/JsonLd.tsx; scripts/check-*.mjs
 - Skills in repo: none (account skills)
@@ -62,7 +62,7 @@ Scoreboard (2026-11-19)
 - Never deploy with the Vercel CLI from a local folder: it ships uncommitted files (2026-02-22: 13 calculators GitHub didn't have, fixed by CK-005). Deploy from main.
 - docs/mac-notes/content/*.md are the Feb 2026 drafts the pages were generated from, with the same unsourced figures. Never use them as a source.
 - Ad slots: the design reserves the rail and gaps; no empty .p-ad boxes before Raptive runs. The sticky-footer padding (124px, 80px phone) comes back with Raptive.
-- GSC: 7 pages were already indexed by 2026-11-19 (Google crawled the site before 2026-11-18). URL Inspection of a page not yet indexed says "URL is unknown to Google"; that is per page, not the site. Indexing requests are capped per day: if the quota is hit, retry the next day.
+- GSC: 7 pages were already indexed by 2026-11-19 (Google crawled the site before 2026-11-18). URL Inspection of a page not yet indexed says "URL is unknown to Google"; that is per page, not the site. Request indexing allows about 10 per rolling 24 h on this property (2026-11-19/20: after ~10 accepted, "Quota Exceeded" until a request turned 24 h old; refused clicks don't seem to count). Spend slots on never-indexed pages first; the sitemap lastmod covers re-crawls of indexed ones.
 - Gas mark °C values differ between UK charts (gas mark 3 is 160°C on Which?, 170°C on Currys): follow Which? only (research/sources/oven-temps.json); a new chart needs its own registry row.
 - The oven dial is a component: src/components/instrument/Knob.tsx (tempF prop); LiveKnob.tsx follows the oven converter. CSS var --k turns it; the old static KNOB_325_SVG string is gone.
 - Instrument page kit: src/components/instrument/kit.tsx (Hero, Main, Sec, Table, Faq, Sources), Knob/LiveKnob (oven dial), Dial/LiveDial (needle dial, any scale), live.ts (calculator -> hero instrument), Read.tsx. New page = data module + snapshot + check script + calculator + page.tsx in src/app/(instrument)/<slug>.
@@ -83,10 +83,8 @@ Scoreboard (2026-11-19)
 - Check scripts that strip <...> from page source (check-slowcooker-data.mjs and others): a "<" in page code (m < 60) swallows text up to the next ">" and breaks the sentence checks. In those pages write comparisons with >= or move the helper to a component.
 
 ## §5 Backlog (priority order)
-- [P1] GSC indexing requests in daily batches (bakers-percentage, cake-servings, recipe-cost, then the 14 CK-009 pages); check Pages/Performance weekly.
-- [P1] Stage 4: EU consent for GA4 (banner now, or Raptive's CMP after acceptance); governing law in the terms (Slovenia assumed); owner's top-30 read logged here; then the Raptive application.
-- [P2] Stage 2: run portfolio-qa prose-score on all 25 pages (needs a build the shell can't do: run in a cloud session with fonts, or against production after the merge).
-- [P2] Stage 3: Playwright suite for every tool at 390 and 1280 (include each result visual: no sideways scroll, no NaN in SVG attributes); sitemap lastModified = real per-page dates.
+- [P1] GSC Request indexing for the 15 pages left, order in §0, as slots free; during the freeze check GSC Pages/Performance and Bing weekly.
+- [P1] Stage 4: info@calckitchen.com mail check; GA4 last 28 days mostly US/CA/UK/NZ/AU, no bot spikes (needs the owner's OK to open GA4); then the owner's Raptive application with GA view access.
 - [P2] Full external-link check of every Sources list (ask.usda.gov on /air-fryer-converter loaded badly 2026-11-17).
 - [P2] Next.js 16.1.6 → 16.4.6: npm audit (prod) 2026-11-17 = 1 critical (next: request smuggling in rewrites, next/image disk cache growth), 4 high (sharp, postcss, nanoid, source-map-js), 1 moderate.
 - [P3] Visuals not done (CK-011 covers 15 page bodies): sourdough feeding, baker's percentage body, recipe cost body, recipe scaler result; home/About/policy pages need none.
@@ -233,6 +231,14 @@ Scoreboard (2026-11-19)
 - What: owner's read for Raptive (raptive-ready step 10): 2026-11-20, owner: "read them they are ok". Pages: /, /about, /contact, /privacy-policy, /terms-of-use, /air-fryer-converter, /bakers-percentage-calculator, /butter-converter, /cake-pan-converter, /cake-servings-calculator, /coffee-ratio-calculator, /convection-oven-converter, /cooking-measurement-converter, /meat-cooking-time-calculator, /meat-temperature-chart, /microwave-to-oven-converter, /oven-temperature-converter, /party-food-calculator, /pizza-dough-calculator, /recipe-cost-calculator, /recipe-macro-calculator, /recipe-scaler, /slow-cooker-to-oven-converter, /sourdough-calculator, /turkey-cooking-calculator (all 25; fewer than 30, so all).
 - GSC: indexing requested /cake-servings-calculator 2026-11-20 09:46 ("added to a priority crawl queue"); /bakers-percentage-calculator refused "Quota Exceeded" 09:47 and 09:52.
 - Verified: GSC dialogs seen in Chrome. Unverified: nothing else changed.
+- Commit: see branch (pushed: yes)
+
+### 2026-11-20 · CK-017 INDEX SUBMIT · chat · done (DEVLOG only)
+- What: finishing-line submissions in the owner's Chrome (owner: "Do it now, chrome opened"). Bing: 25 URLs submitted 09:59 CET (quota 100 → 75); sitemap https://calckitchen.com/sitemap.xml submitted ("successfully submitted for processing"), the www one from 2026-02-22 kept. GSC: sitemap resubmitted, read 2026-11-20, Success, 25 pages; Request indexing for /bakers-percentage-calculator refused "Quota Exceeded" ~10:01.
+- GSC Pages: 7 indexed (last crawl): recipe-cost 11-02, cake-servings 11-01, / 10-31, oven-temperature 10-24, cake-pan 09-08, bakers-percentage 09-06, pizza-dough 09-04; 0 not indexed; the other 18 not yet known to Google. Request order changed to never-indexed first (§0).
+- Mail: calckitchen.com MX = eforward1-5.registrar-servers.com (Namecheap email forwarding; dns.google 2026-11-20); whether info@ forwards is unverified.
+- Branches: all 15 claude/ branches on origin are merged into main (git branch -r --merged); listed in §0 for the owner's decision. CK-016 PR #13 merged, main ec82fa9.
+- Verified: Bing toast + list of 25 URLs "Today at 09:59"; GSC "Sitemap submitted successfully" and the row read Nov 20, 2026. Unverified: nothing on the site changed.
 - Commit: see branch (pushed: yes)
 
 ## §7 History & archive
