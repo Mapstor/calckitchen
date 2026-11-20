@@ -13,7 +13,7 @@ const URL = "https://calckitchen.com/cake-pan-converter";
 const UPDATED = UPDATED_AT["cake-pan-converter"];
 const TITLE = "Cake Pan Converter: Resize a Recipe for a Different Pan";
 const DESC =
-  "Scale a cake recipe to another pan by area: an 8-inch to 9-inch round needs 1.27 times the recipe. Batter amounts and baking times for standard pans from Wilton.";
+  "Scale a cake recipe to another pan by area: an 8-inch to a 9-inch round needs 1.27 times the recipe. Batter and baking times for standard pans from Wilton.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -8,7 +8,7 @@ import { UPDATED_AT } from "@/data/updated";
 
 const UPDATED = UPDATED_AT["privacy-policy"];
 const TITLE = "Privacy Policy";
-const DESC = "What CalcKitchen collects: Google Analytics 4 usage statistics and the request data our host Vercel needs to serve pages. No accounts, no ads, no affiliate links.";
+const DESC = "What CalcKitchen collects: Google Analytics 4 usage statistics and the request data our host Vercel needs to serve pages. No accounts, ads or affiliates.";
 
 export const metadata: Metadata = {
   title: TITLE,

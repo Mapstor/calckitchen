@@ -12,7 +12,7 @@ const URL = "https://calckitchen.com/coffee-ratio-calculator";
 const UPDATED = UPDATED_AT["coffee-ratio-calculator"];
 const TITLE = "Coffee Ratio Calculator: Coffee to Water for Drip, Pour-Over, French Press";
 const DESC =
-  "How much coffee for your water: 55 g per liter for drip (SCA standard), 1:13 to 1:16 pour-over, 1:10 to 1:16 French press, 1:4 to 1:5 cold brew, 1:2 espresso (NCA).";
+  "Coffee for your water: 55 g per liter for drip (SCA standard), 1:13 to 1:16 pour-over, 1:10 to 1:16 French press, 1:4 to 1:5 cold brew, 1:2 espresso (NCA).";
 
 export const metadata: Metadata = {
   title: TITLE,

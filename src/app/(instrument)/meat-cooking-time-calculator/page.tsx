@@ -14,7 +14,7 @@ const URL = "https://calckitchen.com/meat-cooking-time-calculator";
 const UPDATED = UPDATED_AT["meat-cooking-time-calculator"];
 const TITLE = "Meat Cooking Time Calculator: USDA Roasting Times by Weight";
 const DESC =
-  "Roasting times by weight from the USDA charts: beef, lamb, pork, veal, ham, chicken, duck and goose. A 5-lb bone-in rib roast takes 115 to 125 minutes at 325°F.";
+  "USDA roasting times by weight: beef, lamb, pork, veal, ham, chicken, duck, goose. A 5-lb bone-in rib roast takes 115 to 125 minutes at 325°F.";
 
 export const metadata: Metadata = {
   title: TITLE,

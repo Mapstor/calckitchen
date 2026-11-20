@@ -13,7 +13,7 @@ const URL = "https://calckitchen.com/bakers-percentage-calculator";
 const UPDATED = UPDATED_AT["bakers-percentage-calculator"];
 const TITLE = "Baker's Percentage Calculator: Hydration, Percentages and Scaling";
 const DESC =
-  "Turn recipe weights into baker's percentages, see the hydration, and scale the dough to any weight. Flour is always 100%; 350 g water to 500 g flour is 70%.";
+  "Turn recipe weights into baker's percentages, see the hydration and scale dough to any weight. Flour is always 100%; 350 g water to 500 g flour is 70%.";
 
 export const metadata: Metadata = {
   title: TITLE,

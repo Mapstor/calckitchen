@@ -14,7 +14,7 @@ const URL = "https://calckitchen.com/slow-cooker-to-oven-converter";
 const UPDATED = UPDATED_AT["slow-cooker-to-oven-converter"];
 const TITLE = "Slow Cooker to Oven Converter: Crock-Pot Time Chart, Low and High";
 const DESC =
-  "Convert oven and stovetop times to slow cooker hours and back with Crock-Pot's chart: 35 to 45 minutes in the oven is 6 to 10 hours on Low or 3 to 4 on High.";
+  "Convert oven and stovetop times to slow cooker hours and back with Crock-Pot's chart: 35 to 45 minutes in the oven is 6 to 10 hours on Low, 3 to 4 on High.";
 
 export const metadata: Metadata = {
   title: TITLE,
