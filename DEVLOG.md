@@ -2,19 +2,19 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-20 · CK-018_
+_last update: 2026-11-20 · CK-019_
 - Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: finishing line (owner, 2026-11-20), live, not on Raptive. Bing: 25 URLs submitted 2026-11-20 09:59 CET + https://calckitchen.com/sitemap.xml added. GSC: sitemap resubmitted and read 2026-11-20 (Success, 25 pages); 7 pages indexed, all last crawled 2026-09-04 to 2026-11-02 (before the redesign); indexing requested for 10 pages (9 on 2026-11-19, /cake-servings-calculator 2026-11-20 09:46).
-- Last confirmed: CK-017 INDEX SUBMIT — merged 2026-11-20 (PR #14, main b88ad9f, production READY). Last site change: CK-015 SNIPPETS, live 2026-11-20.
-- In flight (NOT merged): CK-018 on claude/ck-018-ga-index — DEVLOG only (GA4 check, today's GSC retries); PR waits for the owner's "merge".
+- Last confirmed: CK-019 INPUT FIELDS — live 2026-11-20 (PR #16 merged on the owner's "merge", main c715100, production READY first try).
+- In flight (NOT merged): CK-018 on claude/ck-018-ga-index (PR #15, DEVLOG only: GA4 check, today's GSC retries); waits for the owner's "merge".
 - Next action: GSC Request indexing for the 15 pages left as slots free (about 10 per rolling 24 h, see §4; 2026-11-19 requests were made about 12:20 (2) and 13:20-13:40 CET (7)). Order: butter-converter, cooking-measurement-converter, coffee-ratio-calculator, sourdough-calculator, recipe-scaler, recipe-macro-calculator, party-food-calculator, slow-cooker-to-oven-converter, microwave-to-oven-converter (never indexed), bakers-percentage-calculator, recipe-cost-calculator (indexed, old crawl), about, contact, privacy-policy, terms-of-use. Scheduled retries in this session: 12:40 and 13:50 CET (moved on the owner's OK). Then the owner's Raptive application; then freeze for 3 months.
-- Waiting on owner: OK for a Vercel firewall rule that denies China and Singapore (the GA4 bots, §6 CK-018); Raptive application with GA4 view access; check that mail to info@calckitchen.com arrives (MX = Namecheap email forwarding, needs an info@ alias or catch-all there); delete or keep the 15 merged branches (all merged into main, checked 2026-11-20): claude/ck-002-turkeyfix, ck-003-design1, ck-005-live-log, ck-006-author, ck-007-mac-notes, ck-007-mac-notes-log, ck-008-ten-pages, ck-009-rest, ck-011-body-visuals, ck-012-last-visuals, ck-013-eu-consent, ck-014-tool-tests, ck-015-snippets, ck-016-owner-read, claude/live-sync.
+- Waiting on owner: OK for a Vercel firewall rule that denies China and Singapore (the GA4 bots, §6 CK-018); Raptive application with GA4 view access; check that mail to info@calckitchen.com arrives (MX = Namecheap email forwarding, needs an info@ alias or catch-all there); delete or keep the 17 merged branches (all merged into main, checked 2026-11-20): claude/ck-002-turkeyfix, ck-003-design1, ck-005-live-log, ck-006-author, ck-007-mac-notes, ck-007-mac-notes-log, ck-008-ten-pages, ck-009-rest, ck-011-body-visuals, ck-012-last-visuals, ck-013-eu-consent, ck-014-tool-tests, ck-015-snippets, ck-016-owner-read, ck-017-index-submit, ck-019-input-fields, claude/live-sync.
 - Open questions: Raptive application timing? Which Microsoft account owns the Bing site (signed in in the owner's Chrome)?
 
 Scoreboard (2026-11-20)
     Stage 1 numbers and sources: 25 of 25 pages live on registry rows + check scripts; npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
     Stage 2 anti-slop: 23 of 23 scored pages at target (portfolio-qa prose-score 2026-11-19 on a local build: 13,319 words, 2 hits, both the Wilton article title in Sources; legal pages excluded) · bad at start 6/10
-    Stage 3 impeccable and user tests: 25 pages in the picked look; drawings on all 20 calculators; Playwright suite 56 tests (20 tools + 5 static + 404 at 390 and 1280, consent bar), 0 failed, 0 skipped; QA sweep P0 0, P1 0 · bad at start ?/10
+    Stage 3 impeccable and user tests: 25 pages in the picked look; drawings on all 20 calculators; Playwright suite 56 tests (20 tools + 5 static + 404 at 390 and 1280, consent bar; since CK-019 every visible field on screen with the editable look), 0 failed, 0 skipped; QA sweep P0 0, P1 0 · bad at start ?/10
     Stage 4 Raptive: ~85% — author identity sitewide, About, privacy and terms match the stack, EU consent, custom 404, owner's read of all 25 pages logged 2026-11-20; GA4 checked 2026-11-20 (54% of users US/CA/UK/AU, 32% zero-engagement bots from China/Singapore, no spikes); left: firewall rule (owner's OK), info@ mail check, GA view access + application (owner) · bad at start 7/10
     Whole site: ~97% live (stage weights 30, 20, 30, 20; stages 1-3 at 100%)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
@@ -49,6 +49,7 @@ Scoreboard (2026-11-20)
 - D-10 · 2026-11-19 · Contact address is info@calckitchen.com on Contact, About, Privacy and Terms (owner: "lets do info email"; hello@ was never confirmed as a working mailbox).
 - D-11 · 2026-11-19 · EU/EEA/UK/CH visitors: Google Analytics waits for consent (owner: "yes for eu"). Consent Mode v2 region defaults in src/app/layout.tsx (analytics denied there, Google decides the region from the IP), our bar in src/components/instrument/ConsentBanner.tsx shown to European time zones, choice in localStorage ck-consent, "Cookie settings" in the footer. Replace all of it with Raptive's CMP if the site joins Raptive.
 - D-12 · 2026-11-19 · Terms of use: Slovenian law governs (owner: "yes ok").
+- D-13 · 2026-11-20 · Fields you type in wear the tint fill + a 4px action bottom line (DESIGN.md) — owner: "input field should be more highlighted in all input pages"; fields looked exactly like the white ink-bordered buttons and selects.
 
 ## §3 Rejected — don't re-propose
 - 2026-11-17 · Look A (red enamel oven panel) and look C (Roasting Facts label) as whole looks — owner picked B and took only A's knob.
@@ -75,6 +76,7 @@ Scoreboard (2026-11-20)
 - USDA FoodData Central: from an fdc.nal.usda.gov tab in Chrome, fetch('/portal-data/external/<fdcId>') returns the food JSON (nutrients per 100 g, foodMeasures) and POST /portal-data/external/search finds IDs, no key. api.nal.usda.gov with DEMO_KEY rate-limits after ~10 calls.
 - ncausa.org How-to-Brew-Coffee redirects to aboutcoffee.org/brewing/; the ratios live on the method pages (drip, pour-over, French press, cold brew, espresso).
 - Kit Hero: visual={null} gives a one-column hero; byline="date" shows "Last updated" only (policy pages); crumb is optional (home).
+- Recipe cost rows: desktop is a 5-column grid (min-width 760px); under 860px each row stacks with its own labels from data-l (CSS ::before), and the .p-cc wrappers are display:contents on desktop. tests/tools.spec.ts fails any visible field that sits off screen.
 - instrument.css is one flat stylesheet: a new rule with an existing class name silently restyles other pages (CK-009 p-checks/p-check hit the turkey and meat-time checkboxes; first CK-010 draft hit p-fig/p-bar/p-key of the turkey page and RoastChart). grep the class before adding it. Visual classes: p-viz, p-pan-, p-vbar, p-vkey, p-vsw, p-split, p-ratio, p-tier, p-stick, p-ball, p-sc-, p-th-, p-tr-.
 - On main since CK-008: .p-tk-maj/.p-tk-min/.p-sc-t are defined twice (oven knob ~l.42-45, dial ~l.78-80); the later rules win on both instruments. That is what the owner approved; change only with a look.
 - Michroma draws % and ° oddly: chart values go through G (HTML, Bars.tsx) or TG (SVG, Scales.tsx), which set those signs in Public Sans.
@@ -249,6 +251,15 @@ Scoreboard (2026-11-20)
 - Vercel firewall for the project: no custom configuration, default only.
 - Verified: GA4 reports read in the owner's Chrome. Unverified: whether the China/Singapore hits reach Vercel or go straight to Google.
 - Commit: see branch (pushed: yes)
+### 2026-11-20 · CK-019 INPUT FIELDS · chat · done (preview; waiting for the owner's "merge")
+- What: owner: "input field should be more highlighted in all input pages". Every .p-in (18 calculators): tint #FFF1E8 fill, 4px #C2410C bottom line, text cursor, action border on hover, 3px action focus outline, muted placeholder; disabled fields paper, no line. Recipe cost under 860px: rows stack with labels (Ingredient, Recipe uses, Package price, Package size, Cost); before, 8 of 18 fields sat off screen in a sideways-scrolling row at 390px. DESIGN.md + D-13. No page dates changed (style only).
+- Files: src/app/(instrument)/instrument.css, src/components/calculators/RecipeCostCalculator.tsx, tests/tools.spec.ts (field check), DESIGN.md, DEVLOG.md
+- Verified: npm run build passes; test:e2e 56 passed, 0 failed, 0 skipped; the new field check fails on the old recipe cost layout (10 of 18 fields on screen) and on a planted white fill; check:numbers 18 scripts, 0 failed, 0 skipped; before/after screenshots at 390 and 1280 (turkey, recipe cost, cake pan, bakers, pizza, sourdough). Preview dpl_5i8Mph87NXjHrQxSgCPtyAuspBXu READY; owner's Chrome: hover turns the border orange, focus shows the outline, typing 20 lb updates the turkey answer, recipe cost desktop grid intact with 18 of 18 fields on screen. The 390 px layout was checked in Playwright Chromium only (the Chrome window would not shrink).
+- Commit: see branch (pushed: yes)
 
+### 2026-11-20 · CK-019 INPUT FIELDS · chat · live
+- What: PR #16 merged on the owner's "looks good, merge" (main c715100); production dpl_14K3wKS2LjGSQiMWpE9afXcAZyyo READY on the first try.
+- Verified on calckitchen.com in the owner's Chrome: recipe cost 18 of 18 fields on screen, fill rgb(255, 241, 232), 4px rgb(194, 65, 12) line, no sideways scroll; pizza dough editable fields tinted, the rules-fixed ones grey with an ink line.
+- Notes: main merged into claude/ck-018-ga-index (DEVLOG conflict resolved, both §6 entries kept) so PR #15 stays mergeable.
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)
