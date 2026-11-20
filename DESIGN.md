@@ -31,6 +31,7 @@ Blue and orange tell zones apart (not red/green). Links: ink text, orange underl
 - Container 1200px, 40px gutters (20px under 860px). Full-width bands for header, hero and footer.
 - Hero: knob 330px left, H1 + answer sentence + sub + byline right; full-width thermometer under it; calculator in an "instrument panel" (2px ink border, 1px dividers, 56px inputs) below.
 - Main grid: content + 300px rail. Rail = sticky 300×600 ad, then "More calculators".
+- Fields you type in (CK-019, owner 2026-11-20: make inputs stand out): tint #FFF1E8 fill, 2px ink border with a 4px action #C2410C bottom line, text cursor; hover turns the whole border action; focus = 3px action outline, 2px offset; placeholder in muted. Buttons, unit toggles and selects stay white with ink borders, so a field never looks like a button. Disabled fields: paper fill, ink border, no line. Every field stays on screen at 390 px (recipe cost rows stack with their own labels under 860 px).
 - Results row: readouts (Michroma value + Public Sans unit + caption) between 2px ink rules.
 - Section separators: tick-mark ruler (2px ink line, ticks every 12px, long tick every 60px).
 - Tables: 2px ink top and bottom header rules, 1px line rows, tint on the reader's row.

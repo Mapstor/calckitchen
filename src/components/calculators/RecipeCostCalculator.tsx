@@ -78,17 +78,21 @@ export default function RecipeCostCalculator() {
             </div>
             {rows.map((r, i) => (
               <div className="p-cost" key={i}>
-                <input className="p-in p-in-name" type="text" aria-label={`Ingredient ${i + 1}`} placeholder="Name" value={r.name} onChange={(e) => set(i, "name", e.target.value)} />
-                <span className="p-pair">
+                <span className="p-cc" data-l="Ingredient">
+                  <input className="p-in p-in-name" type="text" aria-label={`Ingredient ${i + 1}`} placeholder="Name" value={r.name} onChange={(e) => set(i, "name", e.target.value)} />
+                </span>
+                <span className="p-pair" data-l="Recipe uses">
                   <input className="p-in p-in-pct" type="text" inputMode="decimal" aria-label={`Ingredient ${i + 1} amount used`} value={r.used} onChange={(e) => set(i, "used", e.target.value)} />
                   {unitSel(i, "usedUnit", `Ingredient ${i + 1} unit used`)}
                 </span>
-                <input className="p-in p-in-pct" type="text" inputMode="decimal" aria-label={`Ingredient ${i + 1} package price, dollars`} placeholder="$" value={r.price} onChange={(e) => set(i, "price", e.target.value)} />
-                <span className="p-pair">
+                <span className="p-cc" data-l="Package price">
+                  <input className="p-in p-in-pct" type="text" inputMode="decimal" aria-label={`Ingredient ${i + 1} package price, dollars`} placeholder="$" value={r.price} onChange={(e) => set(i, "price", e.target.value)} />
+                </span>
+                <span className="p-pair" data-l="Package size">
                   <input className="p-in p-in-pct" type="text" inputMode="decimal" aria-label={`Ingredient ${i + 1} package size`} value={r.size} onChange={(e) => set(i, "size", e.target.value)} />
                   {unitSel(i, "sizeUnit", `Ingredient ${i + 1} package unit`)}
                 </span>
-                <span className="p-cost-v">{costs[i].v !== null ? money(costs[i].v as number) : costs[i].why ? costs[i].why : "—"}</span>
+                <span className="p-cost-v" data-l="Cost">{costs[i].v !== null ? money(costs[i].v as number) : costs[i].why ? costs[i].why : "—"}</span>
               </div>
             ))}
           </div>
