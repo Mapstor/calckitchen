@@ -2,20 +2,20 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-20 · CK-015_
+_last update: 2026-11-20 · CK-016_
 - Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. CK-012 adds the last 3 section drawings and self-hosted fonts. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
-- Last confirmed: CK-014 tool tests + sitemap dates — live 2026-11-20 (PR #11 merged on the owner's "merge", main 2ed9d57; push build READY first try; live sitemap.xml lastmod 24 × 2026-11-19, turkey 2026-11-18).
-- In flight (NOT merged): CK-015 on claude/ck-015-snippets — 19 meta descriptions trimmed to 155 characters or fewer, same figures; merge waits for the owner's OK.
-- Next action: owner says merge → PR CK-015 → production READY. GSC indexing requests: refused "Quota Exceeded" at 2026-11-19 20:10 and 2026-11-20 09:40 CET; retry later on 2026-11-20 (the quota may run on a rolling 24 h from the 2026-11-19 requests), ~9 a day: cake-servings, bakers-percentage, recipe-cost, then the 14 CK-009 pages. Then freeze for three months (devlog: review with GSC and GA numbers), except owner-side Raptive steps.
-- Waiting on owner: top-30 read for Raptive (log date and URLs here); give Raptive view access in GA4 when applying.
+- Last confirmed: CK-015 SNIPPETS — live 2026-11-20 (PR #12 merged on the owner's "merge", main aebe33a; push build READY first try). Owner's read of all 25 pages: 2026-11-20, "they are ok" (Raptive human-review evidence, see §6).
+- In flight (NOT merged): CK-016 on claude/ck-016-owner-read — DEVLOG only (owner's read, GSC log).
+- Next action: GSC indexing requests as slots free up (Google frees each about 24 h after the 2026-11-19 requests): done /cake-servings-calculator 2026-11-20 09:46; refused at 09:47 and 09:52; scheduled retries 10:30 and 13:30 CET in the owner's Chrome. Order: bakers-percentage, recipe-cost, butter, cooking-measurement, coffee, sourdough, recipe-scaler, recipe-macro, party-food, pizza, slow-cooker, microwave. Then Raptive application by the owner; then freeze.
+- Waiting on owner: Raptive application with GA4 view access for Raptive. Merged branches are deleted only at the finishing line (owner, 2026-11-20): list them then, not before.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
 Scoreboard (2026-11-19)
     Stage 1 numbers and sources: 25 of 25 pages live on registry rows + check scripts; npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
     Stage 2 anti-slop: 23 of 23 scored pages at target (portfolio-qa prose-score 2026-11-19 on a local build: 13,319 words, 2 hits, both the Wilton article title in Sources; legal pages excluded) · bad at start 6/10
     Stage 3 impeccable and user tests: 25 pages in the picked look; drawings on all 20 calculators; Playwright suite 56 tests (20 tools + 5 static + 404 at 390 and 1280, consent bar), 0 failed, 0 skipped; QA sweep P0 0, P1 0 · bad at start ?/10
-    Stage 4 Raptive: ~45% (author identity sitewide, About rewritten, privacy and terms match the stack; mailbox, consent, top-30 read pending) · bad at start 7/10
+    Stage 4 Raptive (owner's read of all 25 pages logged 2026-11-20; consent, trust frame, 404 live; left: GA view access + application): ~45% (author identity sitewide, About rewritten, privacy and terms match the stack; mailbox, consent, top-30 read pending) · bad at start 7/10
     Whole site: ~72% live (stage weights 30, 20, 30, 20)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
 
@@ -223,6 +223,16 @@ Scoreboard (2026-11-19)
 ### 2026-11-20 · CK-015 SNIPPETS · chat · done (preview pending; waiting for the owner's OK, not merged)
 - What: 19 meta descriptions over 155 characters trimmed (home, About, Privacy and 16 calculators); every figure kept as it was; the recipe macros one keeps the phrase its check script looks for.
 - Verified: check:numbers 18 scripts 0 failed 0 skipped (macros check caught the first wording); npm run build passes; test:e2e 56 passed, 0 failed, 0 skipped; sweep on the local build: P2 description warnings 19 → 0, title warnings 21 (kept, see §5).
+- Commit: see branch (pushed: yes)
+
+### 2026-11-20 · CK-015 SNIPPETS · chat · live
+- What: PR #12 merged on the owner's "merge"; main aebe33a; push build READY first try.
+- Commit: aebe33a (merge)
+
+### 2026-11-20 · CK-016 OWNER READ + GSC LOG · chat · done (DEVLOG only)
+- What: owner's read for Raptive (raptive-ready step 10): 2026-11-20, owner: "read them they are ok". Pages: /, /about, /contact, /privacy-policy, /terms-of-use, /air-fryer-converter, /bakers-percentage-calculator, /butter-converter, /cake-pan-converter, /cake-servings-calculator, /coffee-ratio-calculator, /convection-oven-converter, /cooking-measurement-converter, /meat-cooking-time-calculator, /meat-temperature-chart, /microwave-to-oven-converter, /oven-temperature-converter, /party-food-calculator, /pizza-dough-calculator, /recipe-cost-calculator, /recipe-macro-calculator, /recipe-scaler, /slow-cooker-to-oven-converter, /sourdough-calculator, /turkey-cooking-calculator (all 25; fewer than 30, so all).
+- GSC: indexing requested /cake-servings-calculator 2026-11-20 09:46 ("added to a priority crawl queue"); /bakers-percentage-calculator refused "Quota Exceeded" 09:47 and 09:52.
+- Verified: GSC dialogs seen in Chrome. Unverified: nothing else changed.
 - Commit: see branch (pushed: yes)
 
 ## §7 History & archive
