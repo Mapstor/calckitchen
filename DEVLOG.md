@@ -2,12 +2,12 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-19 · CK-014_
+_last update: 2026-11-20 · CK-015_
 - Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. CK-012 adds the last 3 section drawings and self-hosted fonts. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: live site, not on Raptive. GSC: sitemap /sitemap.xml read 2026-11-18, Success, 25 pages. 7 pages indexed before CK-008. Indexing requested 2026-11-19 for /, turkey, meat-temperature-chart, meat-cooking-time-calculator, air-fryer-converter, convection-oven-converter, oven-temperature-converter, pizza-dough-calculator, cake-pan-converter; daily quota then exceeded.
-- Last confirmed: CK-013 EU consent + brand images + og:image + 404 — live 2026-11-19 (PR #10 merged on the owner's "merge", main e719320; push build READY first try; Chrome on calckitchen.com: consent bar shows in Europe/Ljubljana, og:image and the page's own twitter:title on /cake-servings-calculator, new icon, /no-such-page 404).
-- In flight (NOT merged): CK-014 on claude/ck-014-tool-tests — Playwright suite (56 tests), page dates in src/data/updated.ts as the sitemap lastmod (was the build time), D-12; merge waits for the owner's OK.
-- Next action: owner says merge → PR CK-014 → production READY + live sitemap check → 2026-11-20 from 09:00 CET: GSC indexing requests (~9 a day; property https://calckitchen.com/ at search.google.com/u/5/ in the owner's Chrome; 2026-11-19 quota already used) → P2 titles/descriptions with keyword data.
+- Last confirmed: CK-014 tool tests + sitemap dates — live 2026-11-20 (PR #11 merged on the owner's "merge", main 2ed9d57; push build READY first try; live sitemap.xml lastmod 24 × 2026-11-19, turkey 2026-11-18).
+- In flight (NOT merged): CK-015 on claude/ck-015-snippets — 19 meta descriptions trimmed to 155 characters or fewer, same figures; merge waits for the owner's OK.
+- Next action: owner says merge → PR CK-015 → production READY. GSC indexing requests: refused "Quota Exceeded" at 2026-11-19 20:10 and 2026-11-20 09:40 CET; retry later on 2026-11-20 (the quota may run on a rolling 24 h from the 2026-11-19 requests), ~9 a day: cake-servings, bakers-percentage, recipe-cost, then the 14 CK-009 pages. Then freeze for three months (devlog: review with GSC and GA numbers), except owner-side Raptive steps.
 - Waiting on owner: top-30 read for Raptive (log date and URLs here); give Raptive view access in GA4 when applying.
 - Open questions: Bing Webmaster account? Raptive application timing?
 
@@ -90,7 +90,7 @@ Scoreboard (2026-11-19)
 - [P2] Full external-link check of every Sources list (ask.usda.gov on /air-fryer-converter loaded badly 2026-11-17).
 - [P2] Next.js 16.1.6 → 16.4.6: npm audit (prod) 2026-11-17 = 1 critical (next: request smuggling in rewrites, next/image disk cache growth), 4 high (sharp, postcss, nanoid, source-map-js), 1 moderate.
 - [P3] Visuals not done (CK-011 covers 15 page bodies): sourdough feeding, baker's percentage body, recipe cost body, recipe scaler result; home/About/policy pages need none.
-- [P2] QA sweep 2026-11-19 (local build): P0 0, P1 0 after the 404 page; P2: 21 titles over length, 19 meta descriptions over length, /contact thin (fine for a contact page). Shorten titles/descriptions only with keyword data.
+- [P2] QA sweep 2026-11-20 (local build): P0 0, P1 0, P2 22: 21 titles over length (kept: Google's title guidance says to brand titles; shorten the keyword part only with keyword data), /contact thin (fine for a contact page). Descriptions fixed in CK-015.
 - [P3] Re-measure eslint (576 errors before the rebuild, mostly unescaped apostrophes in the old page copy).
 
 ## §6 Log (append-only, newest at bottom)
@@ -213,6 +213,16 @@ Scoreboard (2026-11-19)
 ### 2026-11-19 · CK-014 TOOL TESTS + SITEMAP DATES · chat · done (preview; waiting for the owner's OK, not merged)
 - What: Playwright (@playwright/test 1.65.1, playwright.config.ts, tests/tools.spec.ts, tests/consent.spec.ts, npm run test:e2e); src/data/updated.ts holds every page's "Updated" date and feeds the sitemap lastmod (sitemap used the build time for every page); D-12; CLAUDE.md test and date lines.
 - Verified: npm run build passes in the shell; PW_CHROMIUM=/opt/pw-browsers/chromium-1243/chrome-linux64/chrome npx playwright test: 56 passed, 0 failed, 0 skipped; sitemap.xml lastmod 24 × 2026-11-19, turkey 2026-11-18; tsc 0, eslint 0 on changed files; check:numbers 18 scripts 0 failed 0 skipped.
+- Commit: see branch (pushed: yes)
+
+### 2026-11-20 · CK-014 TOOL TESTS + SITEMAP DATES · chat · live
+- What: PR #11 merged on the owner's "merge"; main 2ed9d57; push build READY first try. GSC: indexing request refused again (Quota Exceeded, 09:40 CET).
+- Verified: live https://calckitchen.com/sitemap.xml lastmod 24 × 2026-11-19, 1 × 2026-11-18.
+- Commit: 2ed9d57 (merge)
+
+### 2026-11-20 · CK-015 SNIPPETS · chat · done (preview pending; waiting for the owner's OK, not merged)
+- What: 19 meta descriptions over 155 characters trimmed (home, About, Privacy and 16 calculators); every figure kept as it was; the recipe macros one keeps the phrase its check script looks for.
+- Verified: check:numbers 18 scripts 0 failed 0 skipped (macros check caught the first wording); npm run build passes; test:e2e 56 passed, 0 failed, 0 skipped; sweep on the local build: P2 description warnings 19 → 0, title warnings 21 (kept, see §5).
 - Commit: see branch (pushed: yes)
 
 ## §7 History & archive

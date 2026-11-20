@@ -12,7 +12,7 @@ const URL = "https://calckitchen.com/recipe-macro-calculator";
 const UPDATED = UPDATED_AT["recipe-macro-calculator"];
 const TITLE = "Recipe Macro Calculator: Calories, Protein, Carbs and Fat per Serving";
 const DESC =
-  "Add up a recipe's calories, protein, carbs and fat per serving from ingredient weights, with USDA FoodData Central values for 23 common ingredients or your own label figures.";
+  "A recipe's calories, protein, carbs and fat per serving, with USDA FoodData Central values for 23 common ingredients or your own label figures.";
 
 export const metadata: Metadata = {
   title: TITLE,

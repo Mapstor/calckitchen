@@ -22,11 +22,11 @@ const UPDATED = UPDATED_AT["turkey-cooking-calculator"];
 export const metadata: Metadata = {
   title: "Turkey Cooking Time Calculator by Weight (+ Thawing Times)",
   description:
-    "How long to cook a turkey by weight, from the USDA's 325°F roasting timetable, stuffed or not. Plus frying, grilling and smoking times, thawing and a dinner timeline.",
+    "How long to cook a turkey by weight, from the USDA's 325°F roasting timetable, stuffed or not, plus frying, grilling, smoking, thawing and a dinner plan.",
   openGraph: {
     title: "Turkey Cooking Time Calculator by Weight (+ Thawing Times)",
     description:
-      "How long to cook a turkey by weight, from the USDA's 325°F roasting timetable, stuffed or not. Plus frying, grilling and smoking times, thawing and a dinner timeline.",
+      "How long to cook a turkey by weight, from the USDA's 325°F roasting timetable, stuffed or not, plus frying, grilling, smoking, thawing and a dinner plan.",
     url: "https://calckitchen.com/turkey-cooking-calculator",
     type: "website",
     images: OG_IMAGES,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Turkey Cooking Time Calculator by Weight (+ Thawing Times)",
     description:
-      "How long to cook a turkey by weight, from the USDA's 325°F roasting timetable, stuffed or not. Plus frying, grilling and smoking times, thawing and a dinner timeline.",
+      "How long to cook a turkey by weight, from the USDA's 325°F roasting timetable, stuffed or not, plus frying, grilling, smoking, thawing and a dinner plan.",
     images: TW_IMAGES,
   },
   alternates: {

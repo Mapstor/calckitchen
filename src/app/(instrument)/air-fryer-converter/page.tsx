@@ -15,7 +15,7 @@ const URL = "https://calckitchen.com/air-fryer-converter";
 const UPDATED = UPDATED_AT["air-fryer-converter"];
 const TITLE = "Oven to Air Fryer Converter: Temperature and Time";
 const DESC =
-  "Convert an oven recipe to the air fryer: 25 to 30°F lower and 20% less time, per University of Illinois Extension. 400°F for 25 minutes becomes 370 to 375°F for 20 minutes.";
+  "Oven recipe to air fryer: 25 to 30°F lower and 20% less time, per University of Illinois Extension. 400°F for 25 minutes becomes 370 to 375°F for 20.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -15,7 +15,7 @@ const URL = "https://calckitchen.com/convection-oven-converter";
 const UPDATED = UPDATED_AT["convection-oven-converter"];
 const TITLE = "Convection Oven Converter: Conventional to Convection Bake and Roast";
 const DESC =
-  "Convert a regular oven recipe to convection: bake 25°F lower and use the recipe's shortest time; roast at the same temperature for 25% less time. 350°F becomes 325°F.";
+  "Regular oven recipe to convection: bake 25°F lower and use the shortest time; roast at the same temperature for 25% less time. 350°F becomes 325°F.";
 
 export const metadata: Metadata = {
   title: TITLE,

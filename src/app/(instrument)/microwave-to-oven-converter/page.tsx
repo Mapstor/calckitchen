@@ -13,7 +13,7 @@ const URL = "https://calckitchen.com/microwave-to-oven-converter";
 const UPDATED = UPDATED_AT["microwave-to-oven-converter"];
 const TITLE = "Microwave to Oven Converter: Cooking Times, Wattage and Recipe Size";
 const DESC =
-  "Convert oven and stovetop times to the microwave and back: GE Appliances says a microwave needs 1/4 to 1/3 of the conventional time. Plus wattage and half or double recipes.";
+  "Convert oven and stovetop times to the microwave and back: GE Appliances says 1/4 to 1/3 of the conventional time. Plus wattage and half or double recipes.";
 
 export const metadata: Metadata = {
   title: TITLE,

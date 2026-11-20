@@ -14,7 +14,7 @@ const URL = "https://calckitchen.com/cake-servings-calculator";
 const UPDATED = UPDATED_AT["cake-servings-calculator"];
 const TITLE = "Cake Servings Calculator: Party and Wedding Servings by Pan Size";
 const DESC =
-  "How many people a cake feeds, from Wilton's serving chart: an 8-inch round two-layer cake serves 20 at a party or 24 at a wedding. Stack tiers to see the total.";
+  "How many people a cake feeds, from Wilton's chart: an 8-inch round two-layer cake serves 20 at a party or 24 at a wedding. Stack tiers to see the total.";
 
 export const metadata: Metadata = {
   title: TITLE,

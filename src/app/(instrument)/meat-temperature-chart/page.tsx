@@ -13,7 +13,7 @@ const URL = "https://calckitchen.com/meat-temperature-chart";
 const UPDATED = UPDATED_AT["meat-temperature-chart"];
 const TITLE = "Meat Temperature Chart: USDA Safe Internal Temperatures and Doneness";
 const DESC =
-  "Safe internal temperatures from the USDA chart: 145°F for steaks, chops and roasts with a 3-minute rest, 160°F for ground meat, 165°F for poultry. Plus beef doneness and fish.";
+  "Safe internal temperatures from the USDA chart: 145°F for steaks, chops and roasts with a 3-minute rest, 160°F for ground meat, 165°F for poultry.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -10,7 +10,7 @@ import { UPDATED_AT } from "@/data/updated";
 const UPDATED = UPDATED_AT[""];
 const TITLE = "CalcKitchen: Kitchen Calculators for Cooking Times, Conversions and Baking";
 const DESC =
-  "20 free kitchen calculators: turkey and meat cooking times, oven, air fryer and microwave conversions, baking and recipe tools. Every figure traced to its published source.";
+  "20 free kitchen calculators: turkey and meat cooking times, oven, air fryer and microwave conversions, baking and recipe tools, every figure sourced.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

@@ -12,7 +12,7 @@ const URL = "https://calckitchen.com/butter-converter";
 const UPDATED = UPDATED_AT["butter-converter"];
 const TITLE = "Butter Converter: Sticks to Cups, Grams, Tablespoons and Ounces";
 const DESC =
-  "A stick of butter is 1/2 cup, 8 tablespoons, 4 ounces or 113 grams. Convert butter between sticks, cups, tablespoons, grams, ounces and pounds, plus USDA calories.";
+  "A stick of butter is 1/2 cup, 8 tablespoons, 4 ounces or 113 grams. Convert butter between sticks, cups, tablespoons, grams, ounces and pounds.";
 
 export const metadata: Metadata = {
   title: TITLE,

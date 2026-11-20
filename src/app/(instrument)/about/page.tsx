@@ -11,7 +11,7 @@ import { UPDATED_AT } from "@/data/updated";
 const UPDATED = UPDATED_AT["about"];
 const TITLE = "About CalcKitchen";
 const DESC =
-  "Who makes CalcKitchen: Marko Visic, MPharm (Faculty of Pharmacy, University of Ljubljana, Slovenia). 20 free kitchen calculators and where every figure comes from.";
+  "Who makes CalcKitchen: Marko Visic, MPharm, Faculty of Pharmacy, University of Ljubljana. 20 free kitchen calculators and where every figure comes from.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

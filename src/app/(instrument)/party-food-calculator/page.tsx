@@ -12,7 +12,7 @@ const URL = "https://calckitchen.com/party-food-calculator";
 const UPDATED = UPDATED_AT["party-food-calculator"];
 const TITLE = "Party Food Calculator: How Much Food per Person for Any Crowd";
 const DESC =
-  "How much meat, sides, dessert and drinks to buy per guest, from the FDA and USDA reference serving sizes: 4 oz raw meat, 2 tbsp dip, 2/3 cup ice cream, one 12 oz drink.";
+  "How much meat, sides, dessert and drinks per guest, from FDA and USDA reference servings: 4 oz raw meat, 2 tbsp dip, 2/3 cup ice cream, a 12 oz drink.";
 
 export const metadata: Metadata = {
   title: TITLE,

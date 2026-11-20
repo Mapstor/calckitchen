@@ -12,7 +12,7 @@ const URL = "https://calckitchen.com/sourdough-calculator";
 const UPDATED = UPDATED_AT["sourdough-calculator"];
 const TITLE = "Sourdough Calculator: Dough, Starter Feeding and Hydration";
 const DESC =
-  "Work out sourdough dough by baker's percentages, with hydration that counts the starter's flour and water. Feed and build a starter the King Arthur way: 1:1:1 by weight.";
+  "Sourdough by baker's percentages, with hydration that counts the starter's flour and water. Feed and build a starter the King Arthur way: 1:1:1 by weight.";
 
 export const metadata: Metadata = {
   title: TITLE,
