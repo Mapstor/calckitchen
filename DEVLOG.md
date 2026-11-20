@@ -2,12 +2,12 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-20 · CK-019_
+_last update: 2026-11-20 · CK-020_
 - Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: finishing line (owner, 2026-11-20), live, not on Raptive. Bing: 25 URLs submitted 2026-11-20 09:59 CET + https://calckitchen.com/sitemap.xml added. GSC: sitemap resubmitted and read 2026-11-20 (Success, 25 pages); 7 pages indexed, all last crawled 2026-09-04 to 2026-11-02 (before the redesign); indexing requested for 10 pages (9 on 2026-11-19, /cake-servings-calculator 2026-11-20 09:46).
 - Last confirmed: CK-019 INPUT FIELDS — live 2026-11-20 (PR #16 merged on the owner's "merge", main c715100, production READY first try).
-- In flight (NOT merged): CK-018 on claude/ck-018-ga-index (PR #15, DEVLOG only: GA4 check, today's GSC retries); waits for the owner's "merge".
-- Next action: GSC Request indexing for the 15 pages left as slots free (about 10 per rolling 24 h, see §4; 2026-11-19 requests were made about 12:20 (2) and 13:20-13:40 CET (7)). Order: butter-converter, cooking-measurement-converter, coffee-ratio-calculator, sourdough-calculator, recipe-scaler, recipe-macro-calculator, party-food-calculator, slow-cooker-to-oven-converter, microwave-to-oven-converter (never indexed), bakers-percentage-calculator, recipe-cost-calculator (indexed, old crawl), about, contact, privacy-policy, terms-of-use. Scheduled retries in this session: 12:40 and 13:50 CET (moved on the owner's OK). Then the owner's Raptive application; then freeze for 3 months.
+- In flight (NOT merged): CK-020 on claude/ck-020-gsc-retries (PR #17) — DEVLOG only (today's GSC retries); waits for the owner's "merge".
+- Next action: GSC Request indexing for the 15 pages left as slots free (about 10 per rolling 24 h, see §4; 2026-11-19 requests were made about 12:20 (2) and 13:20-13:40 CET (7)). Order: butter-converter, cooking-measurement-converter, coffee-ratio-calculator, sourdough-calculator, recipe-scaler, recipe-macro-calculator, party-food-calculator, slow-cooker-to-oven-converter, microwave-to-oven-converter (never indexed), bakers-percentage-calculator, recipe-cost-calculator (indexed, old crawl), about, contact, privacy-policy, terms-of-use. Today's 12:40 and 13:50 retries were refused by the quota; no retry is scheduled (needs the owner's OK; a slot opened at 09:46 on 2026-11-20). The sitemap, read 2026-11-20, covers discovery meanwhile. Then the owner's Raptive application; then freeze for 3 months.
 - Waiting on owner: OK for a Vercel firewall rule that denies China and Singapore (the GA4 bots, §6 CK-018); Raptive application with GA4 view access; check that mail to info@calckitchen.com arrives (MX = Namecheap email forwarding, needs an info@ alias or catch-all there); delete or keep the 17 merged branches (all merged into main, checked 2026-11-20): claude/ck-002-turkeyfix, ck-003-design1, ck-005-live-log, ck-006-author, ck-007-mac-notes, ck-007-mac-notes-log, ck-008-ten-pages, ck-009-rest, ck-011-body-visuals, ck-012-last-visuals, ck-013-eu-consent, ck-014-tool-tests, ck-015-snippets, ck-016-owner-read, ck-017-index-submit, ck-019-input-fields, claude/live-sync.
 - Open questions: Raptive application timing? Which Microsoft account owns the Bing site (signed in in the owner's Chrome)?
 
@@ -63,7 +63,7 @@ Scoreboard (2026-11-20)
 - Never deploy with the Vercel CLI from a local folder: it ships uncommitted files (2026-02-22: 13 calculators GitHub didn't have, fixed by CK-005). Deploy from main.
 - docs/mac-notes/content/*.md are the Feb 2026 drafts the pages were generated from, with the same unsourced figures. Never use them as a source.
 - Ad slots: the design reserves the rail and gaps; no empty .p-ad boxes before Raptive runs. The sticky-footer padding (124px, 80px phone) comes back with Raptive.
-- GSC: 7 pages were already indexed by 2026-11-19 (Google crawled the site before 2026-11-18). URL Inspection of a page not yet indexed says "URL is unknown to Google"; that is per page, not the site. Request indexing allows about 10 per rolling 24 h on this property (2026-11-19/20: after ~10 accepted, "Quota Exceeded" until a request turned 24 h old; refused clicks don't seem to count). Spend slots on never-indexed pages first; the sitemap lastmod covers re-crawls of indexed ones.
+- GSC: 7 pages were already indexed by 2026-11-19 (Google crawled the site before 2026-11-18). URL Inspection of a page not yet indexed says "URL is unknown to Google"; that is per page, not the site. Request indexing quota: about 10 a day; when slots free is unclear. 2026-11-20: accepted 09:46; "Quota Exceeded" at 09:40, 09:47, 09:52, 09:55, 10:01, 12:42 and 13:53, although the 2026-11-19 requests were made around 12:20 and 13:20. Spend slots on never-indexed pages first; the sitemap lastmod covers re-crawls of indexed ones.
 - GA4 "Direct" sessions from China and Singapore (0-1% engaged, 0-1 s) are bots: 32% of users on 2026-10-23 to 11-19. GA4 data filters can't drop a country; only a firewall rule can, and only if the bots load the pages. Read real reach from Organic Search and engaged sessions. The owner's own checks show up as Slovenia/Ljubljana.
 - Gas mark °C values differ between UK charts (gas mark 3 is 160°C on Which?, 170°C on Currys): follow Which? only (research/sources/oven-temps.json); a new chart needs its own registry row.
 - The oven dial is a component: src/components/instrument/Knob.tsx (tempF prop); LiveKnob.tsx follows the oven converter. CSS var --k turns it; the old static KNOB_325_SVG string is gone.
@@ -261,5 +261,10 @@ Scoreboard (2026-11-20)
 - What: PR #16 merged on the owner's "looks good, merge" (main c715100); production dpl_14K3wKS2LjGSQiMWpE9afXcAZyyo READY on the first try.
 - Verified on calckitchen.com in the owner's Chrome: recipe cost 18 of 18 fields on screen, fill rgb(255, 241, 232), 4px rgb(194, 65, 12) line, no sideways scroll; pizza dough editable fields tinted, the rules-fixed ones grey with an ink line.
 - Notes: main merged into claude/ck-018-ga-index (DEVLOG conflict resolved, both §6 entries kept) so PR #15 stays mergeable.
+
+### 2026-11-20 · CK-020 GSC RETRIES · chat · done (DEVLOG only)
+- What: PR #15 merged on the owner's "1 merge" (main 24dbb5a, production READY, homepage loads). Scheduled retry 12:40: /butter-converter inspected ("URL is unknown to Google", no referring sitemap shown yet), Request indexing refused "Quota Exceeded" at 12:42; stopped there. Retry 13:50: refused again at 13:53 on the same page. 15 pages still to request; next try needs the owner's OK for a scheduled task (a slot opened at 09:46 today).
+- Verified: inspected URL confirmed before the click; GSC dialog seen in the owner's Chrome.
+- Commit: see branch (pushed: yes)
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)
