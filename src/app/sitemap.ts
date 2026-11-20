@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { UPDATED_AT } from "@/data/updated";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://calckitchen.com";
@@ -30,27 +31,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Footer/utility pages
   const utilityPages = ["about", "contact", "privacy-policy", "terms-of-use"];
 
-  const currentDate = new Date().toISOString();
 
   return [
     // Homepage - highest priority
     {
       url: baseUrl,
-      lastModified: currentDate,
+      lastModified: UPDATED_AT[""],
       changeFrequency: "weekly",
       priority: 1.0,
     },
     // Calculator pages - high priority
     ...calculatorPages.map((slug) => ({
       url: `${baseUrl}/${slug}`,
-      lastModified: currentDate,
+      lastModified: UPDATED_AT[slug],
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
     // Utility pages - lower priority
     ...utilityPages.map((slug) => ({
       url: `${baseUrl}/${slug}`,
-      lastModified: currentDate,
+      lastModified: UPDATED_AT[slug],
       changeFrequency: "yearly" as const,
       priority: 0.3,
     })),

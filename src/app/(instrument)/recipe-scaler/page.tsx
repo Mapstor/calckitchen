@@ -6,9 +6,10 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { EGG_G, SRC_SCALE, measure, toTsp, type EggSize } from "@/data/scaler";
 import Strips from "@/components/instrument/Strips";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/recipe-scaler";
-const UPDATED = "2026-11-19"; // CK-009: rebuilt; cup and spoon measures from NIST, egg weights from USDA FoodData Central
+const UPDATED = UPDATED_AT["recipe-scaler"];
 const TITLE = "Recipe Scaler: Double, Halve or Resize a Recipe by Servings";
 const DESC =
   "Paste a recipe and scale it to any number of servings. Cup and spoon amounts come out as measures you can scoop, part-eggs as grams of beaten egg.";

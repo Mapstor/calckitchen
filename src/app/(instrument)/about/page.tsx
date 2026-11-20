@@ -6,8 +6,9 @@ import { BreadcrumbJsonLd, OrganizationJsonLd, PersonJsonLd } from "@/components
 import { AUTHOR } from "@/data/author";
 import { NAV, RAIL_DEFAULT } from "@/data/site-nav";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
-const UPDATED = "2026-11-19"; // CK-009: About rewritten for the picked look; sourcing section matches the rebuilt pages
+const UPDATED = UPDATED_AT["about"];
 const TITLE = "About CalcKitchen";
 const DESC =
   "Who makes CalcKitchen: Marko Visic, MPharm (Faculty of Pharmacy, University of Ljubljana, Slovenia). 20 free kitchen calculators and where every figure comes from.";

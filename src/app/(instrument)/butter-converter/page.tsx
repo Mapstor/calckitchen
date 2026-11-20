@@ -6,9 +6,10 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { CHART_GRAMS, CHART_STICKS, FDC_BUTTER, SRC_BUTTER, STICK_G, amt, fromSticks, grams, toSticks } from "@/data/butter";
 import Strips from "@/components/instrument/Strips";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/butter-converter";
-const UPDATED = "2026-11-19"; // CK-009: rebuilt on Land O'Lakes' stick table and USDA FoodData Central
+const UPDATED = UPDATED_AT["butter-converter"];
 const TITLE = "Butter Converter: Sticks to Cups, Grams, Tablespoons and Ounces";
 const DESC =
   "A stick of butter is 1/2 cup, 8 tablespoons, 4 ounces or 113 grams. Convert butter between sticks, cups, tablespoons, grams, ounces and pounds, plus USDA calories.";

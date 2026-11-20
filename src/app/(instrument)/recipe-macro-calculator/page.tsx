@@ -6,9 +6,10 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { FDC_FOOD, FOODS, SAMPLE, SAMPLE_SERVINGS, SRC_FDC, grams, macrosFor, r0, r1, sumMacros } from "@/data/macros";
 import Bars, { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/recipe-macro-calculator";
-const UPDATED = "2026-11-19"; // CK-009: rebuilt on USDA FoodData Central SR Legacy values for 23 ingredients
+const UPDATED = UPDATED_AT["recipe-macro-calculator"];
 const TITLE = "Recipe Macro Calculator: Calories, Protein, Carbs and Fat per Serving";
 const DESC =
   "Add up a recipe's calories, protein, carbs and fat per serving from ingredient weights, with USDA FoodData Central values for 23 common ingredients or your own label figures.";

@@ -4,8 +4,9 @@ import { Hero, Main, Sec, ext } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { RAIL_DEFAULT } from "@/data/site-nav";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
-const UPDATED = "2026-11-19"; // CK-009: matches what runs on the site: Google Analytics 4 and Vercel hosting; no ads or affiliate links
+const UPDATED = UPDATED_AT["privacy-policy"];
 const TITLE = "Privacy Policy";
 const DESC = "What CalcKitchen collects: Google Analytics 4 usage statistics and the request data our host Vercel needs to serve pages. No accounts, no ads, no affiliate links.";
 

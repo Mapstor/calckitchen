@@ -4,8 +4,9 @@ import { Hero, Main, Sec } from "@/components/instrument/kit";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { RAIL_DEFAULT } from "@/data/site-nav";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
-const UPDATED = "2026-11-19"; // CK-009: contact page in the picked look
+const UPDATED = UPDATED_AT["contact"];
 const TITLE = "Contact CalcKitchen";
 const DESC = "Email CalcKitchen at info@calckitchen.com about a wrong number, a broken calculator or a calculator you'd like to see.";
 

@@ -9,9 +9,10 @@ import { fToC } from "@/data/oven-temps";
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/convection-oven-converter";
-const UPDATED = "2026-11-19"; // CK-008: rebuilt on Frigidaire and GE Appliances guidance
+const UPDATED = UPDATED_AT["convection-oven-converter"];
 const TITLE = "Convection Oven Converter: Conventional to Convection Bake and Roast";
 const DESC =
   "Convert a regular oven recipe to convection: bake 25°F lower and use the recipe's shortest time; roast at the same temperature for 25% less time. 350°F becomes 325°F.";

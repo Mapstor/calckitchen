@@ -7,9 +7,10 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { SRC_BAKERS, bakersPct, d1 } from "@/data/bakers";
 import { Split, TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/bakers-percentage-calculator";
-const UPDATED = "2026-11-19"; // CK-008: rebuilt on King Arthur Baking's baker's percentage method
+const UPDATED = UPDATED_AT["bakers-percentage-calculator"];
 const TITLE = "Baker's Percentage Calculator: Hydration, Percentages and Scaling";
 const DESC =
   "Turn recipe weights into baker's percentages, see the hydration, and scale the dough to any weight. Flour is always 100%; 350 g water to 500 g flour is 70%.";

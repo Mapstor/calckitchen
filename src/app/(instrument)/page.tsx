@@ -5,8 +5,9 @@ import { Hero, Main, Sec } from "@/components/instrument/kit";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { NAV, RAIL_DEFAULT } from "@/data/site-nav";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
-const UPDATED = "2026-11-19"; // CK-009: home rebuilt in the picked look; descriptions match the rebuilt pages
+const UPDATED = UPDATED_AT[""];
 const TITLE = "CalcKitchen: Kitchen Calculators for Cooking Times, Conversions and Baking";
 const DESC =
   "20 free kitchen calculators: turkey and meat cooking times, oven, air fryer and microwave conversions, baking and recipe tools. Every figure traced to its published source.";

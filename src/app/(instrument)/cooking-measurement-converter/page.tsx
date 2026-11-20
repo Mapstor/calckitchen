@@ -6,9 +6,10 @@ import { BreadcrumbJsonLd, FAQPageJsonLd, WebApplicationJsonLd } from "@/compone
 import { FDC_FOOD, INGREDIENTS, MASS, SRC_MEASURES, VOL, dec, gramsPerCup, gtxt } from "@/data/measures";
 import Bars, { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/cooking-measurement-converter";
-const UPDATED = "2026-11-19"; // CK-009: rebuilt; ingredient weights from USDA FoodData Central, units from NIST
+const UPDATED = UPDATED_AT["cooking-measurement-converter"];
 const TITLE = "Cooking Measurement Converter: Cups to Grams, Tablespoons, Ounces";
 const DESC =
   "Convert cups to grams for 25 ingredients by USDA weights (a cup of flour is 125 g), plus exact US volume and weight units: cups, tablespoons, teaspoons, ounces, mL.";

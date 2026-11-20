@@ -8,9 +8,10 @@ import { SRC_WILTON, WILTON } from "@/data/wilton";
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/cake-servings-calculator";
-const UPDATED = "2026-11-19"; // CK-008: rebuilt on Wilton's cake serving chart
+const UPDATED = UPDATED_AT["cake-servings-calculator"];
 const TITLE = "Cake Servings Calculator: Party and Wedding Servings by Pan Size";
 const DESC =
   "How many people a cake feeds, from Wilton's serving chart: an 8-inch round two-layer cake serves 20 at a party or 24 at a wedding. Stack tiers to see the total.";

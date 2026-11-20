@@ -7,9 +7,10 @@ import { SRC_MW, forWattage, toMicrowave } from "@/data/microwave";
 import Dumbbells from "@/components/instrument/Dumbbells";
 import { TONE } from "@/components/instrument/Bars";
 import { OG_IMAGES, TW_IMAGES } from "@/data/social";
+import { UPDATED_AT } from "@/data/updated";
 
 const URL = "https://calckitchen.com/microwave-to-oven-converter";
-const UPDATED = "2026-11-19"; // CK-009: rebuilt on GE Appliances' microwave recipe-conversion rules
+const UPDATED = UPDATED_AT["microwave-to-oven-converter"];
 const TITLE = "Microwave to Oven Converter: Cooking Times, Wattage and Recipe Size";
 const DESC =
   "Convert oven and stovetop times to the microwave and back: GE Appliances says a microwave needs 1/4 to 1/3 of the conventional time. Plus wattage and half or double recipes.";
