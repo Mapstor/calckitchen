@@ -2,21 +2,21 @@
 > Handoff file. Read §0–§5 and the last 10 entries of §6 before any work. Rules: devlog skill (.claude/skills/devlog/SKILL.md).
 
 ## §0 Resume here
-_last update: 2026-11-25 · CK-021_
+_last update: 2026-11-25 · CK-022_
 - Step: all pages: all 25 pages live in the picked look; drawings in results (17 calculators) and page sections (15 pages) live. canvas https://claude.ai/artifact/JpAWbGoAFxj77wqGc55Jb5
 - Phase: finishing line (owner, 2026-11-20), live, not on Raptive. Bing: 25 URLs submitted 2026-11-20 09:59 CET + https://calckitchen.com/sitemap.xml added. GSC: sitemap resubmitted and read 2026-11-20 (Success, 25 pages); 7 pages indexed, all last crawled 2026-09-04 to 2026-11-02 (before the redesign); indexing requested for 10 pages (9 on 2026-11-19, /cake-servings-calculator 2026-11-20 09:46).
-- Last confirmed: CK-020 GSC RETRIES — merged 2026-11-25 (PR #17, main 1a213a6, production READY). Last site change: CK-019 INPUT FIELDS, live 2026-11-20.
-- In flight (NOT merged): none (CK-021 is this log entry, merged by Claude per D-14).
+- Last confirmed: CK-021 CLEANUP — merged 2026-11-25 (PR #18, main 980f6a6, production READY). Last site change: CK-019 INPUT FIELDS, live 2026-11-20. Vercel firewall rule (owner, 2026-11-21) denies China, Singapore and Hong Kong; GA4 shows none of them since.
+- In flight (NOT merged): none (CK-022 is this log entry, merged by Claude per D-14).
 - Next action: GSC Request indexing for the 15 pages left as slots free (about 10 per rolling 24 h, see §4; 2026-11-19 requests were made about 12:20 (2) and 13:20-13:40 CET (7)). Order: butter-converter, cooking-measurement-converter, coffee-ratio-calculator, sourdough-calculator, recipe-scaler, recipe-macro-calculator, party-food-calculator, slow-cooker-to-oven-converter, microwave-to-oven-converter (never indexed), bakers-percentage-calculator, recipe-cost-calculator (indexed, old crawl), about, contact, privacy-policy, terms-of-use. Today's 12:40 and 13:50 retries were refused by the quota; no retry is scheduled (needs the owner's OK; a slot opened at 09:46 on 2026-11-20). The sitemap, read 2026-11-20, covers discovery meanwhile. Then the owner's Raptive application; then freeze for 3 months.
-- Waiting on owner: the Vercel firewall rule denying China and Singapore (the GA4 bots, §6 CK-018) — the owner adds it himself (2026-11-25); check that mail to info@calckitchen.com arrives (MX = Namecheap email forwarding, needs an info@ alias or catch-all there); delete the 20 merged claude/ branches with the command in §6 CK-021 (cloud sessions cannot delete branches, §4); Raptive application with GA4 view access.
+- Waiting on owner: check that mail to info@calckitchen.com arrives (MX = Namecheap email forwarding, needs an info@ alias or catch-all there); Raptive application with GA4 view access, best once China/Singapore leave the 28-day GA view (from about 2026-12-09, clean by 2026-12-19); delete the log branch claude/ck-022-firewall-log at the next cleanup (cloud sessions cannot delete branches, §4).
 - Open questions: Raptive application timing? Which Microsoft account owns the Bing site (signed in in the owner's Chrome)?
 
 Scoreboard (2026-11-20)
     Stage 1 numbers and sources: 25 of 25 pages live on registry rows + check scripts; npm run check:numbers 18 scripts, 0 failed · bad at start 7/10
     Stage 2 anti-slop: 23 of 23 scored pages at target (portfolio-qa prose-score 2026-11-19 on a local build: 13,319 words, 2 hits, both the Wilton article title in Sources; legal pages excluded) · bad at start 6/10
     Stage 3 impeccable and user tests: 25 pages in the picked look; drawings on all 20 calculators; Playwright suite 56 tests (20 tools + 5 static + 404 at 390 and 1280, consent bar; since CK-019 every visible field on screen with the editable look), 0 failed, 0 skipped; QA sweep P0 0, P1 0 · bad at start ?/10
-    Stage 4 Raptive: ~85% — author identity sitewide, About, privacy and terms match the stack, EU consent, custom 404, owner's read of all 25 pages logged 2026-11-20; GA4 checked 2026-11-20 (54% of users US/CA/UK/AU, 32% zero-engagement bots from China/Singapore, no spikes); left: firewall rule (owner's OK), info@ mail check, GA view access + application (owner) · bad at start 7/10
-    Whole site: ~97% live (stage weights 30, 20, 30, 20; stages 1-3 at 100%)
+    Stage 4 Raptive: ~90% — author identity sitewide, About, privacy and terms match the stack, EU consent, custom 404, owner's read of all 25 pages logged 2026-11-20, GA4 checked 2026-11-20, firewall rule live 2026-11-21 (no China/Singapore/Hong Kong users since); left: info@ mail check, GA view access + application (owner) · bad at start 7/10
+    Whole site: ~98% live (stage weights 30, 20, 30, 20; stages 1-3 at 100%)
     Rule: a stage that starts at 2 or below is skipped or limited to its worst pages.
 
 ## §1 Site card
@@ -65,7 +65,7 @@ Scoreboard (2026-11-20)
 - docs/mac-notes/content/*.md are the Feb 2026 drafts the pages were generated from, with the same unsourced figures. Never use them as a source.
 - Ad slots: the design reserves the rail and gaps; no empty .p-ad boxes before Raptive runs. The sticky-footer padding (124px, 80px phone) comes back with Raptive.
 - GSC: 7 pages were already indexed by 2026-11-19 (Google crawled the site before 2026-11-18). URL Inspection of a page not yet indexed says "URL is unknown to Google"; that is per page, not the site. Request indexing quota: about 10 a day; when slots free is unclear. 2026-11-20: accepted 09:46; "Quota Exceeded" at 09:40, 09:47, 09:52, 09:55, 10:01, 12:42 and 13:53, although the 2026-11-19 requests were made around 12:20 and 13:20. Spend slots on never-indexed pages first; the sitemap lastmod covers re-crawls of indexed ones.
-- GA4 "Direct" sessions from China and Singapore (0-1% engaged, 0-1 s) are bots: 32% of users on 2026-10-23 to 11-19. GA4 data filters can't drop a country; only a firewall rule can, and only if the bots load the pages. Read real reach from Organic Search and engaged sessions. The owner's own checks show up as Slovenia/Ljubljana.
+- GA4 "Direct" sessions from China and Singapore (0-1% engaged, 0-1 s) are bots: 32% of users on 2026-10-23 to 11-19. GA4 data filters can't drop a country; the Vercel firewall rule (2026-11-21, deny CN/SG/HK) did: 0 users from those countries 2026-11-21 to 11-24, so the bots were loading the pages. Scattered zero-engagement visits from other countries (KR, VN, BR, EG, IN, JP, DZ) remain; don't block countries with real readers. Read real reach from Organic Search and engaged sessions. The owner's own checks show up as Slovenia/Ljubljana.
 - Gas mark °C values differ between UK charts (gas mark 3 is 160°C on Which?, 170°C on Currys): follow Which? only (research/sources/oven-temps.json); a new chart needs its own registry row.
 - The oven dial is a component: src/components/instrument/Knob.tsx (tempF prop); LiveKnob.tsx follows the oven converter. CSS var --k turns it; the old static KNOB_325_SVG string is gone.
 - Instrument page kit: src/components/instrument/kit.tsx (Hero, Main, Sec, Table, Faq, Sources), Knob/LiveKnob (oven dial), Dial/LiveDial (needle dial, any scale), live.ts (calculator -> hero instrument), Read.tsx. New page = data module + snapshot + check script + calculator + page.tsx in src/app/(instrument)/<slug>.
@@ -89,7 +89,7 @@ Scoreboard (2026-11-20)
 
 ## §5 Backlog (priority order)
 - [P1] GSC Request indexing for the 15 pages left, order in §0, as slots free; during the freeze check GSC Pages/Performance and Bing weekly.
-- [P1] Stage 4: Vercel firewall rule against the China/Singapore GA4 bots (owner's OK); info@calckitchen.com mail check; then the owner's Raptive application with GA view access (GA4 geography checked 2026-11-20, CK-018).
+- [P1] Stage 4: info@calckitchen.com mail check; then the owner's Raptive application with GA view access (GA4 geography checked 2026-11-20, firewall live 2026-11-21).
 - [P2] Full external-link check of every Sources list (ask.usda.gov on /air-fryer-converter loaded badly 2026-11-17).
 - [P2] Next.js 16.1.6 → 16.4.6: npm audit (prod) 2026-11-17 = 1 critical (next: request smuggling in rewrites, next/image disk cache growth), 4 high (sharp, postcss, nanoid, source-map-js), 1 moderate.
 - [P3] Visuals not done (CK-011 covers 15 page bodies): sourdough feeding, baker's percentage body, recipe cost body, recipe scaler result; home/About/policy pages need none.
@@ -274,6 +274,12 @@ Scoreboard (2026-11-20)
 - Branch deletion blocked: git push --delete and DELETE git/refs returned 403 ("Write access to this GitHub API path is not permitted through this proxy"); clicking Delete on GitHub's branches page in the owner's Chrome was refused by a safety check. Nothing was deleted.
 - Owner's command (deletes only these 20 branch names on GitHub; all commits are in main): cd /Users/markovisic/dev/calckitchen/app && git push origin --delete claude/ck-002-turkeyfix claude/ck-003-design1 claude/ck-005-live-log claude/ck-006-author claude/ck-007-mac-notes claude/ck-007-mac-notes-log claude/ck-008-ten-pages claude/ck-009-rest claude/ck-011-body-visuals claude/ck-012-last-visuals claude/ck-013-eu-consent claude/ck-014-tool-tests claude/ck-015-snippets claude/ck-016-owner-read claude/ck-017-index-submit claude/ck-018-ga-index claude/ck-019-input-fields claude/ck-020-gsc-retries claude/ck-021-cleanup claude/live-sync && git fetch --prune
 - Verified: branch list and ancestry from git; PR #17 merge and production build from Vercel. Unverified: GSC indexing since 2026-11-20 (not rechecked).
+- Commit: see branch (pushed: yes)
+
+### 2026-11-25 · CK-022 FIREWALL + BRANCHES · chat · done (DEVLOG only)
+- What: the owner ran the CK-021 command on his Mac: all 20 merged claude/ branches deleted on GitHub (only main left, checked with git ls-remote). The owner's Vercel firewall rule "continues" (added 2026-11-21 08:38 UTC): deny if country is SG, CN or HK; active, valid.
+- GA4 2026-11-21 to 11-24: 49 users; US 22, South Korea 3, Vietnam 3, Brazil 2, Canada 2, Egypt 2, India 2, Japan 2, Algeria 1, Australia 1 (19 countries); filters for China, Singapore and Hong Kong return no data. Engaged sessions: 9 of 10 from US/CA/AU.
+- Verified: firewall config read through the Vercel API; GA4 report read in the owner's Chrome; branch list from git. Unverified: GSC indexing since 2026-11-20.
 - Commit: see branch (pushed: yes)
 ## §7 History & archive
 - 2026-02 · initial build: 20 calculators, favicon, vercel.json, GA4 and Search Console/Bing verification (4 commits, 2026-02-22)
