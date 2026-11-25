@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { readFileSync } from "node:fs";
 import { ALL_TOOLS } from "../src/data/site-nav";
 
 // Every calculator: loads, no sideways scroll, readouts filled from the default inputs, a drawing on the page,
@@ -68,6 +69,17 @@ for (const path of ["/", "/about", "/contact", "/privacy-policy", "/terms-of-use
     await noSideways(page);
   });
 }
+
+test("about lists every source in the register, linked to the original", async ({ page }) => {
+  const ids = readFileSync("research/data-sources.csv", "utf8").split(/\r?\n/).filter((l) => /^[A-Z][A-Z0-9-]+,/.test(l));
+  await page.goto("/about");
+  const links = page.locator("#all-sources li > a");
+  await expect(links).toHaveCount(ids.length);
+  const hrefs = await links.evaluateAll((els) => els.map((e) => e.getAttribute("href") || ""));
+  for (const h of hrefs) expect(h, "source link is not an https URL").toMatch(/^https:\/\//);
+  await expect(page.locator("#math table tbody tr")).toHaveCount(7);
+  await expect(page.locator("main")).not.toContainText(/NaN|undefined/);
+});
 
 test("unknown address gets the 404 page", async ({ page }) => {
   const res = await page.goto("/no-such-page");
