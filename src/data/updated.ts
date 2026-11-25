@@ -2,7 +2,7 @@
 // Change a date only when the page's content changes (raptive-ready: dates mark real events, never auto-refresh).
 export const UPDATED_AT: Record<string, string> = {
   "": "2026-11-19",
-  "about": "2026-11-19",
+  "about": "2026-11-25",
   "air-fryer-converter": "2026-11-19",
   "bakers-percentage-calculator": "2026-11-19",
   "butter-converter": "2026-11-19",
